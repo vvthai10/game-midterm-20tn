@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossDemo : MonoBehaviour
 {
+    public bool initiallyFacingRight;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public class BossDemo : MonoBehaviour
         // handle moving left
         if (Input.GetKeyDown(KeyCode.A))
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = initiallyFacingRight;
             animator.SetBool("isRunning", true);
         }
         else if (Input.GetKeyUp(KeyCode.A))
@@ -31,7 +32,7 @@ public class BossDemo : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            spriteRenderer.flipX= false;
+            spriteRenderer.flipX = !initiallyFacingRight;
             animator.SetBool("isRunning", true);
         }
         else if (Input.GetKeyUp(KeyCode.D))
