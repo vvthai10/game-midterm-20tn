@@ -7,20 +7,29 @@ using System.Collections;
 public class main_character : MonoBehaviour
 {
     // List animation name
-    static string anim_run = "run";
-    static string anim_idle = "idle";
-    static string anim_roll = "roll";
-    static string anim_jump = "jump";
-    static string anim_fall = "fall";
-    static string anim_idle_block = "block";
-    static string anim_attack = "attack";
+    public static string anim_run = "run";
+    public static string anim_idle = "idle";
+    public static string anim_roll = "roll";
+    public static string anim_jump = "jump";
+    public static string anim_fall = "fall";
+    public static string anim_idle_block = "block";
+    public static string anim_attack_one = "attack1";
+    public static string anim_attack_two = "attack2";
+    public static string anim_attack_three = "attack3";
 
     List<string> list_bool_anim = new List<string>() { anim_run, anim_idle, anim_roll, anim_jump, anim_idle_block, anim_fall };
-    List<string> list_int_anim = new List<string>() { anim_attack };
+    List<string> list_int_anim = new List<string>() { anim_attack_one, anim_attack_two, anim_attack_three };
 
+    public static main_character instance;
+    // Attack bool
+    public bool canReceiveInput = true;
+    public bool inputReceived = false;
+
+    [SerializeField] private LayerMask platformLayerMask; 
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriteRenderer;
+    BoxCollider2D boxCollider;
     public GameObject charater;
 
     float currentMoveValue = 0f;
@@ -29,14 +38,22 @@ public class main_character : MonoBehaviour
     private const float moveSpeed = 10.5f;
     private const float jumpSpeed = 30f;
 
-    private bool isGrounded; // A flag to track if the character is grounded.
+    private const float extraHeight = 0.1f;
+    private const float fallHeight = 3f;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        canReceiveInput = true;
+        inputReceived = false;
         setBoolAnimation("idle");
     }
 
@@ -62,53 +79,39 @@ public class main_character : MonoBehaviour
         {
             currentMoveValue = 0f;
             setBoolAnimation(anim_idle);
+            canReceiveInput = true;
         }
 
         // Jump
-        //isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
-
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.UpArrow)))
+        //Debug.Log(isGrounded());
+        if (isGrounded() && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
+            
             currentJumpValue = jumpSpeed;
             setBoolAnimation(anim_jump);
         }
-        
+
         //Debug.Log(currentMoveValue);
         // Attack 1
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-
-            //currentMoveValue = 0f;
-            //setAllBoolAnimationOff();
-            //if (anim.GetInteger("attack") == 0)
-            //{
-            //    anim.SetInteger("attack", 1);
-            //}
-            //else if (anim.GetInteger("attack") == 1)
-            //{
-            //    anim.SetInteger("attack", 2);
-            //}
-            //else if (anim.GetInteger("attack") == 2)
-            //{
-            //    anim.SetInteger("attack", 3);
-            //}
-            //else if (anim.GetInteger("attack") == 3)
-            //{
-            //    anim.SetInteger("attack", 1);
-            //}
-            //else
-            //{
-            //    anim.SetInteger("attack", 0);
-            //}
+            Debug.Log(canReceiveInput);
+            if (canReceiveInput)
+            {
+                currentMoveValue = 0f;
+                inputReceived = true;
+                canReceiveInput = false;
+            }
         }
         else if (Input.GetKey(KeyCode.Mouse1))
         {
-            setBoolAnimation(anim_idle_block);
             currentMoveValue = 0f;
+            setBoolAnimation(anim_idle_block);
         }
 
         // Roll
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (isGrounded() && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.DownArrow)))
         {
             currentMoveValue = moveSpeed;
             if (GetComponent<SpriteRenderer>().flipX)
@@ -119,7 +122,7 @@ public class main_character : MonoBehaviour
             setBoolAnimation(anim_roll);
         }
 
-        if (rigid.velocity.y < -0f)
+        if (rigid.velocity.y < -0f && !isGrounded(fallHeight))
         {
             Debug.Log("Falling: " + rigid.velocity.y);
             setBoolAnimation(anim_fall);
@@ -127,13 +130,37 @@ public class main_character : MonoBehaviour
 
     }
 
-    void setAllBoolAnimationOff()
+    private bool isGrounded(float height = extraHeight)
+    {
+       
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(boxCollider.bounds.center, Vector2.down, boxCollider.bounds.extents.y + height, platformLayerMask);
+        Color rayColor;
+        bool hitGround = raycastHit2D.collider != null;
+        //if (hitGround)
+        //{
+        //    rayColor = Color.green;
+        //    Debug.Log("no hit ground");
+        //}
+        //else
+        //{
+        //    rayColor = Color.red;
+        //    Debug.Log("hit ground");
+        //}
+        //Debug.DrawRay(boxCollider.bounds.center, Vector2.down * (boxCollider.bounds.extents.y + height), rayColor);
+        return hitGround;
+    } 
+    
+
+    public void inputManager()
+    {
+        canReceiveInput = !canReceiveInput;
+    }
+    private void setAllBoolAnimationOff()
     {
         for (int i = 0; i < list_bool_anim.Count; i++)
         {
             anim.SetBool(list_bool_anim[i], false);
         }
-        //anim.SetInteger("attack", 0);
     }
     void setBoolAnimation(string animName)
     {
