@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor.Search;
 using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 
 public class main_character : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class main_character : MonoBehaviour
     public static string anim_attack_one = "attack1";
     public static string anim_attack_two = "attack2";
     public static string anim_attack_three = "attack3";
+    public static string anim_combo_one = "combo1";
 
     List<string> list_bool_anim = new List<string>() { anim_run, anim_idle, anim_roll, anim_jump, anim_idle_block, anim_fall };
-    List<string> list_int_anim = new List<string>() { anim_attack_one, anim_attack_two, anim_attack_three };
+    List<string> list_int_anim = new List<string>() { anim_attack_one, anim_attack_two, anim_attack_three, anim_combo_one };
 
     public static main_character instance;
     // Attack bool
@@ -32,14 +34,23 @@ public class main_character : MonoBehaviour
     BoxCollider2D boxCollider;
     public GameObject charater;
 
-    float currentMoveValue = 0f;
-    float currentJumpValue = 0f;
+    private float currentMoveValue = 0f;
+    private float currentJumpValue = 0f;
 
-    private const float moveSpeed = 10.5f;
+    private float currentDistanceRoll = 0f;
+
+    private const float distanceRoll = 7.5f;
+    private const float moveSpeed = 10f;
     private const float jumpSpeed = 30f;
+    private const float rollSpeed = 20f;
+    private const float boostSpeed = 1.25f;
+    private const float slowSpeed = 0.75f;
+    private const float normalSpeed = 1.0f;
 
     private const float extraHeight = 0.1f;
-    private const float fallHeight = 3f;
+    private const float notFallHeight = 3f;
+
+    public static bool finishRoll = true;
 
     private void Awake()
     {
@@ -54,6 +65,7 @@ public class main_character : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         canReceiveInput = true;
         inputReceived = false;
+        finishRoll = true;
         setBoolAnimation("idle");
     }
 
@@ -61,42 +73,86 @@ public class main_character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+
+        if (Input.GetKey(KeyCode.D) /*&& !Input.GetKeyDown(KeyCode.Space)*/)
         {
-            currentMoveValue = moveSpeed;
-            GetComponent<SpriteRenderer>().flipX = false;
-            setBoolAnimation(anim_run);
+            spriteRenderer.flipX = false;
+            if (finishRoll)
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+
+                    anim.speed = boostSpeed;
+                    currentMoveValue = moveSpeed * boostSpeed;
+                }
+                else if (Input.GetKey(KeyCode.LeftAlt))
+                {
+                    anim.speed = slowSpeed;
+                    currentMoveValue = moveSpeed * slowSpeed;
+                }
+                else
+                {
+                    anim.speed = normalSpeed;
+                    currentMoveValue = moveSpeed * normalSpeed;
+                }
+
+                setBoolAnimation(anim_run);
+            }
         }
 
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A)/* && !Input.GetKeyDown(KeyCode.Space)*/)
         {
-            currentMoveValue = -moveSpeed;
-            GetComponent<SpriteRenderer>().flipX = true;
-            setBoolAnimation(anim_run);
+            spriteRenderer.flipX = true;
+            if (finishRoll)
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    anim.speed = boostSpeed;
+                    currentMoveValue = -moveSpeed * boostSpeed;
+                }
+                else if (Input.GetKey(KeyCode.LeftAlt))
+                {
+                    anim.speed = slowSpeed;
+                    currentMoveValue = -moveSpeed * slowSpeed;
+                }
+                else
+                {
+                    anim.speed = normalSpeed;
+                    currentMoveValue = -moveSpeed * normalSpeed;
+                }
+                setBoolAnimation(anim_run);
+            }
         }
-    
         else
         {
-            currentMoveValue = 0f;
-            setBoolAnimation(anim_idle);
-            canReceiveInput = true;
+            if (finishRoll)
+            {
+                currentMoveValue = 0;
+                setBoolAnimation(anim_idle);
+                canReceiveInput = true;
+            }
+            
         }
 
         // Jump
         //Debug.Log(isGrounded());
-        if (isGrounded() && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.UpArrow)))
+        if (isGrounded() && (Input.GetKeyDown(KeyCode.F)))
         {
-            
             currentJumpValue = jumpSpeed;
             setBoolAnimation(anim_jump);
         }
 
-        //Debug.Log(currentMoveValue);
-        // Attack 1
+        // Roll
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(rollTo());
+        }
 
+        //Debug.Log(currentMoveValue);
+        // Attack 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log(canReceiveInput);
+            //Debug.Log(canReceiveInput);
             if (canReceiveInput)
             {
                 currentMoveValue = 0f;
@@ -104,38 +160,38 @@ public class main_character : MonoBehaviour
                 canReceiveInput = false;
             }
         }
-        else if (Input.GetKey(KeyCode.Mouse1))
+        // Block
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             currentMoveValue = 0f;
-            setBoolAnimation(anim_idle_block);
-        }
-
-        // Roll
-        if (isGrounded() && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.DownArrow)))
-        {
-            currentMoveValue = moveSpeed;
-            if (GetComponent<SpriteRenderer>().flipX)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                currentMoveValue *= -1;
+                setAllBoolAnimationOff();
+                anim.SetTrigger(anim_combo_one);
             }
-            rigid.velocity = new Vector2(currentMoveValue, rigid.velocity.y + currentJumpValue);
-            setBoolAnimation(anim_roll);
+            else
+            {
+                setBoolAnimation(anim_idle_block);
+            }
         }
 
-        if (rigid.velocity.y < -0f && !isGrounded(fallHeight))
+
+
+        if (rigid.velocity.y < -0f && !isGrounded(notFallHeight))
         {
             Debug.Log("Falling: " + rigid.velocity.y);
             setBoolAnimation(anim_fall);
         }
-
+        //Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
+        
     }
 
     private bool isGrounded(float height = extraHeight)
     {
        
         RaycastHit2D raycastHit2D = Physics2D.Raycast(boxCollider.bounds.center, Vector2.down, boxCollider.bounds.extents.y + height, platformLayerMask);
-        Color rayColor;
         bool hitGround = raycastHit2D.collider != null;
+        //Color rayColor;
         //if (hitGround)
         //{
         //    rayColor = Color.green;
@@ -148,9 +204,32 @@ public class main_character : MonoBehaviour
         //}
         //Debug.DrawRay(boxCollider.bounds.center, Vector2.down * (boxCollider.bounds.extents.y + height), rayColor);
         return hitGround;
-    } 
-    
+    }
 
+
+    IEnumerator rollTo()
+    {
+        if (spriteRenderer.flipX)
+        {
+            currentDistanceRoll = -distanceRoll;
+        }
+        else
+        {
+            currentDistanceRoll = distanceRoll;
+        }
+        float targetX = transform.position.x + currentDistanceRoll;
+        setBoolAnimation(anim_roll);
+        finishRoll = false;
+        while (!finishRoll)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), rollSpeed * Time.deltaTime);
+            finishRoll = (Math.Abs(transform.position.x - targetX) <= 0.1f);
+            Debug.Log("X: " + transform.position.x   + "v: " + rollSpeed * Time.deltaTime + "Delta roll: " + Math.Abs(transform.position.x - targetX) + " Should stop roll: " + finishRoll);
+
+            yield return null;
+        }
+        
+    }
     public void inputManager()
     {
         canReceiveInput = !canReceiveInput;
@@ -169,7 +248,14 @@ public class main_character : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rigid.velocity = new Vector2(currentMoveValue, rigid.velocity.y + currentJumpValue);
+        Debug.Log("Finish roll: " + finishRoll);
+        if (finishRoll)
+        {
+            rigid.velocity = new Vector2(currentMoveValue, rigid.velocity.y + currentJumpValue);
+        }
+
+        //targetX = transform.position.x;
+        //targetY = transform.position.y;
         currentJumpValue = 0;
     }
 }
