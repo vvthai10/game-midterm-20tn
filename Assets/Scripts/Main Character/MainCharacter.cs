@@ -7,8 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class main_character : MonoBehaviour
 {
-    public int number_flask = 3;
-    public const int max_flask = 3;
+    public int number_flask;
+    public const int max_flask = 5;
     private float amount_health_heal = 0.2f;
 
     // List animation name
@@ -35,20 +35,21 @@ public class main_character : MonoBehaviour
     public static string stamina_fall = "fall";
     public static string stamina_idle_block = "block";
     public static string stamina_attack = "attack";
+    public static string stamina_wall_slide = "wall_slide";
 
     List<string> list_bool_anim = new List<string>() { anim_run, anim_idle, anim_roll, anim_jump, anim_idle_block, anim_fall, anim_wall_slide };
     List<string> list_int_anim = new List<string>() { anim_attack_one, anim_attack_two, anim_attack_three, anim_combo_one };
     Dictionary<string, float> stamina_amount = new Dictionary<string, float>() {
-        {stamina_run_boost, 0.25f },
+        {stamina_run_boost, 0.1f },
         {stamina_run_normal, 0f},
         {stamina_run_slowed, -0.01f},
         {stamina_roll, 20f },
-        {stamina_jump, 20f},
+        {stamina_jump, 15f},
         {stamina_attack, 25f },
         {stamina_idle, -0.025f },
         {stamina_fall, 0f },
         {stamina_idle_block, 0.1f },
-
+        {stamina_wall_slide, 0.00f }
 
     };
     public static main_character instance;
@@ -78,6 +79,10 @@ public class main_character : MonoBehaviour
     private const float distanceRoll = 7.5f;
     private const float moveSpeed = 10f;
     private const float jumpSpeed = 30f;
+    private const float jumpSpeedRatioWhileHoldingEdge = 0.012f;
+    private const float moveSpeedRatioWhileHoldingEdge = 0.5f;
+    private const float jumpVelocityRatioWhileHoldingEdge = 0.5f;
+    private const float timeExecuteJumpWhileHoldingEdge = 0.5f;
     private const float rollSpeed = 20f;
     private const float boostSpeed = 1.25f;
     private const float slowSpeed = 0.75f;
@@ -104,6 +109,7 @@ public class main_character : MonoBehaviour
         inputReceived = false;
         finishRoll = true;
         lastTimeSlide = DateTime.Now;
+        number_flask = max_flask;
         setBoolAnimation("idle");
     }
 
@@ -115,7 +121,7 @@ public class main_character : MonoBehaviour
         if (Input.GetKey(KeyCode.D) /*&& !Input.GetKeyDown(KeyCode.Space)*/)
         {
             spriteRenderer.flipX = false;
-            if (finishRoll)
+            if (finishRoll && meetEdgeAndFall() < 0)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
@@ -152,7 +158,7 @@ public class main_character : MonoBehaviour
         else if (Input.GetKey(KeyCode.A)/* && !Input.GetKeyDown(KeyCode.Space)*/)
         {
             spriteRenderer.flipX = true;
-            if (finishRoll)
+            if (finishRoll && meetEdgeAndFall() < 0)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
@@ -184,7 +190,7 @@ public class main_character : MonoBehaviour
         }
         else
         {
-            if (finishRoll)
+            if (finishRoll && meetEdgeAndFall() < 0)
             {
                 if (staminaBar.loseStamina(stamina_amount[stamina_idle], true))
                 {
@@ -265,22 +271,26 @@ public class main_character : MonoBehaviour
         int meetEdge = meetEdgeAndFall();
         if ((meetEdge == 0 && Input.GetKey(KeyCode.A)) || (meetEdge == 1 && Input.GetKey(KeyCode.D)))
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && staminaBar.loseStamina(stamina_amount[stamina_jump] * 2/3))
             {
                 lastTimeSlide = DateTime.Now;
                 setBoolAnimation(anim_jump);
             }
-            if ((DateTime.Now - lastTimeSlide).TotalSeconds >= 0.5f)
+            if (staminaBar.loseStamina(stamina_amount[stamina_wall_slide]))
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
-                setBoolAnimation(anim_wall_slide);
-            }
-            else
-            {
-                Debug.Log("Jumpp while edging");
-                currentJumpValue = jumpSpeed * 0.04f;
-                rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y + currentJumpValue);
-                setBoolAnimation(anim_jump);
+                double timeDiff = (DateTime.Now - lastTimeSlide).TotalSeconds;
+                if (timeDiff >= timeExecuteJumpWhileHoldingEdge)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * jumpVelocityRatioWhileHoldingEdge);
+                    setBoolAnimation(anim_wall_slide);
+                }
+                else
+                {
+                    Debug.Log("Jumpp while edging");
+                    currentJumpValue = jumpSpeed * jumpSpeedRatioWhileHoldingEdge;
+                    rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y + currentJumpValue);
+                    setBoolAnimation(anim_jump);
+                }
             }
 
         }
@@ -299,7 +309,7 @@ public class main_character : MonoBehaviour
 
         RaycastHit2D raycastHitRight2D = Physics2D.Raycast(boxCollider.bounds.center, Vector2.right, boxCollider.bounds.extents.y, layerMaskEdge);
         RaycastHit2D raycastHitLeft2D = Physics2D.Raycast(boxCollider.bounds.center, Vector2.left, boxCollider.bounds.extents.y, layerMaskEdge);
-        return raycastHitRight2D.collider != null ? 1 : raycastHitLeft2D.collider != null ? 0 : -1;
+        return raycastHitRight2D.collider != null && !spriteRenderer.flipX ? 1 : raycastHitLeft2D.collider != null && spriteRenderer.flipX ? 0 : -1;
     }
 
     private int meetEdgeAndFall()
