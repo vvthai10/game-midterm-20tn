@@ -81,7 +81,7 @@ public class main_character : MonoBehaviour
     private const float jumpSpeed = 30f;
     private const float jumpSpeedRatioWhileHoldingEdge = 0.012f;
     private const float moveSpeedRatioWhileHoldingEdge = 0.5f;
-    private const float jumpVelocityRatioWhileHoldingEdge = 0.5f;
+    private const float jumpVelocityRatioWhileHoldingEdge = 0.03f;
     private const float timeExecuteJumpWhileHoldingEdge = 0.5f;
     private const float rollSpeed = 20f;
     private const float boostSpeed = 1.25f;
@@ -287,7 +287,7 @@ public class main_character : MonoBehaviour
                 else
                 {
                     Debug.Log("Jumpp while edging");
-                    currentJumpValue = jumpSpeed * jumpSpeedRatioWhileHoldingEdge;
+                    currentJumpValue = jumpSpeed * jumpVelocityRatioWhileHoldingEdge;
                     rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y + currentJumpValue);
                     setBoolAnimation(anim_jump);
                 }

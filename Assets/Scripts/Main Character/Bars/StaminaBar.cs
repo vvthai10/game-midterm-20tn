@@ -12,7 +12,7 @@ public class StaminaBar : MonoBehaviour
     private float stamina;
 
     private bool canRegen = true;
-    private float regenSpeed = 0.1f;
+    private float regenSpeed = 0.5f;
     private float lerpSpeed = 0.1f;
     private float deltaRestTime = 0.5f;
     private DateTime lastTime;
@@ -29,19 +29,11 @@ public class StaminaBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (canRegen &&  stamina < maxStamina && stamina < 100)
-        {
-            Debug.Log("Regen...");
-            stamina = Mathf.Min(maxStamina, stamina + regenSpeed);
-        }
-
         if (staminaSlider.value != stamina)
         {
             staminaSlider.value = stamina;
         }
 
-    
         if (staminaSlider.value != easeStaminaSlider.value)
         {
             easeStaminaSlider.value = Mathf.Lerp(easeStaminaSlider.value, stamina, lerpSpeed);
@@ -84,5 +76,13 @@ public class StaminaBar : MonoBehaviour
             canRegen = value;
         }
 
+    }
+    private void FixedUpdate()
+    {
+        if (canRegen && stamina < maxStamina && stamina < 100)
+        {
+            Debug.Log("Regen...");
+            stamina = Mathf.Min(maxStamina, stamina + regenSpeed);
+        }
     }
 }
