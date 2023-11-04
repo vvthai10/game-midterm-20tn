@@ -7,6 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class main_character : MonoBehaviour
 {
+    public const int FPS = 60;
     public int number_flask;
     public const int max_flask = 5;
     private float amount_health_heal = 0.2f;
@@ -79,9 +80,8 @@ public class main_character : MonoBehaviour
     private const float distanceRoll = 7.5f;
     private const float moveSpeed = 10f;
     private const float jumpSpeed = 30f;
-    private const float jumpSpeedRatioWhileHoldingEdge = 0.012f;
-    private const float moveSpeedRatioWhileHoldingEdge = 0.5f;
-    private const float jumpVelocityRatioWhileHoldingEdge = 0.03f;
+    private const float jumpVelocityRatioWhileHoldingEdge = 0.0425f;
+    private const float resistVelocityRatioWhileHoldingEdge = 0.05f;
     private const float timeExecuteJumpWhileHoldingEdge = 0.5f;
     private const float rollSpeed = 20f;
     private const float boostSpeed = 1.25f;
@@ -101,6 +101,7 @@ public class main_character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = FPS;
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -264,7 +265,7 @@ public class main_character : MonoBehaviour
         // Fall
         if (rigid.velocity.y < -0f && !isGrounded(notFallHeight) && staminaBar.loseStamina(stamina_amount[stamina_fall], true))
         {
-            Debug.Log("Falling: " + rigid.velocity.y);
+            //Debug.Log("Falling: " + rigid.velocity.y);
             setBoolAnimation(anim_fall);
         }
 
@@ -281,12 +282,12 @@ public class main_character : MonoBehaviour
                 double timeDiff = (DateTime.Now - lastTimeSlide).TotalSeconds;
                 if (timeDiff >= timeExecuteJumpWhileHoldingEdge)
                 {
-                    rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * jumpVelocityRatioWhileHoldingEdge);
+                    rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * resistVelocityRatioWhileHoldingEdge);
                     setBoolAnimation(anim_wall_slide);
                 }
                 else
                 {
-                    Debug.Log("Jumpp while edging");
+                    //Debug.Log("Jumpp while edging");
                     currentJumpValue = jumpSpeed * jumpVelocityRatioWhileHoldingEdge;
                     rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y + currentJumpValue);
                     setBoolAnimation(anim_jump);
@@ -335,7 +336,7 @@ public class main_character : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), rollSpeed * Time.deltaTime);
             int meetTheEdge = isMeetTheEdge();
             finishRoll = (Math.Abs(transform.position.x - targetX) <= 0.1f) || meetTheEdge >= 0;
-            Debug.Log("X: " + transform.position.x   + "v: " + rollSpeed * Time.deltaTime + "Delta roll: " + Math.Abs(transform.position.x - targetX) + " Should stop roll: " + finishRoll);
+            //Debug.Log("X: " + transform.position.x   + "v: " + rollSpeed * Time.deltaTime + "Delta roll: " + Math.Abs(transform.position.x - targetX) + " Should stop roll: " + finishRoll);
 
             yield return null;
         }
@@ -363,14 +364,12 @@ public class main_character : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log("Finish roll: " + finishRoll);
+        //Debug.Log("Finish roll: " + finishRoll);
         if (finishRoll)
         {
             rigid.velocity = new Vector2(currentMoveValue, rigid.velocity.y + currentJumpValue);
         }
-
-        //targetX = transform.position.x;
-        //targetY = transform.position.y;
+        
         currentJumpValue = 0;
     }
 }

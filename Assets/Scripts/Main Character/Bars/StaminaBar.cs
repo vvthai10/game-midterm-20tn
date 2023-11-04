@@ -29,6 +29,7 @@ public class StaminaBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        stamina = Math.Min(maxStamina, stamina);
         if (staminaSlider.value != stamina)
         {
             staminaSlider.value = stamina;
@@ -44,14 +45,14 @@ public class StaminaBar : MonoBehaviour
     {
         
 
-        Debug.Log("Lose Stamina: " + amount + "Rest: " + stamina);
+        //Debug.Log("Lose Stamina: " + amount + "Rest: " + stamina);
         if (amount <= 0)
         {
             setCanRegen(regen);
             if (canRegen)
             {
                 stamina -= amount;
-                Debug.Log("Regen...");
+                //Debug.Log("Regen...");
             }
             return true;
         }
@@ -65,7 +66,7 @@ public class StaminaBar : MonoBehaviour
     }
     public void setCanRegen(bool value)
     {
-        Debug.Log((DateTime.Now - lastTime).TotalSeconds);
+        //Debug.Log((DateTime.Now - lastTime).TotalSeconds);
         if (value == true && (DateTime.Now - lastTime).TotalSeconds > deltaRestTime)
         {
             canRegen = value;
@@ -81,7 +82,7 @@ public class StaminaBar : MonoBehaviour
     {
         if (canRegen && stamina < maxStamina && stamina < 100)
         {
-            Debug.Log("Regen...");
+            //Debug.Log("Regen...");
             stamina = Mathf.Min(maxStamina, stamina + regenSpeed);
         }
     }
