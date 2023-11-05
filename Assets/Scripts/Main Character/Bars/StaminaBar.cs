@@ -12,7 +12,7 @@ public class StaminaBar : MonoBehaviour
     private float stamina;
 
     private bool canRegen = true;
-    private float regenSpeed = 0.5f;
+    private float regenSpeed = 0.75f;
     private float lerpSpeed = 0.1f;
     private float deltaRestTime = 0.5f;
     private DateTime lastTime;

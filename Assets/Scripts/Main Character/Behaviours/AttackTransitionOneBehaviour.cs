@@ -15,7 +15,7 @@ public class AttackTransitionOneBehaviour : StateMachineBehaviour
     {
         if (main_character.instance.inputReceived)
         {
-            animator.SetTrigger(main_character.anim_attack_two);
+            main_character.instance.setTriggerAnimation(main_character.ANIMATION_ATTACK_TWO);
             main_character.instance.inputManager();
             main_character.instance.inputReceived = false; 
         }

@@ -13,44 +13,61 @@ public class main_character : MonoBehaviour
     private float amount_health_heal = 0.2f;
 
     // List animation name
-    public static string anim_run = "run";
-    public static string anim_idle = "idle";
-    public static string anim_roll = "roll";
-    public static string anim_jump = "jump";
-    public static string anim_fall = "fall";
-    public static string anim_idle_block = "block";
-    public static string anim_attack_one = "attack1";
-    public static string anim_attack_two = "attack2";
-    public static string anim_attack_three = "attack3";
-    public static string anim_combo_one = "combo1";
-    public static string anim_hurt = "hurt";
-    public static string anim_wall_slide = "wall_slide";
+    public const string ANIMATION_RUN = "run";
+    public const string ANIMATION_IDLE = "idle";
+    public const string ANIMATION_ROLL = "roll";
+    public const string ANIMATION_JUMP = "jump";
+    public const string ANIMATION_FALL = "fall";
+    public const string ANIMATION_IDLE_BLOCK = "block";
+    public const string ANIMATION_ATTACK_ONE = "attack1";
+    public const string ANIMATION_ATTACK_TWO = "attack2";
+    public const string ANIMATION_ATTACK_THREE = "attack3";
+    public const string ANIMATION_ATTACK_COMBO = "combo1";
+    public const string ANIMATION_HURT = "hurt";
+    public const string ANIMATION_WALL_SLIDE = "wall_slide";
 
     // List stamina cost
-    public static string stamina_run_boost = "run--boost";
-    public static string stamina_run_slowed = "run--slowed";
-    public static string stamina_run_normal = "run";
-    public static string stamina_idle = "idle";
-    public static string stamina_roll = "roll";
-    public static string stamina_jump = "jump";
-    public static string stamina_fall = "fall";
-    public static string stamina_idle_block = "block";
-    public static string stamina_attack = "attack";
-    public static string stamina_wall_slide = "wall_slide";
+    public static string STAMINA_RUN_BOOST = "run--boost";
+    public static string STAMINA_RUN_SLOWED = "run--slowed";
+    public static string STAMINA_RUN = "run";
+    public static string STAMINA_IDLE = "idle";
+    public static string STAMINA_ROLL = "roll";
+    public static string STAMINA_JUMP = "jump";
+    public static string STAMINA_FALL = "fall";
+    public static string STAMINA_IDLE_BLOCK = "block";
+    public static string STAMINA_ATTACK = "attack";
+    public static string STAMINA_WALL_SLIDE = "wall_slide";
 
-    List<string> list_bool_anim = new List<string>() { anim_run, anim_idle, anim_roll, anim_jump, anim_idle_block, anim_fall, anim_wall_slide };
-    List<string> list_int_anim = new List<string>() { anim_attack_one, anim_attack_two, anim_attack_three, anim_combo_one };
+    List<string> list_bool_anims = new List<string>() {
+        ANIMATION_RUN,
+        ANIMATION_IDLE,
+        ANIMATION_ROLL,
+        ANIMATION_JUMP,
+        ANIMATION_IDLE_BLOCK,
+        ANIMATION_FALL,
+        ANIMATION_WALL_SLIDE };
+
+    List<string> list_trigger_anims = new List<string>() { 
+        ANIMATION_ATTACK_ONE, 
+        ANIMATION_ATTACK_TWO, 
+        ANIMATION_ATTACK_THREE, 
+        ANIMATION_ATTACK_COMBO,
+        ANIMATION_JUMP,
+        ANIMATION_ROLL,
+        ANIMATION_HURT
+    };
+
     Dictionary<string, float> stamina_amount = new Dictionary<string, float>() {
-        {stamina_run_boost, 0.1f },
-        {stamina_run_normal, 0f},
-        {stamina_run_slowed, -0.01f},
-        {stamina_roll, 20f },
-        {stamina_jump, 15f},
-        {stamina_attack, 25f },
-        {stamina_idle, -0.025f },
-        {stamina_fall, 0f },
-        {stamina_idle_block, 0.1f },
-        {stamina_wall_slide, 0.00f }
+        {STAMINA_RUN_BOOST, 0.1f },
+        {STAMINA_RUN, 0f},
+        {STAMINA_RUN_SLOWED, -0.01f},
+        {STAMINA_ROLL, 20f },
+        {STAMINA_JUMP, 15f},
+        {STAMINA_ATTACK, 25f },
+        {STAMINA_IDLE, -0.025f },
+        {STAMINA_FALL, 0f },
+        {STAMINA_IDLE_BLOCK, 0.1f },
+        {STAMINA_WALL_SLIDE, 0.00f }
 
     };
     public static main_character instance;
@@ -76,12 +93,11 @@ public class main_character : MonoBehaviour
     private float currentJumpValue = 0f;
 
     private float currentDistanceRoll = 0f;
-
     private const float distanceRoll = 7.5f;
     private const float moveSpeed = 10f;
     private const float jumpSpeed = 30f;
     private const float jumpVelocityRatioWhileHoldingEdge = 0.0425f;
-    private const float resistVelocityRatioWhileHoldingEdge = 0.05f;
+    private const float resistVelocityRatioWhileHoldingEdge = 0.075f;
     private const float timeExecuteJumpWhileHoldingEdge = 0.5f;
     private const float rollSpeed = 20f;
     private const float boostSpeed = 1.25f;
@@ -118,85 +134,57 @@ public class main_character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKey(KeyCode.D) /*&& !Input.GetKeyDown(KeyCode.Space)*/)
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
-            spriteRenderer.flipX = false;
+            
             if (finishRoll && meetEdgeAndFall() < 0)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    if (staminaBar.loseStamina(stamina_amount[stamina_run_boost]))
+                    if (staminaBar.loseStamina(stamina_amount[STAMINA_RUN_BOOST]))
                     {
                         anim.speed = boostSpeed;
                         currentMoveValue = moveSpeed * boostSpeed;
-                        setBoolAnimation(anim_run);
                     }
                 }
                 else if (Input.GetKey(KeyCode.LeftAlt))
                 {
-                    if (staminaBar.loseStamina(stamina_amount[stamina_run_slowed], true))
+                    if (staminaBar.loseStamina(stamina_amount[STAMINA_RUN_SLOWED], true))
                     {
                         anim.speed = slowSpeed;
                         currentMoveValue = moveSpeed * slowSpeed;
-                        setBoolAnimation(anim_run);
                     }
                 }
                 else 
                 {
-                    if (staminaBar.loseStamina(stamina_amount[stamina_run_normal], true))
+                    if (staminaBar.loseStamina(stamina_amount[STAMINA_RUN], true))
                     {
                         anim.speed = normalSpeed;
                         currentMoveValue = moveSpeed * normalSpeed;
-                        setBoolAnimation(anim_run);
                     }
                 }
-
-                
+                setBoolAnimation(ANIMATION_RUN);
             }
-        }
 
-        else if (Input.GetKey(KeyCode.A)/* && !Input.GetKeyDown(KeyCode.Space)*/)
-        {
-            spriteRenderer.flipX = true;
-            if (finishRoll && meetEdgeAndFall() < 0)
+            if (Input.GetKey(KeyCode.D))
             {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    if (staminaBar.loseStamina(stamina_amount[stamina_run_boost]))
-                    {
-                        anim.speed = boostSpeed;
-                        currentMoveValue = -moveSpeed * boostSpeed;
-                        setBoolAnimation(anim_run);
-                    }
-                }
-                else if (Input.GetKey(KeyCode.LeftAlt))
-                {
-                        if (staminaBar.loseStamina(stamina_amount[stamina_run_slowed], true))
-                        {
-                        }
-                    currentMoveValue = -moveSpeed * slowSpeed;
-                    setBoolAnimation(anim_run);
-                }
-                else
-                {
-                    if (staminaBar.loseStamina(stamina_amount[stamina_run_normal], true))
-                    {
-                        anim.speed = normalSpeed;
-                        currentMoveValue = -moveSpeed * normalSpeed;
-                        setBoolAnimation(anim_run);
-                    }
-                }
+                spriteRenderer.flipX = false;
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
+                currentMoveValue *= -1;
             }
         }
+
         else
         {
             if (finishRoll && meetEdgeAndFall() < 0)
             {
-                if (staminaBar.loseStamina(stamina_amount[stamina_idle], true))
+                if (staminaBar.loseStamina(stamina_amount[STAMINA_IDLE], true))
                 {
                     currentMoveValue = 0;
-                    setBoolAnimation(anim_idle);
+                    setBoolAnimation(ANIMATION_IDLE);
                     canReceiveInput = true;
                 }
             }
@@ -204,15 +192,21 @@ public class main_character : MonoBehaviour
         }
 
         // Jump
-        //Debug.Log(isGrounded());
-        if ((meetEdgeAndFall() == 1|| isGrounded()) && (Input.GetKeyDown(KeyCode.F)) && staminaBar.loseStamina(stamina_amount[stamina_jump]))
+        if (
+            (meetEdgeAndFall() == 1|| isGrounded()) && 
+            (Input.GetKeyDown(KeyCode.F)) && 
+            staminaBar.loseStamina(stamina_amount[STAMINA_JUMP])
+            )
         {
             currentJumpValue = jumpSpeed;
-            setBoolAnimation(anim_jump);
+            setBoolAnimation(ANIMATION_JUMP);
         }
 
         // Roll
-        else if (Input.GetKeyDown(KeyCode.Space) && staminaBar.loseStamina(stamina_amount[stamina_roll]))
+        else if (
+            Input.GetKeyDown(KeyCode.Space) && 
+            staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
+            )
         {
             StartCoroutine(rollTo());
         }
@@ -222,7 +216,7 @@ public class main_character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             //Debug.Log(canReceiveInput);
-            if (canReceiveInput && staminaBar.loseStamina(stamina_amount[stamina_attack]))
+            if (canReceiveInput && staminaBar.loseStamina(stamina_amount[STAMINA_ATTACK]))
             {
                 currentMoveValue = 0f;
                 inputReceived = true;
@@ -232,65 +226,63 @@ public class main_character : MonoBehaviour
                 staminaBar.loseStamina(20);
             }
         }
+
         // Block
         if (Input.GetKey(KeyCode.Mouse1))
         {
             currentMoveValue = 0f;
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                setAllBoolAnimationOff();
-                anim.SetTrigger(anim_combo_one);
+                setTriggerAnimation(ANIMATION_ATTACK_COMBO);
             }
-            else if (staminaBar.loseStamina(stamina_amount[stamina_idle_block]))
+            else if (staminaBar.loseStamina(stamina_amount[STAMINA_IDLE_BLOCK]))
             {
-                setBoolAnimation(anim_idle_block);
+                setBoolAnimation(ANIMATION_IDLE_BLOCK);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse2))
         {
             healthBar.takeDamage(20);
-            anim.SetTrigger(anim_hurt);
+            setTriggerAnimation(ANIMATION_HURT);
             bleedAnim.playBleedAnimation();
         }
 
-        if (number_flask > 0 && Input.GetKeyDown(KeyCode.Alpha1))
+        if (number_flask > 0 && Input.GetKeyDown(KeyCode.R))
         {
             healAnim.playHealAnimation();
             healthBar.heal(amount_health_heal * healthBar.maxHealth);
             number_flask--;
-            
         }
 
         // Fall
-        if (rigid.velocity.y < -0f && !isGrounded(notFallHeight) && staminaBar.loseStamina(stamina_amount[stamina_fall], true))
+        if (rigid.velocity.y < -0f && !isGrounded(notFallHeight) && staminaBar.loseStamina(stamina_amount[STAMINA_FALL], true))
         {
-            //Debug.Log("Falling: " + rigid.velocity.y);
-            setBoolAnimation(anim_fall);
+            setBoolAnimation(ANIMATION_FALL);
         }
 
         int meetEdge = meetEdgeAndFall();
         if ((meetEdge == 0 && Input.GetKey(KeyCode.A)) || (meetEdge == 1 && Input.GetKey(KeyCode.D)))
         {
-            if (Input.GetKeyDown(KeyCode.F) && staminaBar.loseStamina(stamina_amount[stamina_jump] * 2/3))
+            if (Input.GetKeyDown(KeyCode.F) && staminaBar.loseStamina(stamina_amount[STAMINA_JUMP] * 2/3))
             {
                 lastTimeSlide = DateTime.Now;
-                setBoolAnimation(anim_jump);
+                setBoolAnimation(ANIMATION_JUMP);
             }
-            if (staminaBar.loseStamina(stamina_amount[stamina_wall_slide]))
+            if (staminaBar.loseStamina(stamina_amount[STAMINA_WALL_SLIDE]))
             {
                 double timeDiff = (DateTime.Now - lastTimeSlide).TotalSeconds;
                 if (timeDiff >= timeExecuteJumpWhileHoldingEdge)
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * resistVelocityRatioWhileHoldingEdge);
-                    setBoolAnimation(anim_wall_slide);
+                    setBoolAnimation(ANIMATION_WALL_SLIDE);
                 }
                 else
                 {
                     //Debug.Log("Jumpp while edging");
                     currentJumpValue = jumpSpeed * jumpVelocityRatioWhileHoldingEdge;
                     rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y + currentJumpValue);
-                    setBoolAnimation(anim_jump);
+                    setBoolAnimation(ANIMATION_JUMP);
                 }
             }
 
@@ -315,7 +307,7 @@ public class main_character : MonoBehaviour
 
     private int meetEdgeAndFall()
     {
-        return isGrounded(1) ? -1 : isMeetTheEdge();
+        return isGrounded(1.5f)? -1 : isMeetTheEdge();
     }
 
     IEnumerator rollTo()
@@ -329,7 +321,7 @@ public class main_character : MonoBehaviour
             currentDistanceRoll = distanceRoll;
         }
         float targetX = transform.position.x + currentDistanceRoll;
-        setBoolAnimation(anim_roll);
+        setBoolAnimation(ANIMATION_ROLL);
         finishRoll = false;
         while (!finishRoll)
         {
@@ -340,27 +332,35 @@ public class main_character : MonoBehaviour
 
             yield return null;
         }
-        
     }
     public int getCurrentFlaskAmount()
     {
         return number_flask;
     }
+
     public void inputManager()
     {
         canReceiveInput = !canReceiveInput;
     }
+
     private void setAllBoolAnimationOff()
     {
-        for (int i = 0; i < list_bool_anim.Count; i++)
+        for (int i = 0; i < list_bool_anims.Count; i++)
         {
-            anim.SetBool(list_bool_anim[i], false);
+            anim.SetBool(list_bool_anims[i], false);
         }
     }
+
     void setBoolAnimation(string animName)
     {
         setAllBoolAnimationOff();
         anim.SetBool(animName, true);
+    }
+
+    public void setTriggerAnimation(string animName)
+    {
+        setAllBoolAnimationOff();
+        anim.SetTrigger(animName);
     }
     private void FixedUpdate()
     {

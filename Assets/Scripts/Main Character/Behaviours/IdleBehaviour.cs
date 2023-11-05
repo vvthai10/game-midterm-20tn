@@ -15,7 +15,7 @@ public class IdleBehaviour : StateMachineBehaviour
     {
         if (main_character.instance.inputReceived)
         {
-            animator.SetTrigger(main_character.anim_attack_one);
+            main_character.instance.setTriggerAnimation(main_character.ANIMATION_ATTACK_ONE);
             main_character.instance.inputManager();
             main_character.instance.inputReceived = false;
         }

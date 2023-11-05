@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider;
+    public Slider regenHealthSlider;
     public Slider easeHealthSlider;
     public float maxHealth = 100f;
     public float health;
@@ -22,12 +23,13 @@ public class HealthBar : MonoBehaviour
         if (healthSlider.value < health)
         {
             healthSlider.value = Mathf.Lerp(healthSlider.value, health, lerpSpeed);
+            regenHealthSlider.value = health;
         }
         else if (healthSlider.value > health)
         {
+            regenHealthSlider.value = health;
             healthSlider.value = health;
         }
-        
 
         if (healthSlider.value != easeHealthSlider.value)
         {
