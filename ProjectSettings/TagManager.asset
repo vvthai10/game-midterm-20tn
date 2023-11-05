@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - BossHealthBar
   layers:
   - Default
   - TransparentFX
@@ -15,6 +16,8 @@ TagManager:
   - UI
   - Ground
   - Edge
+  - Enemies
+  - Players
   - 
   - 
   - 
