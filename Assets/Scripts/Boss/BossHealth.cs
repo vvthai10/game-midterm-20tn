@@ -10,14 +10,14 @@ public class BossHealth : MonoBehaviour
     public float MaxHP = 100f;
     private float currentHP;
 
-    private BossHealthBar healthBar;
+    public BossHealthBar healthBar;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         boss = GetComponent<BossGeneral>();
         currentHP = MaxHP;
-        healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
+        //healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
     }
 
 

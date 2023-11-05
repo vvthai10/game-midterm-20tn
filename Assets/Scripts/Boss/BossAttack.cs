@@ -8,7 +8,7 @@ public class BossAttack : MonoBehaviour
     public Transform attackPoint;
     public Transform fireballPoint;
     public float attackRange = 0.5f;
-    public float attackDamage = 20;
+    public float attackDamage = 20f;
     public LayerMask playersLayer;
  
 
@@ -40,7 +40,8 @@ public class BossAttack : MonoBehaviour
         hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playersLayer);
         if (hitPlayers != null)
             foreach (Collider2D hitPlayer in hitPlayers)
-                hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
+                //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
+                main_character.instance.takeDameage(attackDamage);
     }
 
     private void OnDrawGizmos()
