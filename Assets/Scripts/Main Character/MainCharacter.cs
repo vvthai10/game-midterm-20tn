@@ -187,9 +187,7 @@ public class main_character : MonoBehaviour
                     setBoolAnimation(ANIMATION_IDLE);
                     canReceiveInput = true;
                 }
-            }
-            
-        }
+            }        }
 
         // Jump
         if (
@@ -338,6 +336,12 @@ public class main_character : MonoBehaviour
         return number_flask;
     }
 
+    public void takeDameage(float dmg)
+    {
+        healthBar.takeDamage(dmg);
+        setTriggerAnimation(ANIMATION_HURT);
+        bleedAnim.playBleedAnimation();
+    }
     public void inputManager()
     {
         canReceiveInput = !canReceiveInput;

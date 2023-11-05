@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class arrow : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed = 50f;
     Rigidbody2D rd;
     Transform player;
     // Start is called before the first frame update
@@ -25,6 +25,7 @@ public class arrow : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             //Deal damage to player
+            main_character.instance.takeDameage(20f);
             Destroy(gameObject);
         }
        

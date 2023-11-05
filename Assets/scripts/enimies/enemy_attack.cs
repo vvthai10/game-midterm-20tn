@@ -50,6 +50,7 @@ public class enemy_attack : MonoBehaviour
             if(collider.tag == "Player")
             {
                 //deal damage to player
+                main_character.instance.takeDameage(20f);
                 Debug.Log("collider with player");
             }
         }
