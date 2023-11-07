@@ -1,0 +1,882 @@
+fileFormatVersion: 2
+guid: b17be698055b5714a874c1db264ac3ab
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 32
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1035
+        width: 136
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab6c4821429f6c41b2f8400178f0611
+      internalID: -1487542612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_1
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 975
+        width: 81
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0e3fdb2bdf9a81439e0afdee20d63e7
+      internalID: 1086086598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_2
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 971
+        width: 81
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91fec2a9086d5294c93641f121abe5b6
+      internalID: -939370901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_3
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 979
+        width: 38
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2796ae4bef4128341a37fc9a3dc9a9c5
+      internalID: 1953648914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_4
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 979
+        width: 81
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d2ffba7208170409cdffce44b1a13c
+      internalID: 380856252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_5
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 786
+        width: 38
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01278c850a03ac1478de76174306826a
+      internalID: -1557944449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 785
+        width: 38
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5028c52feb918b34982ed190a02b76f6
+      internalID: 247140664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_22
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 577
+        width: 124
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce9c4dd36a25a743b47b36eb5068630
+      internalID: 1983709411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_23
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 577
+        width: 157
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b02fbfbdf0b99c45878d63f8c3be133
+      internalID: -1071403059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_24
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 577
+        width: 174
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 430597a0aee7b19479af1e5faa99d638
+      internalID: 2017350599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_26
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 577
+        width: 108
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d50bb366ad8c0914bbf7e06a7ebe0dc3
+      internalID: -1501805205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_27
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 385
+        width: 179
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea914afe1090eb94fae14a18b59b284d
+      internalID: -1153974097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_28
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 385
+        width: 182
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0df2277b1f8aaee49b8a216b25b9e2fd
+      internalID: 1561127062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_29
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 432
+        width: 26
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a885adc604d75474daadac0dc9181031
+      internalID: -1638466665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_30
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 385
+        width: 166
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de3e217379ea376468a79fe6000cac6b
+      internalID: -1373737984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_31
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 385
+        width: 109
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cee72d5c30803a4893b4b533c18bacf
+      internalID: 304929432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_32
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 385
+        width: 129
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba23e35124ae1748adfa4dcbdd702ea
+      internalID: -665394919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_33
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 336
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753dc06d471ecef44b39aee74c8f560b
+      internalID: 239190463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_34
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 207
+        width: 132
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922266a8154f69143bd643c9e603dcee
+      internalID: 1484173173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_35
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 212
+        width: 128
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88bb1387ecb836499ef67f682cc3c2d
+      internalID: -1624154810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_36
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 193
+        width: 144
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 984b58aec3481d0429581fda3f689dd5
+      internalID: -1097704440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_37
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 193
+        width: 138
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbd274b85c49cc42a91537f0760bbcd
+      internalID: -794736635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_38
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 201
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f3db0a4f624b5f40875d3528e6e3387
+      internalID: -622952666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_39
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 22
+        width: 133
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dec62a9680f2d5b4283b23af22f88028
+      internalID: -977424415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_40
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 22
+        width: 137
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b8423801858fb4886024859d2be146
+      internalID: -255523862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_41
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 26
+        width: 139
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7afca07955b5194bb504a3c5ada7ad6
+      internalID: -655282892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_42
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 50
+        width: 122
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 195efa0bac7d0494488807dc6b69982b
+      internalID: 582363989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_52
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 25
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7dfca855769194469b70bd40743e93f
+      internalID: 1662938279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_7
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 772
+        width: 102
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c2f759e73d807e4ea577d5c09b3a250
+      internalID: -934632326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_8
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 757
+        width: 107
+        height: 170
+      alignment: 9
+      pivot: {x: 0.61135495, y: 0.38986242}
+      border: {x: 0, y: 17, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cabccedd650c8fd46949e67daccc1611
+      internalID: -1941799378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_9
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 767
+        width: 109
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e90944eac15bf7d438acde4eb7347c7e
+      internalID: 1386147174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - RPG Maker VX - Heal 1_10
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 592
+        width: 97
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cfeb225f14c28c4d8556463357dffbd
+      internalID: -1245339338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PC Computer - RPG Maker VX - Heal 1_0: -1487542612
+      PC Computer - RPG Maker VX - Heal 1_1: 1086086598
+      PC Computer - RPG Maker VX - Heal 1_10: -1245339338
+      PC Computer - RPG Maker VX - Heal 1_11: -524831901
+      PC Computer - RPG Maker VX - Heal 1_12: -533069320
+      PC Computer - RPG Maker VX - Heal 1_13: 1743674828
+      PC Computer - RPG Maker VX - Heal 1_14: -755387773
+      PC Computer - RPG Maker VX - Heal 1_15: -834477388
+      PC Computer - RPG Maker VX - Heal 1_16: -1429806265
+      PC Computer - RPG Maker VX - Heal 1_17: 697856021
+      PC Computer - RPG Maker VX - Heal 1_18: 2051997295
+      PC Computer - RPG Maker VX - Heal 1_19: 742140028
+      PC Computer - RPG Maker VX - Heal 1_2: -939370901
+      PC Computer - RPG Maker VX - Heal 1_20: 835667025
+      PC Computer - RPG Maker VX - Heal 1_21: -831112705
+      PC Computer - RPG Maker VX - Heal 1_22: 1983709411
+      PC Computer - RPG Maker VX - Heal 1_23: -1071403059
+      PC Computer - RPG Maker VX - Heal 1_24: 2017350599
+      PC Computer - RPG Maker VX - Heal 1_25: 1290796079
+      PC Computer - RPG Maker VX - Heal 1_26: -1501805205
+      PC Computer - RPG Maker VX - Heal 1_27: -1153974097
+      PC Computer - RPG Maker VX - Heal 1_28: 1561127062
+      PC Computer - RPG Maker VX - Heal 1_29: -1638466665
+      PC Computer - RPG Maker VX - Heal 1_3: 1953648914
+      PC Computer - RPG Maker VX - Heal 1_30: -1373737984
+      PC Computer - RPG Maker VX - Heal 1_31: 304929432
+      PC Computer - RPG Maker VX - Heal 1_32: -665394919
+      PC Computer - RPG Maker VX - Heal 1_33: 239190463
+      PC Computer - RPG Maker VX - Heal 1_34: 1484173173
+      PC Computer - RPG Maker VX - Heal 1_35: -1624154810
+      PC Computer - RPG Maker VX - Heal 1_36: -1097704440
+      PC Computer - RPG Maker VX - Heal 1_37: -794736635
+      PC Computer - RPG Maker VX - Heal 1_38: -622952666
+      PC Computer - RPG Maker VX - Heal 1_39: -977424415
+      PC Computer - RPG Maker VX - Heal 1_4: 380856252
+      PC Computer - RPG Maker VX - Heal 1_40: -255523862
+      PC Computer - RPG Maker VX - Heal 1_41: -655282892
+      PC Computer - RPG Maker VX - Heal 1_42: 582363989
+      PC Computer - RPG Maker VX - Heal 1_43: 360341263
+      PC Computer - RPG Maker VX - Heal 1_44: -1502133406
+      PC Computer - RPG Maker VX - Heal 1_45: -683784261
+      PC Computer - RPG Maker VX - Heal 1_46: -1892135457
+      PC Computer - RPG Maker VX - Heal 1_47: -662271778
+      PC Computer - RPG Maker VX - Heal 1_48: 697138944
+      PC Computer - RPG Maker VX - Heal 1_49: -638094711
+      PC Computer - RPG Maker VX - Heal 1_5: -1557944449
+      PC Computer - RPG Maker VX - Heal 1_50: 330491968
+      PC Computer - RPG Maker VX - Heal 1_51: 546936470
+      PC Computer - RPG Maker VX - Heal 1_52: 1662938279
+      PC Computer - RPG Maker VX - Heal 1_53: -1291363413
+      PC Computer - RPG Maker VX - Heal 1_54: 1685983051
+      PC Computer - RPG Maker VX - Heal 1_55: -1452775766
+      PC Computer - RPG Maker VX - Heal 1_56: -1657849478
+      PC Computer - RPG Maker VX - Heal 1_57: 2053526885
+      PC Computer - RPG Maker VX - Heal 1_58: -1182263227
+      PC Computer - RPG Maker VX - Heal 1_59: 232829487
+      PC Computer - RPG Maker VX - Heal 1_6: 247140664
+      PC Computer - RPG Maker VX - Heal 1_60: 1666304185
+      PC Computer - RPG Maker VX - Heal 1_61: -155251615
+      PC Computer - RPG Maker VX - Heal 1_62: -1481725768
+      PC Computer - RPG Maker VX - Heal 1_63: -1325603777
+      PC Computer - RPG Maker VX - Heal 1_64: 765218136
+      PC Computer - RPG Maker VX - Heal 1_65: 1260358065
+      PC Computer - RPG Maker VX - Heal 1_66: 1334112794
+      PC Computer - RPG Maker VX - Heal 1_67: -747438429
+      PC Computer - RPG Maker VX - Heal 1_68: -859255512
+      PC Computer - RPG Maker VX - Heal 1_69: 1911752857
+      PC Computer - RPG Maker VX - Heal 1_7: -934632326
+      PC Computer - RPG Maker VX - Heal 1_8: -1941799378
+      PC Computer - RPG Maker VX - Heal 1_9: 1386147174
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
