@@ -8,17 +8,18 @@ public class DemonBehaviour : StateMachineBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private BossGeneral boss;
-
+    private BossAttack bossAttack;
 
 
     [SerializeField] private float speed = 3f;
-    [SerializeField] private float attackRange = 2f;
+    //[SerializeField] private float attackRange = 2f;
 
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         rb = animator.GetComponent<Rigidbody2D>();
         boss = animator.GetComponent<BossGeneral>();
+        bossAttack = animator.GetComponent<BossAttack>();   
         player = boss.targetedPlayer;
     }
 
@@ -33,9 +34,16 @@ public class DemonBehaviour : StateMachineBehaviour
 
             boss.LookAtPlayer();
 
-            if (Vector2.Distance(rb.position, player.position) < attackRange)
-                animator.Play(boss.isEnraged ? "enrage_attack" : "attack");
+            //if (Vector2.Distance(rb.position, player.position) < attackRange)
+            //{
+            //    
+            //    animator.Play(boss.isEnraged ? "enrage_attack" : "attack");
+            //}
 
+            if (bossAttack.PlayerIsInAttackRange())
+            {
+                animator.Play(boss.isEnraged ? "enrage_attack" : "attack");
+            }
         }
         else
             animator.Play("idle");

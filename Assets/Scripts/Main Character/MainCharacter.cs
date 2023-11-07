@@ -285,7 +285,7 @@ public class main_character : MonoBehaviour
             }
 
         }
-        Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
+        //Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
     }
 
     private bool isGrounded(float height = extraHeight)
@@ -338,6 +338,7 @@ public class main_character : MonoBehaviour
 
     public void takeDameage(float dmg)
     {
+        //Debug.Log("Player took damage");
         healthBar.takeDamage(dmg);
         setTriggerAnimation(ANIMATION_HURT);
         bleedAnim.playBleedAnimation();

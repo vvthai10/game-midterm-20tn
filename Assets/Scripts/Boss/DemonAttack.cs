@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BossAttack : MonoBehaviour
@@ -7,9 +8,9 @@ public class BossAttack : MonoBehaviour
     
     public Transform attackPoint;
     public Transform fireballPoint;
-    public float attackRange = 0.5f;
+    public float attackRange = 1f;
     public float attackDamage = 20f;
-    public LayerMask playersLayer;
+    //public LayerMask playersLayer;
  
 
     public GameObject[] fireballs;
@@ -17,7 +18,7 @@ public class BossAttack : MonoBehaviour
     private float cooldownTimer = Mathf.Infinity;
 
 
-    private Collider2D[] hitPlayers = null;
+    //private Collider2D[] hitPlayers = null;
     private BossGeneral boss;
 
     private void Start()
@@ -37,11 +38,24 @@ public class BossAttack : MonoBehaviour
     // event called at the middle of "attack" animation
     public void hit()
     {
-        hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playersLayer);
-        if (hitPlayers != null)
-            foreach (Collider2D hitPlayer in hitPlayers)
-                //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
-                main_character.instance.takeDameage(attackDamage);
+        //hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playersLayer);
+        //if (hitPlayers != null)
+        //    foreach (Collider2D hitPlayer in hitPlayers)
+        //    {
+        //        main_character.instance.takeDameage(attackDamage);
+        //        //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
+        //    }
+        if (this.PlayerIsInAttackRange())
+        {
+            main_character.instance.takeDameage(attackDamage);
+        }
+    }
+
+    public bool PlayerIsInAttackRange()
+    {
+        if (Vector2.Distance((Vector2)boss.targetedPlayer.position, (Vector2)attackPoint.position) <= attackRange)
+            return true;
+        return false;
     }
 
     private void OnDrawGizmos()

@@ -23,12 +23,21 @@ public class BossHealth : MonoBehaviour
 
     public void takeHit(float hitDamage)
     {
-        
+        float prevHP = currentHP;
         currentHP = Mathf.Max(0, currentHP - hitDamage);
 
         healthBar.Show();
-        healthBar.SetName(boss.bossName);
-        healthBar.SetHealth(currentHP / MaxHP);
+
+        if (healthBar.GetName() != boss.bossName)
+        {
+            healthBar.ResetFillAt(prevHP / MaxHP);
+            healthBar.SetName(boss.bossName);
+            healthBar.SetHealth(currentHP / MaxHP);
+        }
+        else
+        {
+            healthBar.SetHealth(currentHP / MaxHP);
+        }
 
         if (boss.canEnrage)
         {

@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Wall
   - BossHealthBar
+  - enemy
+  - Demon
+  - Nightborne
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,6 @@ TagManager:
   - Edge
   - Enemies
   - Players
-  - 
-  - 
   - 
   - 
   - 
