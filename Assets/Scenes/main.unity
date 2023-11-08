@@ -2299,6 +2299,18 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1617096645}
+    - target: {fileID: 569119571055063104, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
+      propertyPath: regenAfter
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 569119571055063104, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
+      propertyPath: regenEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 569119571055063104, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
+      propertyPath: regenWhenUnder
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1397507386685390240, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
       propertyPath: targetedPlayer
       value: 
@@ -25747,6 +25759,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927240017515521699, guid: da18b8ec4fd998447a7a68681df4a37f, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897932259516261415, guid: da18b8ec4fd998447a7a68681df4a37f, type: 3}
+      propertyPath: canEnrage
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8330206424879041896, guid: da18b8ec4fd998447a7a68681df4a37f, type: 3}

@@ -10,8 +10,9 @@ public class NightborneBehaviour : StateMachineBehaviour
 
 
 
-    [SerializeField] private float speed = 6f;
-    [SerializeField] private float attackRange = 2f;
+    public float speed = 6f;
+    public float attackRange = 2f;
+    private Animator animator1;
 
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,6 +20,7 @@ public class NightborneBehaviour : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
         boss = animator.GetComponent<BossGeneral>();
+        animator1 = animator;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -40,5 +42,10 @@ public class NightborneBehaviour : StateMachineBehaviour
         else
             animator.Play("idle");
 
+    }
+
+    public void increaseAnimationSpeed(float k)
+    {
+        animator1.speed = k;   
     }
 }

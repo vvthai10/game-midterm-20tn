@@ -20,6 +20,11 @@ public class BossHealthBar : MonoBehaviour
         this.Hide();
     }
 
+    public float GetLowerValue()
+    {
+        return lowerFill.Value();
+    }
+
     public void ResetFill()
     {
         upperSlider.value = 1;
