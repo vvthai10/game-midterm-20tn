@@ -40,7 +40,6 @@ public class BossAttack : MonoBehaviour
         hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playersLayer);
         if (hitPlayers != null)
             foreach (Collider2D hitPlayer in hitPlayers)
-                //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
                 main_character.instance.takeDameage(attackDamage);
     }
 
