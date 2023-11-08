@@ -50,4 +50,8 @@ public class HealthBar : MonoBehaviour
             health = 100;
         }
     }
+    public bool death()
+    {
+        return health <= 0;
+    }
 }

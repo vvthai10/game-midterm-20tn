@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class enemy_patrol : MonoBehaviour
 {
     public float speed;
     // Start is called before the first frame update
-    public GameObject limited1;
-    public GameObject limited2;
+    public GameObject limitedStart;
+    public GameObject limitedEnd;
     Rigidbody2D rb;
     Animator ator;
     Transform currentPoint;
@@ -23,7 +24,7 @@ public class enemy_patrol : MonoBehaviour
         enemyDamage = GetComponent<enemy_damage>(); 
         ator.SetBool("isRunning", true);
 
-        currentPoint = limited2.transform;
+        currentPoint = limitedEnd.transform;
         faceLimited2 = true;
         isPatrolling = true;
     }
@@ -40,7 +41,7 @@ public class enemy_patrol : MonoBehaviour
 
     void patrolliing()
     {
-        if (currentPoint == limited2.transform)
+        if (currentPoint == limitedEnd.transform)
         {
             rb.velocity = new Vector2(speed, 0);
         }
@@ -49,14 +50,14 @@ public class enemy_patrol : MonoBehaviour
             rb.velocity = new Vector2(-speed, 0);
         }
 
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == limited2.transform)
-        {
-            Flip();
-        }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == limited1.transform)
-        {
-            Flip();
-        }
+        //if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == limited2.transform)
+        //{
+        //    Flip();
+        //}
+        //if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == limited1.transform)
+        //{
+        //    Flip();
+        //}
     }
 
     public void chasingPlayer(Transform playerPos) 
@@ -64,12 +65,12 @@ public class enemy_patrol : MonoBehaviour
         lookAtPlayer(playerPos);
         Vector2 target = new Vector2(playerPos.position.x, rb.position.y);
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
-        if(newPos.x > limited2.transform.position.x)
+        if(newPos.x > limitedEnd.transform.position.x)
         {
-            newPos.x = limited2.transform.position.x;
-        } else if(newPos.x < limited1.transform.position.x)
+            newPos.x = limitedEnd.transform.position.x;
+        } else if(newPos.x < limitedStart.transform.position.x)
         {
-            newPos.x = limited1.transform.position.x;
+            newPos.x = limitedStart.transform.position.x;
         }
 
         rb.MovePosition(newPos);
@@ -96,6 +97,11 @@ public class enemy_patrol : MonoBehaviour
         isPatrolling = state;
     }
 
+    public bool isFaceLimited2()
+    {
+        return faceLimited2;
+    }
+
     public void Flip()
     {
         transform.Rotate(0f, 180f, 0f);
@@ -106,10 +112,10 @@ public class enemy_patrol : MonoBehaviour
     {
         if(faceLimited2)
         {
-            currentPoint = limited2.transform;
+            currentPoint = limitedEnd.transform;
         }else
         {
-            currentPoint = limited1.transform;
+            currentPoint = limitedStart.transform;
         }
 
 
@@ -117,8 +123,16 @@ public class enemy_patrol : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(limited1.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(limited2.transform.position, 0.5f);
-        Gizmos.DrawLine(limited1.transform.position, limited2.transform.position);
+        Gizmos.DrawWireSphere(limitedStart.transform.position, 0.5f);
+        Gizmos.DrawWireSphere(limitedEnd.transform.position, 0.5f);
+        Gizmos.DrawLine(limitedStart.transform.position, limitedEnd.transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "LimitedBarrier")
+        {
+            Flip();
+        }
     }
 }

@@ -6,6 +6,7 @@ public class enemy_damage : MonoBehaviour
 {
     public float hp = 100;
     private bool deathState = false;
+    public HealthBar healthBar;
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class enemy_damage : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        healthBar.takeDamage(damage);
         animator.SetTrigger("isDamage");
         if(hp <= 0)
         {

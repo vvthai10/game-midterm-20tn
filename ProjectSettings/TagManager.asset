@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - BossHealthBar
   - enemy
+  - LimitedBarrier
+  - enemy
   - Demon
   - Nightborne
   layers:
