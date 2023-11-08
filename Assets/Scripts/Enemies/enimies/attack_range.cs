@@ -5,8 +5,8 @@ using UnityEngine;
 public class attack_range : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform limited1;
-    public Transform limited2;
+    public Transform areaAttackStart;
+    public Transform areaAttackEnd;
     public float detectAreaHeight = 4f;
 
     Vector2 topLeftPoint;
@@ -14,8 +14,8 @@ public class attack_range : MonoBehaviour
     enemy_patrol patrol;
     void Start()
     {
-        topLeftPoint = new Vector2(limited1.position.x, limited1.position.y + detectAreaHeight / 2);
-        bottomRightPoint = new Vector2(limited2.position.x, limited2.position.y - detectAreaHeight / 2);
+        topLeftPoint = new Vector2(areaAttackStart.position.x, areaAttackStart.position.y + detectAreaHeight / 2);
+        bottomRightPoint = new Vector2(areaAttackEnd.position.x, areaAttackEnd.position.y - detectAreaHeight / 2);
 
 
         patrol = GetComponent<enemy_patrol>(); 
@@ -48,9 +48,9 @@ public class attack_range : MonoBehaviour
     {
         Gizmos.DrawLineStrip(new Vector3[4] {
             new Vector3(topLeftPoint.x, topLeftPoint.y, 0),
-             new Vector3(limited2.position.x, limited2.position.y + detectAreaHeight / 2, 0),
+             new Vector3(areaAttackEnd.position.x, areaAttackEnd.position.y + detectAreaHeight / 2, 0),
              new Vector3(bottomRightPoint.x, bottomRightPoint.y, 0),
-             new Vector3(limited1.position.x, limited1.position.y - detectAreaHeight / 2, 0)
+             new Vector3(areaAttackStart.position.x, areaAttackStart.position.y - detectAreaHeight / 2, 0)
         }, true);
     }
 }
