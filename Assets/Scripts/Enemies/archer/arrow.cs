@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class arrow : MonoBehaviour
 {
-    public float speed = 50f;
+    public float speed = 75f;
     Rigidbody2D rd;
     Transform player;
     // Start is called before the first frame update

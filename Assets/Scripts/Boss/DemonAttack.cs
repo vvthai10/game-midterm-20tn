@@ -53,7 +53,7 @@ public class BossAttack : MonoBehaviour
 
     public bool PlayerIsInAttackRange()
     {
-        if (Vector2.Distance((Vector2)boss.targetedPlayer.position, (Vector2)attackPoint.position) <= attackRange)
+        if (boss.targetedPlayer && Vector2.Distance((Vector2)boss.targetedPlayer.position, (Vector2)attackPoint.position) <= attackRange)
             return true;
         return false;
     }
