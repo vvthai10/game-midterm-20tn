@@ -43,7 +43,6 @@ public class main_character : MonoBehaviour
     public static string STAMINA_WALL_SLIDE = "wall_slide";
 
 
-
     List<string> list_bool_anims = new List<string>() {
         ANIMATION_RUN,
         ANIMATION_IDLE,
@@ -86,8 +85,10 @@ public class main_character : MonoBehaviour
     public bool canReceiveInput = true;
     public bool inputReceived = false;
 
-    [SerializeField] private LayerMask layerMaskGround;
-    [SerializeField] private LayerMask layerMaskEdge; // wall
+    [SerializeField] private LayerMask layerMaskGround; // Ground
+    [SerializeField] private LayerMask layerMaskEdge; // wall / edge
+    [SerializeField] private LayerMask layerMaskEnemy;
+
 
     Rigidbody2D rigid;
     public Animator anim;
@@ -124,6 +125,7 @@ public class main_character : MonoBehaviour
     private DateTime lastTimeSlide = DateTime.Now;
     private DateTime lastTimeClickBlock = DateTime.Now;
     private DateTime lastTimeBlock = DateTime.Now;
+
 
     private void Awake()
     {
@@ -418,6 +420,12 @@ public class main_character : MonoBehaviour
         anim.SetTrigger(animName);
     }
 
+    void DestroyObjectDelayed()
+    {
+        setTriggerAnimation(ANIMATION_DEATH);
+        Destroy(gameObject, 2.5f);
+    }
+
     private void FixedUpdate()
     {
         //Debug.Log("Finish roll: " + finishRoll);
@@ -426,13 +434,7 @@ public class main_character : MonoBehaviour
             //Debug.Log("Jump: " + currentJumpValue);
             rigid.velocity = new Vector2(currentMoveValue, rigid.velocity.y + currentJumpValue);
         }
-        
-        currentJumpValue = 0;
-    }
 
-    void DestroyObjectDelayed()
-    {
-        setTriggerAnimation(ANIMATION_DEATH);
-        Destroy(gameObject, 2.5f);
+        currentJumpValue = 0;
     }
 }

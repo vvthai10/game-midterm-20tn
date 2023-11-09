@@ -600,9 +600,10 @@ GameObject:
   - component: {fileID: 793321244077686450}
   - component: {fileID: 569119571055063104}
   - component: {fileID: 1397507386685390240}
-  m_Layer: 6
+  - component: {fileID: 5601481688253864518}
+  m_Layer: 8
   m_Name: Demon
-  m_TagString: Untagged
+  m_TagString: Demon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -615,9 +616,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3293655555012207245}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.148, y: -0.798, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -74.73, y: -115.55, z: 1.1172631}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7871929893820420341}
@@ -709,7 +710,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02932638, y: -0.26629114}
+  m_Offset: {x: 0.049535036, y: -0.25281894}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -720,7 +721,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7447246, y: 1.8948393}
+  m_Size: {x: 1.4348664, y: 1.7870629}
   m_EdgeRadius: 0
 --- !u!50 &6478318397274128199
 Rigidbody2D:
@@ -734,8 +735,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 100
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -744,7 +745,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -784,6 +785,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHP: 400
   healthBar: {fileID: 0}
+  regenEnabled: 1
+  regenWhenUnder: 0.5
+  regenAfter: 0.5
 --- !u!114 &1397507386685390240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +805,34 @@ MonoBehaviour:
   initiallyFacingRight: 0
   isEnraged: 0
   canEnrage: 1
+--- !u!114 &5601481688253864518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293655555012207245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ae1e97de28a6c498e241b21ac433a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 7871929893820420341}
+  fireballPoint: {fileID: 9147855959223351252}
+  attackRange: 2.2
+  attackDamage: 40
+  fireballs:
+  - {fileID: 4613892941300153261}
+  - {fileID: 425008756018508749}
+  - {fileID: 4434976361419587985}
+  - {fileID: 2567079020548961533}
+  - {fileID: 3297316448345788805}
+  - {fileID: 5075488665523110344}
+  - {fileID: 6636723930271092706}
+  - {fileID: 5145806793040253012}
+  - {fileID: 6261072560582999484}
+  - {fileID: 456891101359372000}
+  fireballCooldown: 4
 --- !u!1 &3297316448345788805
 GameObject:
   m_ObjectHideFlags: 0
