@@ -11,12 +11,28 @@ public class LowerFillController : MonoBehaviour
     public float FillSpeed = 0.1f;
     public float lowerBoundary = 1;
 
-    void Start()
+    void Awake()
     {
         lowerSlider = GetComponent<Slider>();
+        ResetFill();
     }
 
+    public float Value()
+    {
+        return lowerSlider.value;
+    }
 
+    public void ResetFill()
+    {
+        lowerBoundary = 1;
+        lowerSlider.value = 1;
+    }
+
+    public void ResetFillAt(float hp)
+    {
+        lowerBoundary = hp;
+        lowerSlider.value = hp;
+    }
 
     // Update is called once per frame
     void Update()

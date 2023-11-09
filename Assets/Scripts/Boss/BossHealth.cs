@@ -12,6 +12,11 @@ public class BossHealth : MonoBehaviour
 
     public BossHealthBar healthBar;
 
+    public bool regenEnabled = false;
+    public float regenWhenUnder = 1f;
+    public float regenAfter = 3f;
+    private float regenTimer = 0;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,25 +25,63 @@ public class BossHealth : MonoBehaviour
         //healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
     }
 
+    private void Update()
+    {
+        if (regenEnabled && currentHP / MaxHP < regenWhenUnder)
+        {
+            if (regenTimer > regenAfter)
+            {
+                // reset healthbar
+                currentHP = healthBar.GetLowerValue() * MaxHP;
+                healthBar.ResetFillAt(currentHP / MaxHP);
+
+                regenTimer = 0;
+            }
+            regenTimer += Time.deltaTime;
+        }
+    }
+
 
     public void takeHit(float hitDamage)
     {
-        
+        if (regenEnabled)
+            regenTimer = 0;
+
+        float prevHP = currentHP;
         currentHP = Mathf.Max(0, currentHP - hitDamage);
 
         healthBar.Show();
-        healthBar.SetName(boss.bossName);
-        healthBar.SetHealth(currentHP / MaxHP);
+
+        if (healthBar.GetName() != boss.bossName)
+        {
+            healthBar.ResetFillAt(prevHP / MaxHP);
+            healthBar.SetName(boss.bossName);
+            healthBar.SetHealth(currentHP / MaxHP);
+        }
+        else
+        {
+            healthBar.SetHealth(currentHP / MaxHP);
+        }
 
         if (boss.canEnrage)
         {
             if (!boss.isEnraged && currentHP < 0.5 * MaxHP)
             {
                 boss.isEnraged = boss.canEnrage;
-                animator.SetTrigger("enrage");
+                // define enrage behaviour
+                if (boss.name.ToLower() == "demon")
+                    animator.SetTrigger("enrage");
+                else if (boss.name.ToLower() == "nightborne")
+                {
+                    Debug.Log("nightborne enraged");
+                    animator.GetBehaviour<NightborneBehaviour>().speed *= 1.5f;
+                    animator.speed = 1.5f;
+                    Debug.Log("speed: " + animator.GetBehaviour<NightborneBehaviour>().speed.ToString() + "   " + animator.speed.ToString());
+                }
                 return;
             }
         }
+
 
         if (currentHP > 0)
         {

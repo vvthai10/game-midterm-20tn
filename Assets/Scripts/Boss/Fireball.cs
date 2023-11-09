@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fireball : MonoBehaviour
 {
     public float speed = 1;
+    public float damage = 20;
     private bool hit;
     private float direction;
 
@@ -41,6 +42,10 @@ public class Fireball : MonoBehaviour
         hit = true;
         boxcollider.enabled = false;
         animator.SetTrigger("explode");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            main_character.instance.takeDameage(damage);
+        }
     }
 
     public void SetDirection(float _direction)

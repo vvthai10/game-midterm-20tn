@@ -10,13 +10,31 @@ public class BossHealthBar : MonoBehaviour
     public Text bossName;
     private LowerFillController lowerFill;
 
-    private void Start()
+
+    private void Awake()
     {
-        Debug.Log("Boss health bar started");
         upperSlider = GetComponent<Slider>();
         lowerFill = GetComponentInChildren<LowerFillController>();
         bossName = GetComponentInChildren<Text>();
+        ResetFill();
         this.Hide();
+    }
+
+    public float GetLowerValue()
+    {
+        return lowerFill.Value();
+    }
+
+    public void ResetFill()
+    {
+        upperSlider.value = 1;
+        lowerFill.ResetFill();
+    }
+
+    public void ResetFillAt(float hp)
+    {
+        upperSlider.value = hp;
+        lowerFill.ResetFillAt(hp);
     }
 
     public void SetHealth(float health)
@@ -28,6 +46,11 @@ public class BossHealthBar : MonoBehaviour
     public void SetName(string name)
     {
         bossName.text = name;
+    }
+
+    public string GetName()
+    {
+        return (string)bossName.text;
     }
 
     public void Hide()

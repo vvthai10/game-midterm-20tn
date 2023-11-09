@@ -9,6 +9,9 @@ TagManager:
   - BossHealthBar
   - enemy
   - LimitedBarrier
+  - enemy
+  - Demon
+  - Nightborne
   layers:
   - Default
   - TransparentFX

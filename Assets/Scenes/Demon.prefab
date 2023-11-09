@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &456891101359372000
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &2567079020548961533
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &3293655555012207245
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +600,6 @@ GameObject:
   - component: {fileID: 793321244077686450}
   - component: {fileID: 569119571055063104}
   - component: {fileID: 1397507386685390240}
-  - component: {fileID: 8271214607357970549}
   m_Layer: 6
   m_Name: Demon
   m_TagString: Untagged
@@ -781,6 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 400
+  healthBar: {fileID: 0}
 --- !u!114 &1397507386685390240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,37 +801,6 @@ MonoBehaviour:
   initiallyFacingRight: 0
   isEnraged: 0
   canEnrage: 1
---- !u!114 &8271214607357970549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3293655555012207245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ae1e97de28a6c498e241b21ac433a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 7871929893820420341}
-  fireballPoint: {fileID: 9147855959223351252}
-  attackRange: 1
-  attackDamage: 20
-  playersLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  fireballs:
-  - {fileID: 4613892941300153261}
-  - {fileID: 425008756018508749}
-  - {fileID: 4434976361419587985}
-  - {fileID: 2567079020548961533}
-  - {fileID: 3297316448345788805}
-  - {fileID: 5075488665523110344}
-  - {fileID: 6636723930271092706}
-  - {fileID: 5145806793040253012}
-  - {fileID: 6261072560582999484}
-  - {fileID: 456891101359372000}
-  fireballCooldown: 2
 --- !u!1 &3297316448345788805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &4407300548141891138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &4613892941300153261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &5075488665523110344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &5145806793040253012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &6261072560582999484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,6 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &6636723930271092706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2218,6 +2196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  damage: 20
 --- !u!1 &6972850988843649602
 GameObject:
   m_ObjectHideFlags: 0

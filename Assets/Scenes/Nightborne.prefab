@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3888895630466701976}
   - component: {fileID: 3897932259516261415}
   - component: {fileID: 1406159778906536876}
-  - component: {fileID: 1162023439882779030}
   m_Layer: 6
   m_Name: Nightborne
   m_TagString: Untagged
@@ -214,27 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 100
---- !u!114 &1162023439882779030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8330206424879041896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2ae1e97de28a6c498e241b21ac433a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 6510016286638625990}
-  fireballPoint: {fileID: 0}
-  attackRange: 0.7
-  attackDamage: 20
-  playersLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  fireballs: []
-  fireballCooldown: 0
+  healthBar: {fileID: 0}
 --- !u!1 &8978027333421870958
 GameObject:
   m_ObjectHideFlags: 0
