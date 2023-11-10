@@ -20,7 +20,7 @@ public class enemy_damage : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("key click");
-            TakeDamage(20);
+            TakeDamage(25);
         }
     }
 
