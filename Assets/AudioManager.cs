@@ -1,37 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Audio Source")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource ambientSource;
-    [SerializeField] AudioSource sfxSource;
 
-    [Header("Audio Clip")]
-    public AudioClip music_background;
-    public AudioClip ambient_soft_rain;
+    public static AudioManager Instance;
+    public Sound[] bgSounds, ambientSounds, sfxSounds;
+    public AudioSource bgSource, ambientSource, sfxSource;
 
-    public AudioClip sfx_walk;
-    public AudioClip sfx_run;
-    // Start is called before the first frame update
-    void Start()
-    {
-        musicSource.clip = music_background;
-        ambientSource.clip = ambient_soft_rain;
-        musicSource.Play();
-        ambientSource.volume = 0.8f;
-        ambientSource.Play();
+    private void Awake() {
+        if(AudioManager.Instance == null) {
+            Debug.Log("[INFO] init");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Debug.Log("[INFO] exist");
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Start(){
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 0) {
+            PlayBackgroundMusic("background");
+        }
+        else{
+            PlayAmbientMusic("rain");
+        }
     }
-    public void PlaySFX(AudioClip clip)
-    {
-        sfxSource.PlayOneShot(clip);
+
+    public void PlayBackgroundMusic(string name) {
+        Sound s = Array.Find(bgSounds, x => x.name == name);
+        if (s == null) {
+            Debug.Log("Sound Not Found");
+        } else {
+            bgSource.enabled = true;
+            bgSource.clip = s.clip;
+            bgSource.Play();
+        }
+    }
+
+    public void PlayAmbientMusic(string name) {
+        Sound s = Array.Find(ambientSounds, x => x.name == name);
+        if (s == null) {
+            Debug.Log("Sound Not Found");
+        } else {
+            ambientSource.enabled = true;
+            ambientSource.clip = s.clip;
+            ambientSource.Play();
+        }
+    }
+
+    public void PlaySFXMusic(string name) {
+        Sound s = Array.Find(sfxSounds, x => x.name == name);
+        if (s == null) {
+            Debug.Log("Sound Not Found");
+        } else {
+            sfxSource.enabled = true;
+            sfxSource.PlayOneShot(s.clip);
+        }
+    }
+
+    public void ToggleBackground() {
+        bgSource.mute = !bgSource.mute;
+    }
+
+    public void ToggleAmbient() {
+        ambientSource.mute = !ambientSource.mute;
+    }
+
+    public void ToggleSFX() {
+        sfxSource.mute = !sfxSource.mute;
+    }
+
+    public void BackgroundVolume(float volume){
+        bgSource.volume = volume;
+    }
+
+    public void AmbientVolume(float volume){
+        ambientSource.volume = volume;
+    }
+
+    public void SFXVolume(float volume) {
+        sfxSource.volume = volume;
     }
 }

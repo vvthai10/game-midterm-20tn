@@ -155,6 +155,9 @@ public class main_character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(ControlOptions.Instance.CheckOpen()){
+            return;
+        }
         Debug.Log("Fps: " + 1.0f / Time.deltaTime);
 
         if (death)
