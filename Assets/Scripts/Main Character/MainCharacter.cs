@@ -5,12 +5,16 @@ using UnityEditor.Search;
 using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using static Cinemachine.CinemachineTargetGroup;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class main_character : MonoBehaviour
 {
+
+    public static main_character instance;
+
     public int number_flask;
     public const int max_flask = 5;
-    private float amount_health_heal = 0.2f;
+    private float amount_health_heal = 0.3f;
 
     // List animation name
     public const string ANIMATION_RUN = "run";
@@ -80,14 +84,17 @@ public class main_character : MonoBehaviour
         {STAMINA_WALL_SLIDE, 0.00f }
     };
 
-    public static main_character instance;
-    // Attack bool
+    // Attack settings
     public bool canReceiveInput = true;
     public bool inputReceived = false;
 
+    public Transform attackPoint;
+    private const float attackRange = 1.45f;
+    private const float damage = 20f;
+
     [SerializeField] private LayerMask layerMaskGround; // Ground
     [SerializeField] private LayerMask layerMaskEdge; // wall / edge
-    [SerializeField] private LayerMask layerMaskEnemy;
+    [SerializeField] private LayerMask layerMaskEnemy; // Enemy
 
 
     Rigidbody2D rigid;
@@ -122,6 +129,8 @@ public class main_character : MonoBehaviour
     public static bool finishRoll = true;
     private bool isBlocking = false;
     private bool flipX = false;
+    private bool death = false;
+
     private DateTime lastTimeSlide = DateTime.Now;
     private DateTime lastTimeClickBlock = DateTime.Now;
     private DateTime lastTimeBlock = DateTime.Now;
@@ -134,6 +143,7 @@ public class main_character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -149,6 +159,11 @@ public class main_character : MonoBehaviour
             return;
         }
         Debug.Log("Fps: " + 1.0f / Time.deltaTime);
+
+        if (death)
+        {
+            return;
+        }
 
         int meetEdge = meetEdgeAndFall();
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
@@ -215,12 +230,7 @@ public class main_character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             //Debug.Log(canReceiveInput);
-            if (canReceiveInput && staminaBar.loseStamina(stamina_amount[STAMINA_ATTACK]))
-            {
-                currentMoveValue = 0f;
-                inputReceived = true;
-                canReceiveInput = false;
-            }
+            Attack();
         }
 
         // Block
@@ -330,6 +340,7 @@ public class main_character : MonoBehaviour
         return isGrounded(extraHeight)? -1 : isMeetTheEdge();
     }
 
+    // Roll
     private IEnumerator rollTo()
     {
         currentDistanceRoll = !flipX ? distanceRoll : -distanceRoll;
@@ -351,8 +362,47 @@ public class main_character : MonoBehaviour
         return number_flask;
     }
 
+    void Attack()
+    {
+        if (canReceiveInput && staminaBar.loseStamina(stamina_amount[STAMINA_ATTACK]))
+        {
+            currentMoveValue = 0f;
+            inputReceived = true;
+            canReceiveInput = false;
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, layerMaskEnemy);
+            foreach(Collider2D enemy in hitEnemies)
+            {
+                Debug.Log("Hit: " + enemy.name);
+                if (enemy.name.ToLower() == "demon" || enemy.name.ToLower() == "nightborne")
+                {
+                    enemy.GetComponent<BossHealth>().takeHit(damage);
+                }
+                else
+                {
+                    enemy.GetComponent<enemy_damage>().TakeDamage(damage);
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private bool Death()
+    {
+        death = healthBar.death();
+        return death;
+    }
     public void takeDameage(float dmg)
     {
+        if (death)
+        {
+            return;
+        }
         if (!isBlocking)
         {
 
@@ -375,7 +425,7 @@ public class main_character : MonoBehaviour
 
                 healthBar.takeDamage(dmg / 3);
                 // Death
-                if (healthBar.death())
+                if (Death())
                 {
                     DestroyObjectDelayed();
                 }
@@ -392,7 +442,7 @@ public class main_character : MonoBehaviour
             else
             {
                 setTriggerAnimation(ANIMATION_PERFECT_BLOCK);
-                healthBar.heal(dmg / 3);
+                healthBar.heal(dmg);
             }
         }
     }
@@ -431,6 +481,9 @@ public class main_character : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (death)
+            return;
+
         //Debug.Log("Finish roll: " + finishRoll);
         if (finishRoll)
         {

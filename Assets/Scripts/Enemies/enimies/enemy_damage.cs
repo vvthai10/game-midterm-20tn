@@ -25,7 +25,7 @@ public class enemy_damage : MonoBehaviour
     }
 
     //Player call this func when attack enemy
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hp -= damage;
         healthBar.takeDamage(damage);

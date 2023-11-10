@@ -27,6 +27,7 @@ public class BossHealth : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Boss health: " + currentHP);
         if (regenEnabled && currentHP / MaxHP < regenWhenUnder)
         {
             if (regenTimer > regenAfter)
