@@ -74,10 +74,8 @@ public class BossHealth : MonoBehaviour
                     animator.SetTrigger("enrage");
                 else if (boss.name.ToLower() == "nightborne")
                 {
-                    Debug.Log("nightborne enraged");
                     animator.GetBehaviour<NightborneBehaviour>().speed *= 1.5f;
                     animator.speed = 1.5f;
-                    Debug.Log("speed: " + animator.GetBehaviour<NightborneBehaviour>().speed.ToString() + "   " + animator.speed.ToString());
                 }
                 return;
             }
@@ -86,11 +84,11 @@ public class BossHealth : MonoBehaviour
 
         if (currentHP > 0)
         {
-            animator.Play(boss.isEnraged ? "enrage_hurt" : "hurt");
+            animator.Play(boss.isEnraged && animator.HasState(0, Animator.StringToHash("enrage_hurt")) ? "enrage_hurt" : "hurt");
         }
         else
         {
-            animator.Play(boss.isEnraged ? "enrage_death" : "death");
+            animator.Play(boss.isEnraged && animator.HasState(0, Animator.StringToHash("enrage_hurt")) ? "enrage_death" : "death");
             healthBar.Hide();
         }
         

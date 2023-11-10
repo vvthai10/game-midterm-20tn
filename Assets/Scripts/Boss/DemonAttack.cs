@@ -28,7 +28,7 @@ public class BossAttack : MonoBehaviour
 
     private void Update()
     {
-        if (cooldownTimer > fireballCooldown)
+        if (boss.targetedPlayer && cooldownTimer > fireballCooldown)
         {
             this.ShootFireball();
         }
