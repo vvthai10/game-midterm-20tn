@@ -410,6 +410,7 @@ public class main_character : MonoBehaviour
             // Death
             if (healthBar.death())
             {
+                death = true;
                 DestroyObjectDelayed();
             }
             else
@@ -427,6 +428,7 @@ public class main_character : MonoBehaviour
                 // Death
                 if (Death())
                 {
+                    death = true;
                     DestroyObjectDelayed();
                 }
                 else
