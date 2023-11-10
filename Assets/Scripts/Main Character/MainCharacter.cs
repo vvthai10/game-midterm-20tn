@@ -158,7 +158,7 @@ public class main_character : MonoBehaviour
         if(ControlOptions.Instance.CheckOpen()){
             return;
         }
-        Debug.Log("Fps: " + 1.0f / Time.deltaTime);
+        //Debug.Log("Fps: " + 1.0f / Time.deltaTime);
 
         if (death)
         {

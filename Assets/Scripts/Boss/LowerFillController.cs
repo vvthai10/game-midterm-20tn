@@ -24,6 +24,8 @@ public class LowerFillController : MonoBehaviour
 
     public void ResetFill()
     {
+        Debug.Log("Resetting fill");
+        Debug.Log("lowerSlider: " + lowerSlider.ToString());
         lowerBoundary = 1;
         lowerSlider.value = 1;
     }
