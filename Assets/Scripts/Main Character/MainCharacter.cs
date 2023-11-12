@@ -101,6 +101,7 @@ public class main_character : MonoBehaviour
     public Animator anim;
     SpriteRenderer spriteRenderer;
     CapsuleCollider2D capsuleCollider;
+    AudioManager audioManager;
 
     public GameObject charater;
     public StaminaBar staminaBar;
@@ -127,10 +128,10 @@ public class main_character : MonoBehaviour
     private const float notFallHeight = 3f;
     
     public static bool finishRoll = true;
+    private bool isJumping = false;
     private bool isBlocking = false;
     private bool flipX = false;
     private bool death = false;
-
     private DateTime lastTimeSlide = DateTime.Now;
     private DateTime lastTimeClickBlock = DateTime.Now;
     private DateTime lastTimeBlock = DateTime.Now;
@@ -139,6 +140,7 @@ public class main_character : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -165,7 +167,7 @@ public class main_character : MonoBehaviour
             return;
         }
 
-        int meetEdge = meetEdgeAndFall();
+        int meetEdge = MeetEdgeAndFall();
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             
@@ -178,6 +180,7 @@ public class main_character : MonoBehaviour
                         anim.speed = boostSpeed;
                         currentMoveValue = moveSpeed * boostSpeed;
                     }
+                    audioManager.PlaySFXMusic("run", 1.25f);
                 }
                 else if (Input.GetKey(KeyCode.LeftAlt))
                 {
@@ -186,6 +189,7 @@ public class main_character : MonoBehaviour
                         anim.speed = slowSpeed;
                         currentMoveValue = moveSpeed * slowSpeed;
                     }
+                    audioManager.PlaySFXMusic("walk");
                 }
                 else 
                 {
@@ -194,9 +198,11 @@ public class main_character : MonoBehaviour
                         anim.speed = normalSpeed;
                         currentMoveValue = moveSpeed * normalSpeed;
                     }
+                    audioManager.PlaySFXMusic("run");
                 }
                 if (meetEdge < 0)
-                setBoolAnimation(ANIMATION_RUN);
+                    setBoolAnimation(ANIMATION_RUN);
+                
             }
 
             if (Input.GetKey(KeyCode.D))
@@ -215,7 +221,7 @@ public class main_character : MonoBehaviour
 
         else
         {
-            if (finishRoll && meetEdgeAndFall() < 0)
+            if (finishRoll && MeetEdgeAndFall() < 0)
             {
                 if (staminaBar.loseStamina(stamina_amount[STAMINA_IDLE], true))
                 {
@@ -256,7 +262,7 @@ public class main_character : MonoBehaviour
 
 
         // Fall
-        if ( meetEdge < 0 && rigid.velocity.y < -0f && !isGrounded(notFallHeight) && staminaBar.loseStamina(stamina_amount[STAMINA_FALL], true))
+        if ( meetEdge < 0 && rigid.velocity.y < -0f && !IsGrounded(notFallHeight) && staminaBar.loseStamina(stamina_amount[STAMINA_FALL], true))
         {
             setBoolAnimation(ANIMATION_FALL);
         }
@@ -266,6 +272,7 @@ public class main_character : MonoBehaviour
             (meetEdge == 1 && Input.GetKey(KeyCode.D))
             )
         {
+
             if (Input.GetKeyDown(KeyCode.F) && staminaBar.loseStamina(stamina_amount[STAMINA_JUMP] * 2 / 3))
             {
                 lastTimeSlide = DateTime.Now;
@@ -288,15 +295,23 @@ public class main_character : MonoBehaviour
                 }
             }
         }
+
         // Jump
         if (
-            (isGrounded()) && 
+            (IsGrounded()) && 
             (Input.GetKeyDown(KeyCode.F)) && 
             staminaBar.loseStamina(stamina_amount[STAMINA_JUMP])
             )
         {
             currentJumpValue = jumpSpeed;
+            audioManager.PlaySFXMusic("jump_start");
             setBoolAnimation(ANIMATION_JUMP);
+            isJumping = true;
+        }
+        else if (isJumping && IsGrounded())
+        {
+            isJumping = false;
+            audioManager.PlaySFXMusic("jump_end");
         }
 
         // Roll
@@ -305,7 +320,8 @@ public class main_character : MonoBehaviour
             staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
             )
         {
-            StartCoroutine(rollTo());
+            audioManager.PlaySFXMusic("roll");
+            StartCoroutine(Roll());
         }
 
         if (number_flask > 0 && Input.GetKeyDown(KeyCode.R))
@@ -319,14 +335,14 @@ public class main_character : MonoBehaviour
     }
 
     // RaycastHit handler
-    private bool isGrounded(float height = extraHeight)
+    private bool IsGrounded(float height = extraHeight)
     {
        
         RaycastHit2D raycastHit2D = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.down, capsuleCollider.bounds.extents.y + height, layerMaskGround);
         return raycastHit2D.collider != null;
     }
 
-    private int isMeetTheEdge()
+    private int IsMeetTheEdge()
     {
         RaycastHit2D raycastHit2D = flipX ?
             Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, 1.22f, layerMaskEdge) :
@@ -335,13 +351,13 @@ public class main_character : MonoBehaviour
         return !raycastHit2D.collider ? -1 : !flipX ? 1 : 0;
     }
 
-    private int meetEdgeAndFall()
+    private int MeetEdgeAndFall()
     {
-        return isGrounded(extraHeight)? -1 : isMeetTheEdge();
+        return IsGrounded(extraHeight)? -1 : IsMeetTheEdge();
     }
 
     // Roll
-    private IEnumerator rollTo()
+    private IEnumerator Roll()
     {
         currentDistanceRoll = !flipX ? distanceRoll : -distanceRoll;
         float targetX = transform.position.x + currentDistanceRoll;
@@ -350,14 +366,14 @@ public class main_character : MonoBehaviour
         while (!finishRoll)
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), rollSpeed * Time.deltaTime);
-            int meetTheEdge = isMeetTheEdge();
+            int meetTheEdge = IsMeetTheEdge();
             finishRoll = (Math.Abs(transform.position.x - targetX) <= 0.1f) || meetTheEdge >= 0;
             //Debug.Log("X: " + transform.position.x   + "v: " + rollSpeed * Time.deltaTime + "Delta roll: " + Math.Abs(transform.position.x - targetX) + " Should stop roll: " + finishRoll);
 
             yield return null;
         }
     }
-    public int getCurrentFlaskAmount()
+    public int GetCurrentFlaskAmount()
     {
         return number_flask;
     }
@@ -373,6 +389,7 @@ public class main_character : MonoBehaviour
             foreach(Collider2D enemy in hitEnemies)
             {
                 Debug.Log("Hit: " + enemy.name);
+                audioManager.PlaySFXMusic("hit");
                 if (enemy.name.ToLower() == "demon" || enemy.name.ToLower() == "nightborne")
                 {
                     enemy.GetComponent<BossHealth>().takeHit(damage);
@@ -383,6 +400,10 @@ public class main_character : MonoBehaviour
                 }
             }
         }
+    }
+    public void PlayAttackSound(int i)
+    {
+        audioManager.PlaySFXMusic("attack" + i);
     }
 
     private void OnDrawGizmosSelected()
@@ -397,7 +418,8 @@ public class main_character : MonoBehaviour
         death = healthBar.death();
         return death;
     }
-    public void takeDameage(float dmg)
+
+    public void TakeDameage(float dmg)
     {
         if (death)
         {
@@ -439,12 +461,14 @@ public class main_character : MonoBehaviour
                         transform.position,
                         new Vector3(transform.position.x + deltaX, transform.position.y, transform.position.z),
                         moveSpeed * Time.deltaTime);
+                    audioManager.PlaySFXMusic("block");
                 }
             }
             else
             {
                 setTriggerAnimation(ANIMATION_PERFECT_BLOCK);
                 healthBar.heal(dmg);
+                audioManager.PlaySFXMusic("perfect_block");
             }
         }
     }

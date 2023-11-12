@@ -60,7 +60,7 @@ public class enemy_attack : MonoBehaviour
             {
                 //deal damage to player
                 Debug.Log("collider with player");
-                main_character.instance.takeDameage(10f);
+                main_character.instance.TakeDameage(10f);
             }
         }
     }

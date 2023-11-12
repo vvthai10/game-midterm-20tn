@@ -10,10 +10,10 @@ public class UIVolumeController : MonoBehaviour
 
     void Start() {
         if(!PlayerPrefs.HasKey("bgVolume")) {
-            PlayerPrefs.SetFloat("bgVolume", 1);
+            PlayerPrefs.SetFloat("bgVolume", 0.5f);
         }
         if(!PlayerPrefs.HasKey("ambientVolume")) {
-            PlayerPrefs.SetFloat("ambientVolume", 1);
+            PlayerPrefs.SetFloat("ambientVolume", 0.2f);
         }
         if(!PlayerPrefs.HasKey("sfxVolume")) {
             PlayerPrefs.SetFloat("sfxVolume", 1);

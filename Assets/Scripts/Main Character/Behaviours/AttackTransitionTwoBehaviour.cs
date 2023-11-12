@@ -18,6 +18,7 @@ public class AttackTransitionTwoBehaviour : StateMachineBehaviour
             main_character.instance.setTriggerAnimation(main_character.ANIMATION_ATTACK_THREE);
             main_character.instance.inputManager();
             main_character.instance.inputReceived = false;
+            main_character.instance.PlayAttackSound(3);
         }
     }
         // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -327,7 +327,7 @@ Transform:
   m_LocalScale: {x: 0.35, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4168417373203471723}
+  m_Father: {fileID: 4242138453437272408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1668587123214812642
 Animator:
@@ -675,7 +675,7 @@ Transform:
   m_GameObject: {fileID: 1816745462628415895}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.0597544, y: 4.1498876, z: -15.824634}
+  m_LocalPosition: {x: 2.8929234, y: 4.1392374, z: -15.824634}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.5824634}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1942,9 +1942,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.6319262}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8537419029721389396}
   - {fileID: 1060924162902680147}
-  - {fileID: 7302420501435558644}
   - {fileID: 9082657373943496440}
   - {fileID: 4242138453437272408}
   m_Father: {fileID: 0}
@@ -2037,12 +2035,16 @@ MonoBehaviour:
   number_flask: 5
   canReceiveInput: 1
   inputReceived: 0
+  attackPoint: {fileID: 0}
   layerMaskGround:
     serializedVersion: 2
     m_Bits: 64
   layerMaskEdge:
     serializedVersion: 2
     m_Bits: 128
+  layerMaskEnemy:
+    serializedVersion: 2
+    m_Bits: 0
   anim: {fileID: 0}
   charater: {fileID: 0}
   staminaBar: {fileID: 3176370441223325979}
@@ -2121,7 +2123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4242138453437272408}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Effects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2139,7 +2141,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8537419029721389396}
+  - {fileID: 7302420501435558644}
   m_Father: {fileID: 4168417373203471723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7693804508983885292
@@ -2170,11 +2174,11 @@ Transform:
   m_GameObject: {fileID: 7693804508983885292}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.28681967}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1.5824634}
+  m_LocalPosition: {x: 0, y: 1, z: -0.2868197}
+  m_LocalScale: {x: 0.10000001, y: 0.10000001, z: 1.5824634}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4168417373203471723}
+  m_Father: {fileID: 4242138453437272408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1200014717917784034
 Animator:

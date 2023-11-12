@@ -11,6 +11,16 @@ public class AudioManager : MonoBehaviour
     public Sound[] bgSounds, ambientSounds, sfxSounds;
     public AudioSource bgSource, ambientSource, sfxSource;
 
+    public static string RUN = "run";
+    public static string WALK = "walk";
+    public static string JUMP_START = "jump_start";
+    public static string JUMP_END = "run";
+    public static string ATTACK1 = "attack1";
+    public static string ATTACK2 = "attack2";
+    public static string ATTACK3 = "attack3";
+    public static string HIT = "hit";
+
+    List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK };
     private void Awake() {
         if(AudioManager.Instance == null) {
             Debug.Log("[INFO] init");
@@ -25,9 +35,10 @@ public class AudioManager : MonoBehaviour
     private void Start(){
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0) {
-            PlayBackgroundMusic("background");
+            PlayBackgroundMusic("menu");
         }
         else{
+            PlayBackgroundMusic("Elphael");
             PlayAmbientMusic("rain");
         }
     }
@@ -35,7 +46,7 @@ public class AudioManager : MonoBehaviour
     public void PlayBackgroundMusic(string name) {
         Sound s = Array.Find(bgSounds, x => x.name == name);
         if (s == null) {
-            Debug.Log("Sound Not Found");
+            Debug.Log(name + "Background Sound Not Found");
         } else {
             bgSource.enabled = true;
             bgSource.clip = s.clip;
@@ -46,7 +57,7 @@ public class AudioManager : MonoBehaviour
     public void PlayAmbientMusic(string name) {
         Sound s = Array.Find(ambientSounds, x => x.name == name);
         if (s == null) {
-            Debug.Log("Sound Not Found");
+            Debug.Log(name + " Ambient Sound Not Found");
         } else {
             ambientSource.enabled = true;
             ambientSource.clip = s.clip;
@@ -54,12 +65,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFXMusic(string name) {
+    public void PlaySFXMusic(string name, float speed = 1f) {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null) {
-            Debug.Log("Sound Not Found");
-        } else {
+            Debug.Log(name + " SFX Sound Not Found");
+            return;
+        } else if (sfx_have_time_exit.Find(x => x == name) == null || !sfxSource.isPlaying) {
             sfxSource.enabled = true;
+            sfxSource.pitch = speed;
             sfxSource.PlayOneShot(s.clip);
         }
     }
