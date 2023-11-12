@@ -9,10 +9,24 @@ public class BossGeneral : MonoBehaviour
     public bool initiallyFacingRight;
     public bool isEnraged = false;
     public bool canEnrage = false;
+    public AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         targetedPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        if (bossName.ToLower() == "demon")
+        {
+            audioManager.PlayBackgroundMusic("Boss 2");
+        } else if (bossName.ToLower() == "nightborne")
+        {
+            audioManager.PlayBackgroundMusic("Boss 1");
+        }
     }
 
     public void LookAtPlayer()

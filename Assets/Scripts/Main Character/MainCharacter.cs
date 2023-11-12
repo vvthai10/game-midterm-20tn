@@ -433,11 +433,13 @@ public class main_character : MonoBehaviour
             if (healthBar.death())
             {
                 death = true;
+                audioManager.PlaySFXMusic("death");
                 DestroyObjectDelayed();
             }
             else
             {
                 setTriggerAnimation(ANIMATION_HURT);
+                audioManager.PlaySFXMusic("hurt");
                 bleedAnim.playBleedAnimation();
             }
 
@@ -451,6 +453,7 @@ public class main_character : MonoBehaviour
                 if (Death())
                 {
                     death = true;
+                    audioManager.PlaySFXMusic("death");
                     DestroyObjectDelayed();
                 }
                 else

@@ -23,6 +23,8 @@ public class BossHealth : MonoBehaviour
         boss = GetComponent<BossGeneral>();
         currentHP = MaxHP;
         //healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
+        healthBar.Show();
+        healthBar.SetName(boss.bossName);
     }
 
     private void Update()
