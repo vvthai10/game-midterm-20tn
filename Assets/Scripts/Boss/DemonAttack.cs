@@ -45,10 +45,10 @@ public class BossAttack : MonoBehaviour
         //        main_character.instance.takeDameage(attackDamage);
         //        //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
         //    }
-        if (this.   ())
-        {
-            main_character.instance.takeDameage(attackDamage);
-        }
+        //if (this.)
+        //{
+        //    main_character.instance.takeDameage(attackDamage);
+        //}
     }
 
     public bool PlayerIsInAttackRange()
