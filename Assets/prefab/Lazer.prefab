@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7537271739561755286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: center_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7618952748319464306}
   - component: {fileID: 5824447453681515627}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 379875731171302417}
   - component: {fileID: 1648130399693505161}
   - component: {fileID: 6925075463711372855}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 2492926768391799762}
   - component: {fileID: 8351427899886987567}
   - component: {fileID: 4273458897978504273}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8952534687295604667}
   - component: {fileID: 2592701263364500648}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ease Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 4665522527554432820}
   - component: {fileID: 6289480438932239056}
   - component: {fileID: 7095169097400145542}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 7968120746365873100}
   - component: {fileID: 6896841466434620448}
   - component: {fileID: 198368361928844774}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lazer
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -674,8 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644bf823494be1545b631546206eebf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  areaAttackStart: {fileID: 0}
+  areaAttackEnd: {fileID: 0}
   detectAreaHeight: 4
 --- !u!114 &7968120746365873100
 MonoBehaviour:
@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 5415117841491883335}
 --- !u!114 &6896841466434620448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,8 +704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  limitedStart: {fileID: 0}
+  limitedEnd: {fileID: 0}
 --- !u!114 &198368361928844774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814685317941174553}
   - component: {fileID: 6194684253983555404}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar Regen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4665159204921278051}
   - component: {fileID: 5415117841491883335}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 8697761968256135871}
   - component: {fileID: 2353509634476427545}
   - component: {fileID: 6325164910238950772}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 1725625499085075922}
   - component: {fileID: 3307315061515971569}
   - component: {fileID: 809784471375832831}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 8303654411068760425}
   - component: {fileID: 7942182515953360866}
   - component: {fileID: 2527049133457083502}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BottomBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,7 +1103,7 @@ GameObject:
   - component: {fileID: 762456036739104082}
   - component: {fileID: 646592421464468153}
   - component: {fileID: 553000999646580720}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: RightBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
