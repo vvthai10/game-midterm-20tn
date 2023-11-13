@@ -23,8 +23,10 @@ public class Shop : MonoBehaviour
     {
         if(userInRange)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            Debug.Log("User in range");
+            if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("User in range and click E");
                 shopDialogController.SetActive(true);
             }
         }

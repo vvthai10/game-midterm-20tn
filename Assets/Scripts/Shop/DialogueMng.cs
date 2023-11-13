@@ -10,20 +10,7 @@ public class DialogueMng : MonoBehaviour
     public float showSpeed;
 
     private Coroutine showCo;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            StartCoroutine(ShowCo());
-        }
-    }
 
     private IEnumerator ShowCo()
     {

@@ -230,7 +230,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &923642270470352873
 MonoBehaviour:
@@ -527,25 +527,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopItems:
-  - price: 500
+  - price: 30
     amount: 10
-    name: Binh mau
-    description: Phuc hoi luong mau nho
+    name: Potions
+    description: Restores a small amount of health
     hud: {fileID: -1837609886, guid: 6e8eb81b08fcec34bb8554797f09c903, type: 3}
-  - price: 600
+  - price: 50
     amount: 10
-    name: Binh tang hoi the luc
-    description: Giup tang toc do hoi the luc
+    name: Stamina Regen
+    description: Helping increase your stamina regen speed
     hud: {fileID: 520919587, guid: 6e8eb81b08fcec34bb8554797f09c903, type: 3}
-  - price: 1000
+  - price: 70
     amount: 10
-    name: Binh tang mau
-    description: Tang vinh vien mau toi da
+    name: 'Increase Blood '
+    description: Permanently increases maximum health
     hud: {fileID: 843135897, guid: 6e8eb81b08fcec34bb8554797f09c903, type: 3}
-  - price: 1000
+  - price: 70
     amount: 10
-    name: Binh tang the luc
-    description: Tang vinh vien the luc toi da
+    name: Increase Stamina
+    description: Permanently increases maximum stamina
     hud: {fileID: 1809495998, guid: 6e8eb81b08fcec34bb8554797f09c903, type: 3}
 --- !u!1 &8390821192215113675
 GameObject:
@@ -592,6 +592,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogTxt: {fileID: 154305794527120791}
-  sentence: "Nhi\u1EC1u m\u1EB7t h\xE0ng th\xFA v\u1ECB \u0111ang c\xF3 t\u1EA1i
-    \u0111\xE2y. B\u1EA5m E \u0111\u1EC3 xem"
+  sentence: Many interesting items are available here. Press E to view
   showSpeed: 0.05

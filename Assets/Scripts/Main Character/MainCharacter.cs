@@ -526,6 +526,12 @@ public class main_character : MonoBehaviour
         number_flask += numberFlash;
     }
 
+    public void BoughtItem(float money)
+    {
+        souls -=(int)money;
+        SoulAmount.instance.UpdateSouls(souls);
+
+    }
     private void FixedUpdate()
     {
         if (death)

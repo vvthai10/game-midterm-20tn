@@ -22,11 +22,6 @@ public class enemy_damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("key click");
-            TakeDamage(25);
-        }
     }
 
     //Player call this func when attack enemy
