@@ -521,6 +521,11 @@ public class main_character : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
+    public void IncreaseFlask(int numberFlash)
+    {
+        number_flask += numberFlash;
+    }
+
     private void FixedUpdate()
     {
         if (death)
