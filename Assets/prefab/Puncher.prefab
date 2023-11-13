@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1944309271662940867}
   - component: {fileID: 8299017476023097308}
   - component: {fileID: 7293479603073847969}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1067695385799730022}
   - component: {fileID: 6190181769672932961}
   - component: {fileID: 4457725219369873449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Puncher
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  limitedStart: {fileID: 0}
+  limitedEnd: {fileID: 0}
 --- !u!114 &6968204166745501755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644bf823494be1545b631546206eebf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  areaAttackStart: {fileID: 0}
+  areaAttackEnd: {fileID: 0}
   detectAreaHeight: 4
 --- !u!114 &6076677889122036437
 MonoBehaviour:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0799a6bbe6ecc4249beee8d3577343a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1.51
+  attackRange: 1.56
   centerAttack: {fileID: 2551769737740869153}
   type: 0
   attackWidth: 0
@@ -349,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7011557089930776925}
   - component: {fileID: 308931197531360140}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar Regen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 379175536397161051}
   - component: {fileID: 9163883982835938210}
   - component: {fileID: 746569799651358748}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5579097794381680784}
   - component: {fileID: 1867615434584569279}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 501012705462121083}
   - component: {fileID: 2709227887775584226}
   - component: {fileID: 8303377734640871224}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 4507476267350286816}
   - component: {fileID: 7284491373707504165}
   - component: {fileID: 7766610456775393911}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 8283309287090062547}
   - component: {fileID: 7509603080844070000}
   - component: {fileID: 3894367232128326739}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8183335813552495385}
   - component: {fileID: 167579211228338695}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ease Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -909,7 +909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464258734555330577}
   - component: {fileID: 5976690492341835287}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,7 +1000,7 @@ GameObject:
   - component: {fileID: 6442060766089038595}
   - component: {fileID: 7152604740118966287}
   - component: {fileID: 2195546339940076252}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BottomBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1073,7 +1073,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2276856568571630980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: center_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 4152436922494597912}
   - component: {fileID: 728008535446212880}
   - component: {fileID: 6843454401916042297}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: RightBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
