@@ -96,6 +96,12 @@ public class BossHealth : MonoBehaviour
         
     }
 
+    public bool IsDeath()
+    {
+        return currentHP <= 0;
+    }
+
+
     // event called at the end of "death" animation
     public void DestroySelf()
     {

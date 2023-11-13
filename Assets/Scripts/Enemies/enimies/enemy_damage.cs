@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class enemy_damage : MonoBehaviour
 {
+    private int souls;
     public float hp = 100;
     private bool deathState = false;
     public HealthBar healthBar;
     Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        System.Random rnd = new System.Random();
+        souls = rnd.Next(100, 150);
     }
 
     // Update is called once per frame
@@ -44,6 +49,10 @@ public class enemy_damage : MonoBehaviour
         return deathState;
     }
 
+    public int getSouls()
+    {
+        return souls;
+    }
     public void Die()
     {
         Destroy(gameObject);
