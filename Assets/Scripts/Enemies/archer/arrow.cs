@@ -25,7 +25,7 @@ public class arrow : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             //Deal damage to player
-            main_character.instance.takeDameage(20f);
+            main_character.instance.TakeDameage(20f);
             Destroy(gameObject);
         }
        

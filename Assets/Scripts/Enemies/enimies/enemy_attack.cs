@@ -60,42 +60,9 @@ public class enemy_attack : MonoBehaviour
             {
                 //deal damage to player
                 Debug.Log("collider with player");
-                main_character.instance.takeDameage(10f);
+                main_character.instance.TakeDameage(10f);
             }
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if(type == RangeAttackType.Melee)
-        {
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-        } else
-        {
-            if(patrol.isFaceLimited2()) {
-                Gizmos.DrawLineStrip(
-                    new Vector3[4]
-                    {
-                        new Vector3(centerAttack.position.x, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x + attackWidth, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x + attackWidth, centerAttack.position.y - attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x, centerAttack.position.y - attackHeight / 2, 0)
-                    },
-                    true);
-            } else
-            {
-                 Gizmos.DrawLineStrip(
-                    new Vector3[4]
-                    {
-                        new Vector3(centerAttack.position.x, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x - attackWidth, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x - attackWidth, centerAttack.position.y - attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x, centerAttack.position.y - attackHeight / 2, 0)
-                    },
-                    true);
-            }
-        }
-       
     }
 }
 

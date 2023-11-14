@@ -17,7 +17,8 @@ public class AttackTransitionOneBehaviour : StateMachineBehaviour
         {
             main_character.instance.setTriggerAnimation(main_character.ANIMATION_ATTACK_TWO);
             main_character.instance.inputManager();
-            main_character.instance.inputReceived = false; 
+            main_character.instance.inputReceived = false;
+            main_character.instance.PlayAttackSound(2);
         }
     }
 

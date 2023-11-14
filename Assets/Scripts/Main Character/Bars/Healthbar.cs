@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    public static HealthBar instance;
+
     public Slider healthSlider;
     public Slider regenHealthSlider;
     public Slider easeHealthSlider;
@@ -14,7 +16,9 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IncreaseMaxHealth(0);
         health = maxHealth;
+        instance = this;
     }
 
     // Update is called once per frame
@@ -46,12 +50,21 @@ public class HealthBar : MonoBehaviour
     public void heal(float amount)
     {
         health += amount;
-        if(health > 100) {
-            health = 100;
+        if(health > maxHealth) {
+            health = maxHealth;
         }
     }
     public bool death()
     {
         return health <= 0;
+    }
+
+    public void IncreaseMaxHealth(float amount)
+    {
+        maxHealth += amount;
+
+        healthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        easeHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        regenHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
     }
 }

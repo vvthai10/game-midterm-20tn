@@ -15,6 +15,6 @@ public class FlaskAmount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _textMeshPro.text = main_character.instance.getCurrentFlaskAmount().ToString();
+        _textMeshPro.text = main_character.instance.GetCurrentFlaskAmount().ToString();
     }
 }

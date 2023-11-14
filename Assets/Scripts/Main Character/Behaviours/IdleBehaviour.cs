@@ -18,6 +18,7 @@ public class IdleBehaviour : StateMachineBehaviour
             main_character.instance.setTriggerAnimation(main_character.ANIMATION_ATTACK_ONE);
             main_character.instance.inputManager();
             main_character.instance.inputReceived = false;
+            main_character.instance.PlayAttackSound(1);
         }
     }
 

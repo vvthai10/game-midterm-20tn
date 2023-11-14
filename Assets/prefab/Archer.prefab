@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8501905140618474251}
   - component: {fileID: 1744015569423645648}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2861609925316720013}
   - component: {fileID: 2576763409472523271}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar Regen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4555762160842937670}
   - component: {fileID: 5243216144925454283}
   - component: {fileID: 2566895303446908733}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 1459678393363416447}
   - component: {fileID: 7657423782579999966}
   - component: {fileID: 2097008632611482204}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 5196830851183260110}
   - component: {fileID: 2476839740168669912}
   - component: {fileID: 5774180871317411555}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 2693939286902890141}
   - component: {fileID: 7303780787587897531}
   - component: {fileID: 5976876823969184056}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 4001687030584627017}
   - component: {fileID: 4359294882929428440}
   - component: {fileID: 693387336165346534}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1580690738346163595}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: fire_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 5797637926558332514}
   - component: {fileID: 6333904471005139851}
   - component: {fileID: 3012120391667561652}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: RightBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579749129836575569}
   - component: {fileID: 2409823960738968576}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 6204900673680050602}
   - component: {fileID: 4532953183000470916}
   - component: {fileID: 8606844797881017763}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BottomBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3341474754317457951}
   - component: {fileID: 1553879658275520322}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Ease Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 6926768997066338601}
   - component: {fileID: 891271797195846865}
   - component: {fileID: 5797677342200890701}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,8 +1159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  limitedStart: {fileID: 0}
+  limitedEnd: {fileID: 0}
 --- !u!114 &891271797195846865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,8 +1173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644bf823494be1545b631546206eebf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limited1: {fileID: 0}
-  limited2: {fileID: 0}
+  areaAttackStart: {fileID: 0}
+  areaAttackEnd: {fileID: 0}
   detectAreaHeight: 6
 --- !u!114 &5797677342200890701
 MonoBehaviour:
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0799a6bbe6ecc4249beee8d3577343a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 6
+  attackRange: 5
   centerAttack: {fileID: 1457593608483283004}
   type: 2
   attackWidth: 0

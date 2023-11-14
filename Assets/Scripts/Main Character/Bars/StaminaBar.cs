@@ -21,6 +21,7 @@ public class StaminaBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IncreaseStaminaAmount(0);
         stamina = maxStamina;
         lastTime = DateTime.Now;
         instance = this;
@@ -85,5 +86,16 @@ public class StaminaBar : MonoBehaviour
             //Debug.Log("Regen...");
             stamina = Mathf.Min(maxStamina, stamina + regenSpeed);
         }
+    }
+
+    public void IncreseStaminaRegenSpeed(float speed)
+    {
+        regenSpeed += speed;
+    }
+
+    public void IncreaseStaminaAmount(float amount) {
+        maxStamina += amount;
+        staminaSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxStamina);
+        easeStaminaSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxStamina);
     }
 }
