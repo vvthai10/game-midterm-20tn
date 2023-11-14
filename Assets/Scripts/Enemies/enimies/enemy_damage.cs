@@ -8,7 +8,7 @@ public class enemy_damage : MonoBehaviour
     private int souls;
     public float hp = 100;
     private bool deathState = false;
-    public HealthBar healthBar;
+    public enemy_healthbar healthBar;
     Animator animator;
 
     // Start is called before the first frame update
