@@ -37,7 +37,6 @@ public class ItemDetail : MonoBehaviour
         main_character.instance.BoughtItem(item.price);
         //Hieu qua khi mua cua loai thuoc
         effect.OnItemBuy(idx);
-        
         return true;
 
     }
