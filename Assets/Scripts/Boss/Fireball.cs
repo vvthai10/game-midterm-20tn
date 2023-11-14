@@ -6,8 +6,10 @@ public class Fireball : MonoBehaviour
 {
     public float speed = 1;
     public float damage = 20;
+    public float lifetime = 5;
     private bool hit;
     private float direction;
+    private float lifetimeTimer = 0;
 
     private Animator animator;
     private BoxCollider2D boxcollider;
@@ -34,6 +36,10 @@ public class Fireball : MonoBehaviour
 
         transform.Translate(movementSpeed, 0, 0);
 
+        lifetimeTimer += Time.deltaTime;
+        if(lifetimeTimer > lifetime)
+            this.Deactivate();
+
         //Debug.Log("new transform position x: " + transform.position.x.ToString());
     }
 
@@ -50,6 +56,7 @@ public class Fireball : MonoBehaviour
 
     public void SetDirection(float _direction)
     {
+        lifetimeTimer = 0;
         direction = _direction;
         gameObject.SetActive(true);
         hit = false;

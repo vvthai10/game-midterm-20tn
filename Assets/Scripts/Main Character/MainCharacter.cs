@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using static Cinemachine.CinemachineTargetGroup;

@@ -67,7 +67,16 @@ public class BossAttack : MonoBehaviour
     private void ShootFireball()
     {
         cooldownTimer = 0;
-        fireballs[0].transform.position = fireballPoint.position;
-        fireballs[0].GetComponent<Fireball>().SetDirection(Mathf.Sign(boss.targetedPlayer.position.x - fireballPoint.position.x));
+        fireballs[FindFireball()].transform.position = fireballPoint.position;
+        fireballs[FindFireball()].GetComponent<Fireball>().SetDirection(Mathf.Sign(boss.targetedPlayer.position.x - fireballPoint.position.x));
+    }
+
+    private int FindFireball()
+    {
+        for (int i = 0; i< fireballs.Length; i++)
+        {
+            if (fireballs[i].activeInHierarchy) return i;
+        }
+        return 0;
     }
 }
