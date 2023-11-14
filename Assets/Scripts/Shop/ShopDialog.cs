@@ -30,7 +30,7 @@ public class ShopDialog : MonoBehaviour
                 var itemUIClone = Instantiate(shopItemUIPb, Vector3.zero, Quaternion.identity);
         
                 itemUIClone.transform.SetParent(gridRoot);
-                itemUIClone.transform.localScale = Vector3.one;
+                itemUIClone.transform.localScale = new Vector3(0.75f,0.75f,1);
                 itemUIClone.transform.localPosition = Vector3.zero;
                 itemUIClone.GetComponent<ShopItemUI>().UpdateUI(item);
                 Button btn = itemUIClone.GetComponent<ShopItemUI>().button;
