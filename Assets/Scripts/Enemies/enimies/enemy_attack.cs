@@ -64,39 +64,6 @@ public class enemy_attack : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if(type == RangeAttackType.Melee)
-        {
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-        } else
-        {
-            if(patrol.isFaceLimited2()) {
-                Gizmos.DrawLineStrip(
-                    new Vector3[4]
-                    {
-                        new Vector3(centerAttack.position.x, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x + attackWidth, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x + attackWidth, centerAttack.position.y - attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x, centerAttack.position.y - attackHeight / 2, 0)
-                    },
-                    true);
-            } else
-            {
-                 Gizmos.DrawLineStrip(
-                    new Vector3[4]
-                    {
-                        new Vector3(centerAttack.position.x, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x - attackWidth, centerAttack.position.y + attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x - attackWidth, centerAttack.position.y - attackHeight / 2, 0),
-                        new Vector3(centerAttack.position.x, centerAttack.position.y - attackHeight / 2, 0)
-                    },
-                    true);
-            }
-        }
-       
-    }
 }
 
 public enum RangeAttackType

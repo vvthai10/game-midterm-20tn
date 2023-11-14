@@ -10,7 +10,10 @@ public class BossGeneral : MonoBehaviour
     public bool isEnraged = false;
     public bool canEnrage = false;
     public AudioManager audioManager;
-
+    private Dictionary<string, int> souls = new Dictionary<string, int>() {
+        { "demon", 100000},
+        {"nightborne", 10000 }
+    };
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -41,4 +44,8 @@ public class BossGeneral : MonoBehaviour
         }
     }
 
+    public int getSouls(string bossName)
+    {
+        return souls[bossName.ToLower()];
+    }
 }

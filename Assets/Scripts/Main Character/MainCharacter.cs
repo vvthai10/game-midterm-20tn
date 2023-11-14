@@ -13,6 +13,7 @@ public class main_character : MonoBehaviour
     public static main_character instance;
 
     public int number_flask;
+    public int souls;
     public const int max_flask = 5;
     private float amount_health_heal = 0.3f;
 
@@ -116,7 +117,7 @@ public class main_character : MonoBehaviour
     private const float distanceRoll = 7.5f;
     private const float moveSpeed = 10f;
     private const float jumpSpeed = 30f;
-    private const  float jumpVelocityRatioWhileHoldingEdge = 2.75f;
+    private const  float jumpVelocityRatioWhileHoldingEdge = 2.5f;
     private const float resistVelocityRatioWhileHoldingEdge = 0.5f;
     private const float timeExecuteJumpWhileHoldingEdge = 0.5f;
     private const float rollSpeed = 20f;
@@ -390,13 +391,23 @@ public class main_character : MonoBehaviour
             {
                 Debug.Log("Hit: " + enemy.name);
                 audioManager.PlaySFXMusic("hit");
-                if (enemy.name.ToLower() == "demon" || enemy.name.ToLower() == "nightborne")
+                string name = enemy.name.ToLower();
+                if (name == "demon" || name == "nightborne")
                 {
                     enemy.GetComponent<BossHealth>().takeHit(damage);
+                    if (enemy.GetComponent<BossHealth>().IsDeath()) {
+                        souls += enemy.GetComponent<BossGeneral>().getSouls(name);
+                        SoulAmount.instance.UpdateSouls(souls);
+                    }
                 }
                 else
                 {
                     enemy.GetComponent<enemy_damage>().TakeDamage(damage);
+                    if (enemy.GetComponent<enemy_damage>().isDeath())
+                    {
+                        souls += enemy.GetComponent<enemy_damage>().getSouls();
+                        SoulAmount.instance.UpdateSouls(souls);
+                    }
                 }
             }
         }
@@ -434,6 +445,7 @@ public class main_character : MonoBehaviour
             {
                 death = true;
                 audioManager.PlaySFXMusic("death");
+                DeathBanner.instance.ShowUI();
                 DestroyObjectDelayed();
             }
             else
@@ -454,6 +466,7 @@ public class main_character : MonoBehaviour
                 {
                     death = true;
                     audioManager.PlaySFXMusic("death");
+                    DeathBanner.instance.ShowUI();
                     DestroyObjectDelayed();
                 }
                 else
@@ -508,6 +521,17 @@ public class main_character : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
+    public void IncreaseFlask(int numberFlash)
+    {
+        number_flask += numberFlash;
+    }
+
+    public void BoughtItem(float money)
+    {
+        souls -=(int)money;
+        SoulAmount.instance.UpdateSouls(souls);
+
+    }
     private void FixedUpdate()
     {
         if (death)

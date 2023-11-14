@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     public static string HIT = "hit";
 
     List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK };
+
     private void Awake() {
         if(AudioManager.Instance == null) {
             Debug.Log("[INFO] init");
@@ -35,7 +36,7 @@ public class AudioManager : MonoBehaviour
     private void Start(){
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0) {
-            PlayBackgroundMusic("menu");
+            PlayBackgroundMusic("Menu");
         }
         else{
             PlayBackgroundMusic("Elphael");
@@ -46,10 +47,11 @@ public class AudioManager : MonoBehaviour
     public void PlayBackgroundMusic(string name) {
         Sound s = Array.Find(bgSounds, x => x.name == name);
         if (s == null) {
-            Debug.Log(name + "Background Sound Not Found");
+            Debug.Log(name + " Background Sound Not Found");
         } else {
             bgSource.enabled = true;
             bgSource.clip = s.clip;
+            Debug.Log("Music name: " + name);
             bgSource.Play();
         }
     }

@@ -3518,6 +3518,10 @@ PrefabInstance:
       propertyPath: defaultMusicStart
       value: background
       objectReference: {fileID: 0}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: bgSounds.Array.data[0].name
+      value: Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 4546197835341232581, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
