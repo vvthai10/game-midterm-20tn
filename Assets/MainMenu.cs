@@ -35,9 +35,10 @@ public class MainMenu : MonoBehaviour
     //     }
     // }
 
-    public void PlayGame() {
+    public void PlayGame(string type) {
         AudioManager.Instance.bgSource.Stop();
-        AudioManager.Instance.PlayAmbientMusic("rain");;
+        AudioManager.Instance.PlayAmbientMusic("rain");
+        Debug.Log(type);
         SceneManager.LoadSceneAsync(1);
     }
 
