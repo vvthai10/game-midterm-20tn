@@ -23,13 +23,18 @@ public class BossHealth : MonoBehaviour
         boss = GetComponent<BossGeneral>();
         currentHP = MaxHP;
         //healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
+    }
+
+    public void IntroHealthBar()
+    {
+        healthBar.ResetFill();
         healthBar.Show();
         healthBar.SetName(boss.bossName);
     }
 
     private void Update()
     {
-        Debug.Log("Boss health: " + currentHP);
+        //Debug.Log("Boss health: " + currentHP);
         if (regenEnabled && currentHP / MaxHP < regenWhenUnder)
         {
             if (regenTimer > regenAfter)
@@ -77,7 +82,7 @@ public class BossHealth : MonoBehaviour
                 else if (boss.name.ToLower() == "nightborne")
                 {
                     animator.GetBehaviour<NightborneBehaviour>().speed *= 1.5f;
-                    animator.speed = 1.5f;
+                    animator.speed = 1.25f;
                 }
                 return;
             }
