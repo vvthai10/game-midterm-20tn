@@ -3197,11 +3197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9082657373943496440, guid: 823edbe355a84ac468e8b575a927201e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.059947968
+      value: 0.13015747
       objectReference: {fileID: 0}
     - target: {fileID: 9082657373943496440, guid: 823edbe355a84ac468e8b575a927201e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.83125
+      value: -4.8312626
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3623,7 +3623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
       propertyPath: sfxSounds.Array.size
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
       propertyPath: bgSounds.Array.data[0].name
@@ -3756,6 +3756,30 @@ PrefabInstance:
     - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
       propertyPath: sfxSounds.Array.data[12].name
       value: death
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[13].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 610e7ac1c3669514f8e650141a98a032, type: 3}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[13].name
+      value: thunder
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[14].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b55c3a4b5ba3e3e41bde3de518f5e3c9, type: 3}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[14].name
+      value: teleport1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[15].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75b72a2dd7153a6439ae36af4205e716, type: 3}
+    - target: {fileID: 2163500836199604859, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
+      propertyPath: sfxSounds.Array.data[15].name
+      value: teleport2
       objectReference: {fileID: 0}
     - target: {fileID: 4546197835341232581, guid: 93b8fba304ad05d418561588afa1d272, type: 3}
       propertyPath: m_Pivot.x

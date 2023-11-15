@@ -17,18 +17,20 @@ public class BossHealth : MonoBehaviour
     public float regenAfter = 3f;
     private float regenTimer = 0;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         boss = GetComponent<BossGeneral>();
         currentHP = MaxHP;
-        //healthBar = GameObject.FindGameObjectWithTag("BossHealthBar").GetComponent<BossHealthBar>();
     }
 
     public void IntroHealthBar()
     {
         healthBar.ResetFill();
         healthBar.Show();
+        //Debug.Log("healthbar nullity: " + (healthBar == null).ToString());
+        //Debug.Log("boss nullity: " + (boss == null).ToString());
+        //Debug.Log("bossname nullity: " + (boss.bossName == null).ToString());
         healthBar.SetName(boss.bossName);
     }
 

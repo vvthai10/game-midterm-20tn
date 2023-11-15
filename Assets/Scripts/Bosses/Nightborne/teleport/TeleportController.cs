@@ -23,6 +23,7 @@ public class TeleportController : MonoBehaviour
     public void PlayAppearAnimation()
     {
         Reposition();
+        AudioManager.Instance.PlaySFXMusic("teleport2");
         animator.Play("appear");
     }
 
@@ -30,6 +31,7 @@ public class TeleportController : MonoBehaviour
     public void PlayDisappearAnimation()
     {
         Reposition();
+        AudioManager.Instance.PlaySFXMusic("teleport1");
         animator.Play("disappear");
     }
 

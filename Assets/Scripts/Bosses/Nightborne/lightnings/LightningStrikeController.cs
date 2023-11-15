@@ -16,6 +16,7 @@ public class LightningStrikeController : MonoBehaviour
 
     public void Play()
     {
+        AudioManager.Instance.PlaySFXMusic("thunder");
         this.Show();
         animator.Play("strike");
     }

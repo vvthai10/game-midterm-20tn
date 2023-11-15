@@ -15,11 +15,6 @@ public class BossHealthBar : MonoBehaviour
         upperSlider = GetComponent<Slider>();
         lowerFill = GetComponentInChildren<LowerFillController>();
         bossName = GetComponentInChildren<Text>();
-
-        Debug.Log("upperSlider: ", upperSlider);
-        Debug.Log("lowerFill: ", lowerFill);
-        Debug.Log("bossName: ", bossName);
-
         ResetFill();
         this.Hide();
     }

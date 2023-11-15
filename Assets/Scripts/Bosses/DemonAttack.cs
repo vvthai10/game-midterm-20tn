@@ -38,13 +38,6 @@ public class BossAttack : MonoBehaviour
     // event called at the middle of "attack" animation
     public void hit()
     {
-        //hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playersLayer);
-        //if (hitPlayers != null)
-        //    foreach (Collider2D hitPlayer in hitPlayers)
-        //    {
-        //        main_character.instance.takeDameage(attackDamage);
-        //        //hitPlayer.GetComponent<PlayerHealth>().takeHit(attackDamage);
-        //    }
         if (this.PlayerIsInAttackRange())
         {
             main_character.instance.TakeDameage(attackDamage);
@@ -68,14 +61,15 @@ public class BossAttack : MonoBehaviour
     {
         cooldownTimer = 0;
         fireballs[FindFireball()].transform.position = fireballPoint.position;
-        fireballs[FindFireball()].GetComponent<Fireball>().SetDirection(Mathf.Sign(boss.targetedPlayer.position.x - fireballPoint.position.x));
+        //float direction = Mathf.Sign(boss.targetedPlayer.position.x - fireballPoint.position.x);
+        fireballs[FindFireball()].GetComponent<Fireball>().SetLocalDirection(-1);
     }
 
     private int FindFireball()
     {
         for (int i = 0; i< fireballs.Length; i++)
         {
-            if (fireballs[i].activeInHierarchy) return i;
+            if (!fireballs[i].activeInHierarchy) return i;
         }
         return 0;
     }
