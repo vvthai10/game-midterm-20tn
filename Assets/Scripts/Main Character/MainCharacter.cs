@@ -353,7 +353,7 @@ public class main_character : MonoBehaviour
             number_flask--;
         }
 
-        Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
+        //Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
     }
 
     // RaycastHit handler

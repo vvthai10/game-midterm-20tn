@@ -25,7 +25,7 @@ public class SoulsIncrease : MonoBehaviour
     void Update()
     {
         _textMeshPro.text = "+ "  + souls.ToString();
-        Debug.Log("Increase: " + _textMeshPro.text);
+        //Debug.Log("Increase: " + _textMeshPro.text);
         if (fadeIn)
         {
             if (soulsIncreaseCanvas.alpha < 1)

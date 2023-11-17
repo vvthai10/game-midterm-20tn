@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossGeneral : MonoBehaviour
 {
     public Transform targetedPlayer;
+    
     public string bossName;
     public bool initiallyFacingRight;
     public bool isEnraged = false;
@@ -14,6 +16,8 @@ public class BossGeneral : MonoBehaviour
         { "demon", 100000},
         {"nightborne", 10000 }
     };
+
+
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -30,6 +34,7 @@ public class BossGeneral : MonoBehaviour
         {
             audioManager.PlayBackgroundMusic("Boss 1");
         }
+        this.Hide();
     }
 
     public void LookAtPlayer()
@@ -48,4 +53,15 @@ public class BossGeneral : MonoBehaviour
     {
         return souls[bossName.ToLower()];
     }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+    
 }

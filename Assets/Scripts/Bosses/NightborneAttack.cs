@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NightborneAttack : MonoBehaviour
 {
@@ -9,17 +10,41 @@ public class NightborneAttack : MonoBehaviour
     public float attackRange = 1f;
     public float attackDamage = 20f;
 
-    //public GameObject[] fireballs;
-    //public float fireballCooldown = 1;
-    //private float cooldownTimer = Mathf.Infinity;
+    // skills
+    public float teleportCooldown = 10f;
+    private float teleportTimer = 0f;
 
-
-    //private Collider2D[] hitPlayers = null;
     private BossGeneral boss;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private NightborneController controller;
+    
 
-    private void Start()
+    private void Awake()
     {
         boss = GetComponent<BossGeneral>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        controller = GetComponent<NightborneController>();
+    }
+
+    private void Update()
+    {
+        if (!boss.targetedPlayer)
+            return;
+
+        if (Vector2.Distance(rb.position, boss.targetedPlayer.position) < attackRange)
+        {
+            animator.Play("attack");
+        }
+
+
+        teleportTimer += Time.deltaTime;
+        if (teleportTimer >  teleportCooldown)
+        {
+            this.Teleport();
+            teleportTimer = 0;
+        }
     }
 
     // event called at the middle of "attack" animation
@@ -42,5 +67,12 @@ public class NightborneAttack : MonoBehaviour
     {
         if (attackPoint != null)
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+
+
+    public void Teleport()
+    {
+        controller.BeginTeleportChain(); // NightborneController
     }
 }
