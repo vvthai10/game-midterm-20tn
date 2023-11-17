@@ -505,7 +505,6 @@ public class main_character : MonoBehaviour
                 if (Death())
                 {
                     death = true;
-                    audioManager.PlaySFXMusic("death");
                     DeathBanner.instance.ShowUI();
                     DestroyObjectDelayed();
                 }

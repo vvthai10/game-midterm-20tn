@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DeathBanner : MonoBehaviour
+public class BossDeathBanner : MonoBehaviour
 {
     [SerializeField] private CanvasGroup deathBannerCanvas;
-    public static DeathBanner instance;
+    public static BossDeathBanner instance;
     private bool fadeIn = false;
     private bool fadeOut = false;
     private void Awake()
@@ -24,13 +23,14 @@ public class DeathBanner : MonoBehaviour
     {
         if (fadeIn)
         {
-            if(deathBannerCanvas.alpha < 1)
+            if (deathBannerCanvas.alpha < 1)
             {
-                deathBannerCanvas.alpha += Time.deltaTime;
+                deathBannerCanvas.alpha += Time.deltaTime / 1.5f;
             }
             else
             {
                 fadeIn = false;
+                HideUI();
             }
         }
         if (fadeOut)
@@ -38,7 +38,7 @@ public class DeathBanner : MonoBehaviour
             if (deathBannerCanvas.alpha > 0)
             {
 
-                deathBannerCanvas.alpha -= Time.deltaTime;
+                deathBannerCanvas.alpha -= Time.deltaTime / 5f;
             }
             else
             {
@@ -55,6 +55,6 @@ public class DeathBanner : MonoBehaviour
     public void ShowUI()
     {
         fadeIn = true;
-        AudioManager.Instance.PlaySFXMusic("death");
+        AudioManager.Instance.PlaySFXBossMusic("death");
     }
 }

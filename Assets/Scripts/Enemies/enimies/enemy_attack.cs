@@ -15,7 +15,12 @@ public class enemy_attack : MonoBehaviour
     public float attackWidth;
     public float attackHeight;
     Transform player;
-    
+    public static enemy_attack instance;
+
+    private void Awake()
+    {
+        instance = this; 
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -38,9 +43,12 @@ public class enemy_attack : MonoBehaviour
         if(type == RangeAttackType.Melee || type == RangeAttackType.Range)
         {
             colliders = Physics2D.OverlapCircleAll(centerAttack.position, attackRange);
-        }else
+            string enemyName = gameObject.name.ToLower();
+            PlaySFX();
+        }
+        else
         {
-            Debug.Log("Call");
+            PlaySFX();
             Vector2 topLeftPoint = new Vector2(centerAttack.position.x, centerAttack.position.y + attackHeight / 2);
             Vector2 bottomRightPoint; 
             if(patrol.isFaceLimited2())
@@ -62,6 +70,22 @@ public class enemy_attack : MonoBehaviour
                 Debug.Log("collider with player");
                 main_character.instance.TakeDameage(10f);
             }
+        }
+    }
+    public void PlaySFX()
+    {
+        string enemyName = gameObject.name.ToLower();
+        if (enemyName.Contains("lazer"))
+        {
+            AudioManager.Instance.PlaySFXLazerMusic("attack");
+        }
+        else if (enemyName.Contains("puncher"))
+        {
+            AudioManager.Instance.PlaySFXPuncherMusic("attack");
+        }
+        else if (enemyName.Contains("archer"))
+        {
+            AudioManager.Instance.PlaySFXArcherMusic("attack");
         }
     }
 }

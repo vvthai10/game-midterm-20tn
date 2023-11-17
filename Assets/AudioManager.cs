@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
                         sfxSource,
                         sfxPuncherSource,
                         sfxLazerSource,
-                        sfxArcher,
+                        sfxArcherSource,
                         sfxBossSource;
 
     public static string RUN = "run";
@@ -80,6 +80,71 @@ public class AudioManager : MonoBehaviour
             sfxSource.enabled = true;
             sfxSource.pitch = speed;
             sfxSource.PlayOneShot(s.clip);
+        }
+    }
+
+    public void PlaySFXLazerMusic(string name, float speed = 1f)
+    {
+        Sound s = Array.Find(sfxLazerSounds, x => x.name == name);
+        if (s == null)
+        {
+            Debug.Log(name + " SFX Sound Not Found");
+            return;
+        }
+        else
+        {
+            sfxLazerSource.enabled = true;
+            sfxLazerSource.pitch = speed;
+            sfxLazerSource.PlayOneShot(s.clip);
+        }
+    }
+
+    public void PlaySFXPuncherMusic(string name, float speed = 1f)
+    {
+        Sound s = Array.Find(sfxPuncherSounds, x => x.name == name);
+        if (s == null)
+        {
+            Debug.Log(name + " SFX Sound Not Found");
+            return;
+        }
+        else
+        {
+            sfxPuncherSource.enabled = true;
+            sfxPuncherSource.pitch = speed;
+            sfxPuncherSource.PlayOneShot(s.clip);
+        }
+    }
+
+    public void PlaySFXArcherMusic(string name, float speed = 1f)
+    {
+        Sound s = Array.Find(sfxArcherSounds, x => x.name == name);
+        if (s == null)
+        {
+            Debug.Log(name + " SFX Sound Not Found");
+            return;
+        }
+        else
+        {
+            sfxArcherSource.enabled = true;
+            sfxArcherSource.pitch = speed;
+            sfxArcherSource.PlayOneShot(s.clip);
+        }
+    }
+
+
+    public void PlaySFXBossMusic(string name, float speed = 1f)
+    {
+        Sound s = Array.Find(sfxBossSounds, x => x.name == name);
+        if (s == null)
+        {
+            Debug.Log(name + " SFX Sound Not Found");
+            return;
+        }
+        else
+        {
+            sfxBossSource.enabled = true;
+            sfxBossSource.pitch = speed;
+            sfxBossSource.PlayOneShot(s.clip);
         }
     }
 
