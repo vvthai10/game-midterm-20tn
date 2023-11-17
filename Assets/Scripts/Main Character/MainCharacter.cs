@@ -32,6 +32,7 @@ public class main_character : MonoBehaviour
     public const string ANIMATION_HURT = "hurt";
     public const string ANIMATION_WALL_SLIDE = "wall_slide";
     public const string ANIMATION_DEATH = "death";
+    public const string ANIMATION_COMBO = "combo";
 
     // List stamina cost
     public static string STAMINA_RUN_BOOST = "run--boost";
@@ -45,7 +46,7 @@ public class main_character : MonoBehaviour
     public static string STAMINA_NORMAL_BLOCK = "normal_block";
     public static string STAMINA_ATTACK = "attack";
     public static string STAMINA_WALL_SLIDE = "wall_slide";
-
+    public static string STAMINA_COMBO = "combo";
 
     List<string> list_bool_anims = new List<string>() {
         ANIMATION_RUN,
@@ -67,7 +68,8 @@ public class main_character : MonoBehaviour
         ANIMATION_HURT,
         ANIMATION_NORMAL_BLOCK,
         ANIMATION_PERFECT_BLOCK,
-        ANIMATION_DEATH
+        ANIMATION_DEATH,
+        ANIMATION_COMBO
     };
 
     Dictionary<string, float> stamina_amount = new Dictionary<string, float>() {
@@ -81,7 +83,8 @@ public class main_character : MonoBehaviour
         {STAMINA_FALL, 0f },
         {STAMINA_IDLE_BLOCK, 0.1f },
         {STAMINA_NORMAL_BLOCK, 15f },
-        {STAMINA_WALL_SLIDE, 0.00f }
+        {STAMINA_WALL_SLIDE, 0.00f },
+        {STAMINA_COMBO, 40f }
     };
 
     // Attack settings
@@ -94,6 +97,7 @@ public class main_character : MonoBehaviour
 
     [SerializeField] private LayerMask layerMaskGround; // Ground
     [SerializeField] private LayerMask layerMaskEdge; // wall / edge
+    [SerializeField] private LayerMask layerMaskCorner; // wall / edge
     [SerializeField] private LayerMask layerMaskEnemy; // Enemy
 
 
@@ -106,8 +110,15 @@ public class main_character : MonoBehaviour
     public GameObject charater;
     public StaminaBar staminaBar;
     public HealthBar healthBar;
+
+    // Effects
     public heal healAnim;
     public bleeding bleedAnim;
+    public RollEffect rollEffect;
+    public JumpEffect jumpEffect;
+    public DashEffect dashEffect;
+    public ComboAttack1 comboAttack1;
+    public ComboAttack2 comboAttack2;
 
     private float currentMoveValue = 0f;
     private float currentJumpValue = 0f;
@@ -130,7 +141,7 @@ public class main_character : MonoBehaviour
     public static bool finishRoll = true;
     private bool isJumping = false;
     private bool isBlocking = false;
-    private bool flipX = false;
+    public bool flipX = false;
     private bool death = false;
     private DateTime lastTimeSlide = DateTime.Now;
     private DateTime lastTimeClickBlock = DateTime.Now;
@@ -198,11 +209,12 @@ public class main_character : MonoBehaviour
                         anim.speed = normalSpeed;
                         currentMoveValue = moveSpeed * normalSpeed;
                     }
-                    audioManager.PlaySFXMusic("run");
                 }
                 if (meetEdge < 0)
+                {
+                    audioManager.PlaySFXMusic("run");
                     setBoolAnimation(ANIMATION_RUN);
-                
+                }
             }
 
             if (Input.GetKey(KeyCode.D))
@@ -232,11 +244,46 @@ public class main_character : MonoBehaviour
             }        
         }
 
+        // Combo
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Combo();
+        }
+
         // Attack 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             //Debug.Log(canReceiveInput);
-            Attack();
+            Attack(damage, stamina_amount[STAMINA_ATTACK]);
+        }
+        // Roll
+        else if (
+            Input.GetKeyDown(KeyCode.Space) &&
+            staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
+            )
+        {
+            audioManager.PlaySFXMusic("roll");
+            rollEffect.playRollEffectAnimation();
+            StartCoroutine(Roll());
+        }
+        // Jump
+        else if (IsGrounded())
+        {
+            if (!isJumping && (Input.GetKeyDown(KeyCode.F)) && staminaBar.loseStamina(stamina_amount[STAMINA_JUMP]))
+            {
+                jumpEffect.playJumpEffectAnimation();
+                currentJumpValue = jumpSpeed;
+                audioManager.PlaySFXMusic("jump_start");
+                setBoolAnimation(ANIMATION_JUMP);
+                isJumping = true;
+            }
+            else if (isJumping)
+            {
+                jumpEffect.playLandEffectAnimation();
+                isJumping = false;
+                audioManager.PlaySFXMusic("jump_end");
+            }
+            
         }
 
         // Block
@@ -266,6 +313,7 @@ public class main_character : MonoBehaviour
         {
             setBoolAnimation(ANIMATION_FALL);
         }
+
         // Holding Edge
         if (
             (meetEdge == 0 && Input.GetKey(KeyCode.A)) ||
@@ -296,33 +344,7 @@ public class main_character : MonoBehaviour
             }
         }
 
-        // Jump
-        if (
-            (IsGrounded()) && 
-            (Input.GetKeyDown(KeyCode.F)) && 
-            staminaBar.loseStamina(stamina_amount[STAMINA_JUMP])
-            )
-        {
-            currentJumpValue = jumpSpeed;
-            audioManager.PlaySFXMusic("jump_start");
-            setBoolAnimation(ANIMATION_JUMP);
-            isJumping = true;
-        }
-        else if (isJumping && IsGrounded())
-        {
-            isJumping = false;
-            audioManager.PlaySFXMusic("jump_end");
-        }
-
-        // Roll
-        else if (
-            Input.GetKeyDown(KeyCode.Space) && 
-            staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
-            )
-        {
-            audioManager.PlaySFXMusic("roll");
-            StartCoroutine(Roll());
-        }
+        
 
         if (number_flask > 0 && Input.GetKeyDown(KeyCode.R))
         {
@@ -338,17 +360,27 @@ public class main_character : MonoBehaviour
     private bool IsGrounded(float height = extraHeight)
     {
        
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.down, capsuleCollider.bounds.extents.y + height, layerMaskGround);
-        return raycastHit2D.collider != null;
+        RaycastHit2D raycastHitGround = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.down, capsuleCollider.bounds.extents.y + height, layerMaskGround);
+        
+        return raycastHitGround.collider;
     }
 
     private int IsMeetTheEdge()
     {
-        RaycastHit2D raycastHit2D = flipX ?
-            Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, 1.22f, layerMaskEdge) :
-            Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, 1.22f, layerMaskEdge);
+        const float dst = 1.22f;
+        if (flipX)
+        {
+            RaycastHit2D raycastHitLeftEdge = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, dst, layerMaskEdge);
+            RaycastHit2D raycastHitLeftCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, dst, layerMaskCorner);
+            return (raycastHitLeftCorner.collider || raycastHitLeftEdge.collider) ? 0: -1;
+        }
+        else
+        {
+            RaycastHit2D raycastHitRightEdge = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst, layerMaskEdge);
+            RaycastHit2D raycastHitRightCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst, layerMaskCorner);
+            return (raycastHitRightEdge.collider || raycastHitRightCorner.collider) ? 1 : -1;
 
-        return !raycastHit2D.collider ? -1 : !flipX ? 1 : 0;
+        }
     }
 
     private int MeetEdgeAndFall()
@@ -378,39 +410,68 @@ public class main_character : MonoBehaviour
         return number_flask;
     }
 
-    void Attack()
+    void DamageToEnemies(float dmg)
     {
-        if (canReceiveInput && staminaBar.loseStamina(stamina_amount[STAMINA_ATTACK]))
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, layerMaskEnemy);
+        foreach (Collider2D enemy in hitEnemies)
         {
-            currentMoveValue = 0f;
-            inputReceived = true;
-            canReceiveInput = false;
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, layerMaskEnemy);
-            foreach(Collider2D enemy in hitEnemies)
+            Debug.Log("Hit: " + enemy.name);
+            audioManager.PlaySFXMusic("hit");
+            string name = enemy.name.ToLower();
+            if (name == "demon" || name == "nightborne")
             {
-                Debug.Log("Hit: " + enemy.name);
-                audioManager.PlaySFXMusic("hit");
-                string name = enemy.name.ToLower();
-                if (name == "demon" || name == "nightborne")
+                enemy.GetComponent<BossHealth>().takeHit(dmg);
+                if (enemy.GetComponent<BossHealth>().IsDeath())
                 {
-                    enemy.GetComponent<BossHealth>().takeHit(damage);
-                    if (enemy.GetComponent<BossHealth>().IsDeath()) {
-                        souls += enemy.GetComponent<BossGeneral>().getSouls(name);
-                        SoulAmount.instance.UpdateSouls(souls);
-                    }
+                    souls += enemy.GetComponent<BossGeneral>().getSouls(name);
+                    SoulAmount.instance.UpdateSouls(souls);
                 }
-                else
+            }
+            else
+            {
+                enemy.GetComponent<enemy_damage>().TakeDamage(dmg);
+                if (enemy.GetComponent<enemy_damage>().isDeath())
                 {
-                    enemy.GetComponent<enemy_damage>().TakeDamage(damage);
-                    if (enemy.GetComponent<enemy_damage>().isDeath())
-                    {
-                        souls += enemy.GetComponent<enemy_damage>().getSouls();
-                        SoulAmount.instance.UpdateSouls(souls);
-                    }
+                    souls += enemy.GetComponent<enemy_damage>().getSouls();
+                    SoulAmount.instance.UpdateSouls(souls);
                 }
             }
         }
     }
+    void Attack(float damage, float stamina_cost)
+    {
+        if (canReceiveInput && staminaBar.loseStamina(stamina_cost))
+        {
+            currentMoveValue = 0f;
+            inputReceived = true;
+            canReceiveInput = false;
+            DamageToEnemies(damage);
+        }
+    }
+
+    void Combo()
+    {
+        if (staminaBar.loseStamina(stamina_amount[STAMINA_COMBO]))
+        {
+            // Dash
+            dashEffect.playDashEffectAnimation();
+            if (flipX)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 5, gameObject.transform.position.y);
+            }
+            else
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y);
+            }
+            // Combo
+            comboAttack1.playAttack1EffectAnimation();
+            comboAttack2.playAttack2EffectAnimation();
+            audioManager.PlaySFXMusic("combo");
+            setTriggerAnimation(ANIMATION_COMBO);
+            DamageToEnemies(damage * 3);
+        }
+    }
+
     public void PlayAttackSound(int i)
     {
         audioManager.PlaySFXMusic("attack" + i);
@@ -435,27 +496,7 @@ public class main_character : MonoBehaviour
         {
             return;
         }
-        if (!isBlocking)
-        {
-
-            healthBar.takeDamage(dmg); 
-            // Death
-            if (healthBar.death())
-            {
-                death = true;
-                audioManager.PlaySFXMusic("death");
-                DeathBanner.instance.ShowUI();
-                DestroyObjectDelayed();
-            }
-            else
-            {
-                setTriggerAnimation(ANIMATION_HURT);
-                audioManager.PlaySFXMusic("hurt");
-                bleedAnim.playBleedAnimation();
-            }
-
-        }
-        else if (staminaBar.loseStamina(stamina_amount[STAMINA_NORMAL_BLOCK]))
+        else if (isBlocking && staminaBar.loseStamina(stamina_amount[STAMINA_NORMAL_BLOCK]))
         {
             if ((lastTimeBlock - lastTimeClickBlock).TotalSeconds >= 0.5f){
 
@@ -486,7 +527,28 @@ public class main_character : MonoBehaviour
                 audioManager.PlaySFXMusic("perfect_block");
             }
         }
+        else
+        {
+
+            healthBar.takeDamage(dmg);
+            // Death
+            if (healthBar.death())
+            {
+                death = true;
+                audioManager.PlaySFXMusic("death");
+                DeathBanner.instance.ShowUI();
+                DestroyObjectDelayed();
+            }
+            else
+            {
+                setTriggerAnimation(ANIMATION_HURT);
+                audioManager.PlaySFXMusic("hurt");
+                bleedAnim.playBleedAnimation();
+            }
+
+        }
     }
+
 
     public void inputManager()
     {

@@ -8,18 +8,22 @@ public class AudioManager : MonoBehaviour
 {
 
     public static AudioManager Instance;
-    public Sound[] bgSounds, ambientSounds, sfxSounds;
-    public AudioSource bgSource, ambientSource, sfxSource;
+    public Sound[] bgSounds, ambientSounds,
+                    sfxSounds,
+                    sfxPuncherSounds,
+                    sfxLazerSounds,
+                    sfxArcherSounds,
+                    sfxBossSounds;
+
+    public AudioSource bgSource, ambientSource,
+                        sfxSource,
+                        sfxPuncherSource,
+                        sfxLazerSource,
+                        sfxArcher,
+                        sfxBossSource;
 
     public static string RUN = "run";
     public static string WALK = "walk";
-    public static string JUMP_START = "jump_start";
-    public static string JUMP_END = "run";
-    public static string ATTACK1 = "attack1";
-    public static string ATTACK2 = "attack2";
-    public static string ATTACK3 = "attack3";
-    public static string HIT = "hit";
-
     List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK };
 
     private void Awake() {
