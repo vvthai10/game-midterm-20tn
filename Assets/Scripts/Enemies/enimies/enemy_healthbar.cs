@@ -43,7 +43,7 @@ public class enemy_healthbar : MonoBehaviour
     public void takeDamage(float dmg)
     {
         health -= dmg;
-
+        Debug.Log("Current health: " + health);
     }
 
     private void IncreaseMaxHealth(float amount)
@@ -51,7 +51,20 @@ public class enemy_healthbar : MonoBehaviour
         maxHealth += amount;
 
         healthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        healthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        healthSlider.GetComponent<Slider>().value = maxHealth;
         easeHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        easeHealthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        easeHealthSlider.GetComponent<Slider>().value = maxHealth;
         regenHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        regenHealthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        regenHealthSlider.GetComponent<Slider>().value = maxHealth;
+    }
+
+    public void configMaxHealth(float maxHealth)
+    {
+        this.maxHealth = maxHealth;
+        health = maxHealth;
+        IncreaseMaxHealth(0);
     }
 }

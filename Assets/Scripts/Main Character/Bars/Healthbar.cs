@@ -62,9 +62,15 @@ public class HealthBar : MonoBehaviour
     public void IncreaseMaxHealth(float amount)
     {
         maxHealth += amount;
-
+        health = maxHealth;
         healthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        healthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        healthSlider.GetComponent<Slider>().value = maxHealth;
         easeHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        easeHealthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        easeHealthSlider.GetComponent<Slider>().value = maxHealth;
         regenHealthSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxHealth);
+        regenHealthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        regenHealthSlider.GetComponent<Slider>().value = maxHealth;
     }
 }

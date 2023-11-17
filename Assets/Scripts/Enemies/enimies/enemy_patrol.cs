@@ -32,11 +32,7 @@ public class enemy_patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyDamage.isDeath()) return;
-        if(isPatrolling)
-        {
-            patrolliing();
-        }
+
     }
 
     void patrolliing()
@@ -117,8 +113,12 @@ public class enemy_patrol : MonoBehaviour
         {
             currentPoint = limitedStart.transform;
         }
-
-
+        
+        if (enemyDamage.isDeath()) return;
+        if (isPatrolling)
+        {
+            patrolliing();
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -135,4 +135,5 @@ public class enemy_patrol : MonoBehaviour
             Flip();
         }
     }
+
 }

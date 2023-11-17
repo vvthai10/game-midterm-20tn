@@ -14,6 +14,7 @@ public class enemy_attack : MonoBehaviour
     public RangeAttackType type;
     public float attackWidth;
     public float attackHeight;
+    public float attackDamage = 10f;
     Transform player;
     
     void Start()
@@ -60,10 +61,11 @@ public class enemy_attack : MonoBehaviour
             {
                 //deal damage to player
                 Debug.Log("collider with player");
-                main_character.instance.TakeDameage(10f);
+                main_character.instance.TakeDameage(attackDamage);
             }
         }
     }
+
 }
 
 public enum RangeAttackType
