@@ -33,7 +33,7 @@ public class LoadConfig : MonoBehaviour
                 enemiesPool[i].SetActive(false);
             }
 
-            enemiesPool[i].GetComponent<enemy_damage>().hp = config.hp;
+            enemiesPool[i].GetComponent<enemy_damage>().ConfigHp(config.hp);
             
             if (enemiesPool[i].GetComponent<enemy_attack>().type == RangeAttackType.Range)
             {

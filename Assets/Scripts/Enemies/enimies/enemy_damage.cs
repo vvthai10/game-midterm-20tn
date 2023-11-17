@@ -53,4 +53,10 @@ public class enemy_damage : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void ConfigHp(float hp)
+    {
+        this.hp = hp;
+        healthBar.configMaxHealth(hp);
+    }
 }
