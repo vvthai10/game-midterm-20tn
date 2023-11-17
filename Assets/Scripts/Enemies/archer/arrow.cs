@@ -7,6 +7,7 @@ public class arrow : MonoBehaviour
     public float speed = 75f;
     Rigidbody2D rd;
     Transform player;
+    private float attackDamage = 20f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +26,14 @@ public class arrow : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             //Deal damage to player
-            main_character.instance.TakeDameage(20f);
+            main_character.instance.TakeDameage(attackDamage);
             Destroy(gameObject);
         }
        
+    }
+
+    public void SetAttackDamage(float damage)
+    {
+        attackDamage = damage;
     }
 }

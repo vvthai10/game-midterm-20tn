@@ -15,6 +15,7 @@ public class enemy_damage : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        healthBar.configMaxHealth(hp);
         System.Random rnd = new System.Random();
         souls = rnd.Next(100, 150);
     }

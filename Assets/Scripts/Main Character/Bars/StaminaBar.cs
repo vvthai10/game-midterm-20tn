@@ -81,7 +81,7 @@ public class StaminaBar : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (canRegen && stamina < maxStamina && stamina < 100)
+        if (canRegen && stamina < maxStamina)
         {
             //Debug.Log("Regen...");
             stamina = Mathf.Min(maxStamina, stamina + regenSpeed);
@@ -95,7 +95,12 @@ public class StaminaBar : MonoBehaviour
 
     public void IncreaseStaminaAmount(float amount) {
         maxStamina += amount;
+        stamina = maxStamina;
         staminaSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxStamina);
+        staminaSlider.GetComponent<Slider>().maxValue = maxStamina;
+        staminaSlider.GetComponent<Slider>().value = maxStamina;
         easeStaminaSlider.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, maxStamina);
+        easeStaminaSlider.GetComponent<Slider>().maxValue = maxStamina;
+        easeStaminaSlider.GetComponent<Slider>().value = maxStamina;
     }
 }
