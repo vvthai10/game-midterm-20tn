@@ -15,6 +15,15 @@ public class NightborneFightController : MonoBehaviour
 
     public void Intro()
     {
+        lightningController.SetAnimatorSpeed(1.0f);
+        lightningController.SetOnExplodeReveal(nightborneController.ShowBoss);
+        lightningController.StartAnimationChain();
+    }
+
+    public void PlayRawLightningAnimation()
+    {
+        lightningController.SetAnimatorSpeed(2.0f);
+        lightningController.RemoveOnExplodeReveal();
         lightningController.StartAnimationChain();
     }
 }

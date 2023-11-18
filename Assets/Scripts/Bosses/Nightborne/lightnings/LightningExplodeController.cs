@@ -1,17 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LightningExplodeController : MonoBehaviour
 {
     private Animator animator;
     private LightningController parentController;
+    private LightningHit hitController;
     void Awake()
     {
         animator = GetComponent<Animator>();
         parentController = GetComponentInParent<LightningController>();
+        hitController = GetComponent<LightningHit>();
         this.Hide();
+    }
+
+    public void SetAnimatorSpeed(float _speed)
+    {
+        animator.speed = _speed;
     }
 
     public void Play()
@@ -38,5 +46,10 @@ public class LightningExplodeController : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public void SetCanHit(bool _canHit)
+    {
+        hitController.canHit = _canHit;
     }
 }

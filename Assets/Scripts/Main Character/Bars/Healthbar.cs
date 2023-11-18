@@ -44,7 +44,6 @@ public class HealthBar : MonoBehaviour
     public void takeDamage(float dmg)
     {
         health -= dmg;
-        
     }
 
     public void heal(float amount)
