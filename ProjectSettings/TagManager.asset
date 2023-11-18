@@ -13,6 +13,8 @@ TagManager:
   - Demon
   - Nightborne
   - Audio
+  - EnemyPool
+  - ModeManager
   layers:
   - Default
   - TransparentFX

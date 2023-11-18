@@ -10,17 +10,21 @@ public class LoadConfig : MonoBehaviour
     public TextAsset configFileHard;
     public List<GameObject> enemiesPool;
     private EnemiesConfig config = null;
+    private string gameMode = "easy";
     private SavingEnemies savingEnemies = new SavingEnemies();
-    public void LoadConfigFile()
+    public void LoadConfigFile(string mode)
     {
-        config = JsonUtility.FromJson<EnemiesConfig>(configFileEasy.text);
+        mode = mode.ToLower();
+        string fileConfig = mode == "easy" ? configFileEasy.text : configFileHard.text;
+        config = JsonUtility.FromJson<EnemiesConfig>(fileConfig);
         Debug.Log(config.attack + " " + config.hp +" \n");
         Debug.Log(config.enemies[0]);
     }
 
     private void Start()
     {
-        LoadConfigFile();
+        GetGameModeFromModeManager();
+        LoadConfigFile(gameMode);
         LoadEnemiesState();
         SetUpMonster();
         SetUpMonsterWhenLoadAgain();
@@ -34,6 +38,7 @@ public class LoadConfig : MonoBehaviour
         }
     }
 
+    //set up monster along with config file 
     private void SetUpMonster()
     {
         for(int i = 0; i < enemiesPool.Count; i++)
@@ -57,7 +62,7 @@ public class LoadConfig : MonoBehaviour
             }
         }
     }
-
+    //save monster cur state before quit game
     public void SaveEnemiesState()
     {
         savingEnemies.LoadEnemiesStateBeforeSave(enemiesPool);
@@ -65,11 +70,12 @@ public class LoadConfig : MonoBehaviour
         savingEnemies.SaveData(SavingEnemies.SAVE_PATH);
     }
 
+    //Load data monster from file
     private void LoadEnemiesState()
     {
         savingEnemies.LoadData(SavingEnemies.SAVE_PATH);
     }
-
+    //map that data to monster
     private void SetUpMonsterWhenLoadAgain()
     {
         if(savingEnemies.enemies.Count <= 0)
@@ -87,6 +93,17 @@ public class LoadConfig : MonoBehaviour
                 enemiesPool[i].GetComponent<enemy_damage>().ConfigMonsterHpWhenLoad(savingEnemies.enemies[i].hp);
             }
         }
+    }
+
+    public void SetGameMode(string mode)
+    {
+        this.gameMode = mode.ToLower();
+    }
+
+    public void GetGameModeFromModeManager()
+    {
+        ModeManager gameModeManager = FindObjectOfType<ModeManager>();
+        SetGameMode(gameModeManager.GetMode());
     }
 }
 
