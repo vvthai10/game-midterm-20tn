@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LoadConfig : MonoBehaviour
 {
     public TextAsset configFileEasy;
     public TextAsset configFileHard;
-    private EnemiesConfig config = null;
     public List<GameObject> enemiesPool;
+    private EnemiesConfig config = null;
+    private SavingEnemies savingEnemies = new SavingEnemies();
     public void LoadConfigFile()
     {
         config = JsonUtility.FromJson<EnemiesConfig>(configFileEasy.text);
@@ -18,7 +21,17 @@ public class LoadConfig : MonoBehaviour
     private void Start()
     {
         LoadConfigFile();
+        LoadEnemiesState();
         SetUpMonster();
+        SetUpMonsterWhenLoadAgain();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            SaveEnemiesState();
+        }
     }
 
     private void SetUpMonster()
@@ -44,6 +57,37 @@ public class LoadConfig : MonoBehaviour
             }
         }
     }
+
+    public void SaveEnemiesState()
+    {
+        savingEnemies.LoadEnemiesStateBeforeSave(enemiesPool);
+        savingEnemies.isUserSave = true;
+        savingEnemies.SaveData(SavingEnemies.SAVE_PATH);
+    }
+
+    private void LoadEnemiesState()
+    {
+        savingEnemies.LoadData(SavingEnemies.SAVE_PATH);
+    }
+
+    private void SetUpMonsterWhenLoadAgain()
+    {
+        if(savingEnemies.enemies.Count <= 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < savingEnemies.enemies.Count; i++)
+        {
+            if (savingEnemies.enemies[i].hp <= 0)
+            {
+                Destroy(enemiesPool[i]);
+            }else
+            {
+                enemiesPool[i].GetComponent<enemy_damage>().ConfigMonsterHpWhenLoad(savingEnemies.enemies[i].hp);
+            }
+        }
+    }
 }
 
 [System.Serializable]
@@ -52,4 +96,78 @@ public class EnemiesConfig
     public int hp;
     public float attack;
     public List<int> enemies;
+}
+
+[System.Serializable]
+public class EnemyInfo
+{
+    public float hp;
+    public EnemyInfo(float hp)
+    {
+        this.hp = hp;
+    }
+}
+
+[System.Serializable]
+public class SavingEnemies
+{   public static string SAVE_PATH = "/GameEnemiesData.json";
+    public List<EnemyInfo> enemies = new List<EnemyInfo>();
+    public bool isUserSave = false;
+
+    public bool SaveData(string relativePath)
+    {
+        string path = Application.persistentDataPath + relativePath;
+        try
+        {
+            if(File.Exists(path))
+            {
+                Debug.Log("FIle exist, delete it");
+                File.Delete(path);
+            } else
+            {
+                Debug.Log("Write new file");
+            }
+            using FileStream stream = File.Create(path);
+            stream.Close();
+            File.WriteAllText(path, JsonUtility.ToJson(this));
+            Debug.Log("File path: " + path);
+            return true;
+        } 
+        catch(Exception e)
+        {
+            Debug.LogError($"Unable to save data due to: {e.Message} {e.StackTrace}");
+            return false;
+        }
+    }
+
+    public void LoadData(String relativePath)
+    {
+        enemies.Clear();
+        string path = Application.persistentDataPath + relativePath;
+        if(!File.Exists(path))
+        {
+            return;
+        }
+
+        try
+        {
+            SavingEnemies data  = JsonUtility.FromJson<SavingEnemies>(File.ReadAllText(path));
+            this.enemies = data.enemies;
+            this.isUserSave = data.isUserSave;
+        }  catch (Exception e)
+        {
+            Debug.LogError("Fail to load data due to: " + e.Message + " " +  e.StackTrace);
+        }
+    }
+
+    public void LoadEnemiesStateBeforeSave(List<GameObject> enemiesPool)
+    {
+        enemies.Clear();
+        foreach(GameObject enemy in enemiesPool)
+        {
+            float enemyHp = enemy != null ? enemy.GetComponent<enemy_damage>().hp : 0;
+            enemies.Add(new EnemyInfo(enemyHp));
+        }
+    }
+
 }

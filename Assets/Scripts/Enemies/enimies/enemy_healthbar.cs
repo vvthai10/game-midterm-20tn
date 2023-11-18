@@ -67,4 +67,13 @@ public class enemy_healthbar : MonoBehaviour
         health = maxHealth;
         IncreaseMaxHealth(0);
     }
+
+    public void ConfigMonsterHpWhenLoad(float hp)
+    {
+        this.health = hp;
+        healthSlider.GetComponent<Slider>().value = hp;
+        easeHealthSlider.GetComponent<Slider>().value = hp;
+        regenHealthSlider.GetComponent<Slider>().value = hp;
+    }
 }
+

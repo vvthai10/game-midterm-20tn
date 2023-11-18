@@ -59,4 +59,10 @@ public class enemy_damage : MonoBehaviour
         this.hp = hp;
         healthBar.configMaxHealth(hp);
     }
+
+    public void ConfigMonsterHpWhenLoad(float hp)
+    {
+        this.hp = hp;
+        healthBar.ConfigMonsterHpWhenLoad(hp);
+    }
 }
