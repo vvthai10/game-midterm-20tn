@@ -11,7 +11,7 @@ public class enemy_archer_shot : MonoBehaviour
     public void Shoot()
     {
         //Debug.Log("shoot");
-        enemy_attack.instance.PlaySFX();
+        GetComponent<enemy_attack>().PlaySFX();
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         arrow.GetComponent<arrow>().SetAttackDamage(attackDamage);
     }
