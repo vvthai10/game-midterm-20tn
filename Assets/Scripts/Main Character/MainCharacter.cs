@@ -5,6 +5,7 @@ using System.Collections;
 using static UnityEngine.GraphicsBuffer;
 using static Cinemachine.CinemachineTargetGroup;
 using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.UIElements;
 
 public class main_character : MonoBehaviour
 {
@@ -105,7 +106,6 @@ public class main_character : MonoBehaviour
     public Animator anim;
     SpriteRenderer spriteRenderer;
     CapsuleCollider2D capsuleCollider;
-    AudioManager audioManager;
 
     public GameObject charater;
     public StaminaBar staminaBar;
@@ -151,7 +151,6 @@ public class main_character : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     // Start is called before the first frame update
     void Start()
@@ -191,7 +190,7 @@ public class main_character : MonoBehaviour
                         anim.speed = boostSpeed;
                         currentMoveValue = moveSpeed * boostSpeed;
                     }
-                    audioManager.PlaySFXMusic("run", 1.25f);
+                    AudioManager.Instance.PlaySFXMusic("run", 1.25f);
                 }
                 else if (Input.GetKey(KeyCode.LeftAlt))
                 {
@@ -200,7 +199,7 @@ public class main_character : MonoBehaviour
                         anim.speed = slowSpeed;
                         currentMoveValue = moveSpeed * slowSpeed;
                     }
-                    audioManager.PlaySFXMusic("walk");
+                    AudioManager.Instance.PlaySFXMusic("walk");
                 }
                 else 
                 {
@@ -212,8 +211,12 @@ public class main_character : MonoBehaviour
                 }
                 if (meetEdge < 0)
                 {
-                    audioManager.PlaySFXMusic("run");
+                    AudioManager.Instance.PlaySFXMusic("run");
                     setBoolAnimation(ANIMATION_RUN);
+                }
+                else
+                {
+                    AudioManager.Instance.PlaySFXMusic("slide");
                 }
             }
 
@@ -256,24 +259,25 @@ public class main_character : MonoBehaviour
             //Debug.Log(canReceiveInput);
             Attack(damage, stamina_amount[STAMINA_ATTACK]);
         }
+
         // Roll
-        else if (
+        if (
             Input.GetKeyDown(KeyCode.Space) &&
             staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
             )
         {
-            audioManager.PlaySFXMusic("roll");
+            AudioManager.Instance.PlaySFXMusic("roll");
             rollEffect.playRollEffectAnimation();
             StartCoroutine(Roll());
         }
         // Jump
-        else if (IsGrounded())
+        else if (canJump())
         {
             if (!isJumping && (Input.GetKeyDown(KeyCode.F)) && staminaBar.loseStamina(stamina_amount[STAMINA_JUMP]))
             {
                 jumpEffect.playJumpEffectAnimation();
                 currentJumpValue = jumpSpeed;
-                audioManager.PlaySFXMusic("jump_start");
+                AudioManager.Instance.PlaySFXMusic("jump_start");
                 setBoolAnimation(ANIMATION_JUMP);
                 isJumping = true;
             }
@@ -281,7 +285,7 @@ public class main_character : MonoBehaviour
             {
                 jumpEffect.playLandEffectAnimation();
                 isJumping = false;
-                audioManager.PlaySFXMusic("jump_end");
+                AudioManager.Instance.PlaySFXMusic("jump_end");
             }
             
         }
@@ -365,27 +369,39 @@ public class main_character : MonoBehaviour
         return raycastHitGround.collider;
     }
 
+    private bool IsCorner()
+    {
+        RaycastHit2D raycastHitCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.down, capsuleCollider.bounds.extents.y + extraHeight, layerMaskCorner);
+        return raycastHitCorner.collider;
+    }
+
     private int IsMeetTheEdge()
     {
-        const float dst = 1.22f;
+        const float dst = 1f;
         if (flipX)
         {
             RaycastHit2D raycastHitLeftEdge = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, dst, layerMaskEdge);
-            RaycastHit2D raycastHitLeftCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, dst, layerMaskCorner);
+            RaycastHit2D raycastHitLeftCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, dst * 2, layerMaskCorner);
             return (raycastHitLeftCorner.collider || raycastHitLeftEdge.collider) ? 0: -1;
         }
         else
         {
             RaycastHit2D raycastHitRightEdge = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst, layerMaskEdge);
-            RaycastHit2D raycastHitRightCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst, layerMaskCorner);
+            RaycastHit2D raycastHitRightCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst * 2, layerMaskCorner);
+            Debug.Log("Layer Corner: " + raycastHitRightCorner.collider);
             return (raycastHitRightEdge.collider || raycastHitRightCorner.collider) ? 1 : -1;
-
         }
+    }
+
+    private bool canJump()
+    {
+        return IsGrounded() | IsCorner();
     }
 
     private int MeetEdgeAndFall()
     {
-        return IsGrounded(extraHeight)? -1 : IsMeetTheEdge();
+
+        return IsGrounded(extraHeight) ? -1 : IsMeetTheEdge();
     }
 
     // Roll
@@ -416,7 +432,7 @@ public class main_character : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("Hit: " + enemy.name);
-            audioManager.PlaySFXMusic("hit");
+            AudioManager.Instance.PlaySFXMusic("hit");
             string name = enemy.name.ToLower();
             if (name == "demon" || name == "nightborne")
             {
@@ -455,18 +471,33 @@ public class main_character : MonoBehaviour
         {
             // Dash
             dashEffect.playDashEffectAnimation();
-            if (flipX)
+            float positionX = gameObject.transform.position.x;
+            float enemyX = flipX ? -5 : 5;
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+            foreach(GameObject enemy in enemies)
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 5, gameObject.transform.position.y);
+                if(Mathf.Abs(enemyX) > Mathf.Abs(enemy.transform.position.x - positionX))
+                {
+                    enemyX = enemy.transform.position.x - positionX;
+                }
+            }
+            if (enemyX < 0)
+            {
+                enemyX += 1f;
+                transform.eulerAngles = new Vector3(0, 180, 0);
+                flipX = true;
             }
             else
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y);
+                enemyX -= 1f;
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                flipX = false;
             }
+            transform.position = new Vector2(transform.position.x + enemyX, transform.position.y);
             // Combo
             comboAttack1.playAttack1EffectAnimation();
             comboAttack2.playAttack2EffectAnimation();
-            audioManager.PlaySFXMusic("combo");
+            AudioManager.Instance.PlaySFXMusic("combo");
             setTriggerAnimation(ANIMATION_COMBO);
             DamageToEnemies(damage * 3);
         }
@@ -474,7 +505,7 @@ public class main_character : MonoBehaviour
 
     public void PlayAttackSound(int i)
     {
-        audioManager.PlaySFXMusic("attack" + i);
+        AudioManager.Instance.PlaySFXMusic("attack" + i);
     }
 
     private void OnDrawGizmosSelected()
@@ -516,14 +547,14 @@ public class main_character : MonoBehaviour
                         transform.position,
                         new Vector3(transform.position.x + deltaX, transform.position.y, transform.position.z),
                         moveSpeed * Time.deltaTime);
-                    audioManager.PlaySFXMusic("block");
+                    AudioManager.Instance.PlaySFXMusic("block");
                 }
             }
             else
             {
                 setTriggerAnimation(ANIMATION_PERFECT_BLOCK);
                 healthBar.heal(dmg);
-                audioManager.PlaySFXMusic("perfect_block");
+                AudioManager.Instance.PlaySFXMusic("perfect_block");
             }
         }
         else
@@ -534,14 +565,14 @@ public class main_character : MonoBehaviour
             if (healthBar.death())
             {
                 death = true;
-                audioManager.PlaySFXMusic("death");
+                AudioManager.Instance.PlaySFXMusic("death");
                 DeathBanner.instance.ShowUI();
                 DestroyObjectDelayed();
             }
             else
             {
                 setTriggerAnimation(ANIMATION_HURT);
-                audioManager.PlaySFXMusic("hurt");
+                AudioManager.Instance.PlaySFXMusic("hurt");
                 bleedAnim.playBleedAnimation();
             }
 

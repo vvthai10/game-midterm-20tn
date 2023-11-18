@@ -10,7 +10,7 @@ public class SoulsIncrease : MonoBehaviour
     public static SoulsIncrease instance;
     private bool fadeIn = false;
     private bool fadeOut = false;
-    private int souls = 0;
+    private string souls;
     
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,9 @@ public class SoulsIncrease : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _textMeshPro.text = "+ "  + souls.ToString();
+
         //Debug.Log("Increase: " + _textMeshPro.text);
+        _textMeshPro.text = souls;
         if (fadeIn)
         {
             if (soulsIncreaseCanvas.alpha < 1)
@@ -60,7 +61,14 @@ public class SoulsIncrease : MonoBehaviour
 
     public void ShowUI(int amount)
     {
+        if (amount < 0)
+        {
+            souls = "- " + Mathf.Abs(amount).ToString();
+        }
+        else
+        {
+            souls = "+ " + amount.ToString();
+        }
         fadeIn = true;
-        souls = amount;
     }
 }

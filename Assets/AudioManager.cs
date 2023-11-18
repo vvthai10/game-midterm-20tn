@@ -24,7 +24,8 @@ public class AudioManager : MonoBehaviour
 
     public static string RUN = "run";
     public static string WALK = "walk";
-    List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK };
+    public static string SLIDE = "slide";
+    List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK, SLIDE };
 
     private void Awake() {
         if(AudioManager.Instance == null) {
