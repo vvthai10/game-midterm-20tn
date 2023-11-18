@@ -14,6 +14,8 @@ TagManager:
   - Nightborne
   - Audio
   - Corner
+  - EnemyPool
+  - ModeManager
   layers:
   - Default
   - TransparentFX
