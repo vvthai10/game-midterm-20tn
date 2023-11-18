@@ -1445,6 +1445,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5601481688253864518, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
+      propertyPath: spikesController
+      value: 
+      objectReference: {fileID: 1133633686}
+    - target: {fileID: 5601481688253864518, guid: 03827ad11c2453c41b4d8eb35c3e417b, type: 3}
       propertyPath: fireballs.Array.size
       value: 10
       objectReference: {fileID: 0}
@@ -4145,7 +4149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9082657373943496440, guid: 823edbe355a84ac468e8b575a927201e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.006046295
+      value: 0.0065612793
       objectReference: {fileID: 0}
     - target: {fileID: 9082657373943496440, guid: 823edbe355a84ac468e8b575a927201e, type: 3}
       propertyPath: m_LocalPosition.y
