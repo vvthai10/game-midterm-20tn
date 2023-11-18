@@ -28,13 +28,7 @@ public class BossGeneral : MonoBehaviour
     void Start()
     {
         targetedPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-        if (bossName.ToLower() == "demon")
-        {
-            audioManager.PlayBackgroundMusic("Boss 2");
-        } else if (bossName.ToLower() == "nightborne")
-        {
-            audioManager.PlayBackgroundMusic("Boss 1");
-        }
+
         this.Hide();
     }
 
@@ -69,6 +63,14 @@ public class BossGeneral : MonoBehaviour
 
     public void Show()
     {
+        if (bossName.ToLower() == "demon")
+        {
+            audioManager.PlayBackgroundMusic("Boss 2");
+        }
+        else if (bossName.ToLower() == "nightborne")
+        {
+            audioManager.PlayBackgroundMusic("Boss 1");
+        }
         gameObject.SetActive(true);
     }
     
