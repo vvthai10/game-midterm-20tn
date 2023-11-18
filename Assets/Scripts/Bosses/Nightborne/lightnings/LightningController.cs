@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,8 +19,21 @@ public class LightningController : MonoBehaviour
     {
         transform.position = bossPos?.position ?? transform.position;
     }
+
+    public void Reposition()
+    {
+        transform.position = bossPos?.position ?? transform.position;
+    }
+
+    public void SetAnimatorSpeed(float _speed)
+    {
+        lightningStrikeController.SetAnimatorSpeed(_speed);
+        lightningExplodeController.SetAnimatorSpeed(_speed);
+    }
+
     public void StartAnimationChain()
     {
+        Reposition();
         PlayStrikeAnimation();
     }
 
@@ -43,4 +57,19 @@ public class LightningController : MonoBehaviour
         onExplodeReveal?.Invoke();
     }
 
+    public void RemoveOnExplodeReveal()
+    {
+        onExplodeReveal?.RemoveAllListeners();
+    }
+
+    public void SetOnExplodeReveal(UnityAction action)
+    {
+        this.RemoveOnExplodeReveal();
+        onExplodeReveal?.AddListener(action);
+    }
+
+    public void SetCanHit(bool _canHit)
+    {
+        lightningExplodeController.SetCanHit(_canHit);
+    }
 }

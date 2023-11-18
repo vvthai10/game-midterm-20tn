@@ -44,6 +44,10 @@ public class NightborneController : MonoBehaviour
     {
         this.MoveBehindPlayer();
         boss.LookAtPlayer();
+        if (boss.isEnraged)
+        {
+            fightController.PlayRawLightningAnimation();
+        }
         teleportController.PlayAppearAnimation(); // appear animation on Nightborne/teleport --> TeleportController.OnAppear
                                               // --> this.OnReappear -->
     }
@@ -65,9 +69,6 @@ public class NightborneController : MonoBehaviour
         bool playerFacingRight = boss.targetedPlayer.transform.localEulerAngles.y == 0;
         float offset = offsetValue * (playerFacingRight ? -1 : 1);
         gameObject.transform.position = new Vector3(boss.targetedPlayer.position.x + offset, transform.position.y, transform.position.z);
-        Debug.Log("player X: " + boss.targetedPlayer.position.x.ToString());
-        Debug.Log("offset: " + offset.ToString());
-        Debug.Log("after: " + gameObject.transform.position.x.ToString());
     }
 
     public void OnDisappear()
@@ -78,6 +79,7 @@ public class NightborneController : MonoBehaviour
 
     public void OnReappear()
     {
+
         this.Show();
         animator.SetBool("teleporting", false);
         //animator.Play("walk");

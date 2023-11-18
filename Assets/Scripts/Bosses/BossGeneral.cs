@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BossGeneral : MonoBehaviour
@@ -47,6 +48,13 @@ public class BossGeneral : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, initiallyFacingRight ? 0 : 180, 0);
         }
+    }
+
+    public int Direction()
+    {
+        int dir = initiallyFacingRight ? 1 : -1;
+        dir = transform.eulerAngles.y == 0 ? dir : -dir;
+        return dir;
     }
 
     public int getSouls(string bossName)

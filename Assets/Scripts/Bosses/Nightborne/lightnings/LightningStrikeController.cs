@@ -13,7 +13,10 @@ public class LightningStrikeController : MonoBehaviour
         parentController = GetComponentInParent<LightningController>();
         this.Hide();
     }
-
+    public void SetAnimatorSpeed(float _speed)
+    {
+        animator.speed = _speed;
+    }
     public void Play()
     {
         AudioManager.Instance.PlaySFXMusic("thunder");

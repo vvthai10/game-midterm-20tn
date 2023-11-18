@@ -18,6 +18,10 @@ public class BossAttack : MonoBehaviour
     private float cooldownTimer = Mathf.Infinity;
 
 
+    public SpikeCastController spikesController;
+    public float spikesCooldown = 5f;
+    private float spikesTimer = 0;
+
     //private Collider2D[] hitPlayers = null;
     private BossGeneral boss;
 
@@ -32,7 +36,15 @@ public class BossAttack : MonoBehaviour
         {
             this.ShootFireball();
         }
+
+        if (spikesTimer > spikesCooldown)
+        {
+            spikesController?.Cast();
+            spikesTimer = 0;
+        }
+
         cooldownTimer += Time.deltaTime;
+        spikesTimer += Time.deltaTime;
     }
 
     // event called at the middle of "attack" animation
@@ -73,4 +85,5 @@ public class BossAttack : MonoBehaviour
         }
         return 0;
     }
+
 }
