@@ -52,7 +52,7 @@ public class SpikesController : MonoBehaviour
         for (int i = 0; i < spikeControllers.Length - 1; i++)
         {
             int next = i + 1;
-            Debug.Log("spikeControllers[i] = " + spikeControllers[i].ToString());
+            //Debug.Log("spikeControllers[i] = " + spikeControllers[i].ToString());
             spikeControllers[i].SetOnSpikeRisen(() =>
             {
                 StartCoroutine(DelayedSpikeRise(next));
