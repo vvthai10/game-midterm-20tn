@@ -17,6 +17,7 @@ public class BossHealthBar : MonoBehaviour
         bossName = GetComponentInChildren<Text>();
         ResetFill();
         this.Hide();
+        Debug.Log($"nightborne: {gameObject.activeInHierarchy}");
     }
 
     public float GetLowerValue()
