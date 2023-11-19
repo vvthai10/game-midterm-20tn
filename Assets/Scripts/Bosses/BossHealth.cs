@@ -26,7 +26,7 @@ public class BossHealth : MonoBehaviour
 
     public void IntroHealthBar()
     {
-        healthBar.ResetFill();
+        //healthBar.ResetFill();
         healthBar.Show();
         //Debug.Log("healthbar nullity: " + (healthBar == null).ToString());
         //Debug.Log("boss nullity: " + (boss == null).ToString());

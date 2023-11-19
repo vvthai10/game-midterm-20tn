@@ -14,7 +14,7 @@ public class LowerFillController : MonoBehaviour
     void Awake()
     {
         lowerSlider = GetComponent<Slider>();
-        ResetFill();
+        //ResetFill();
     }
 
     public float Value()

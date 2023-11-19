@@ -15,7 +15,7 @@ public class BossHealthBar : MonoBehaviour
         upperSlider = GetComponent<Slider>();
         lowerFill = GetComponentInChildren<LowerFillController>();
         bossName = GetComponentInChildren<Text>();
-        ResetFill();
+        //ResetFill();
         this.Hide();
         Debug.Log($"nightborne: {gameObject.activeInHierarchy}");
     }
