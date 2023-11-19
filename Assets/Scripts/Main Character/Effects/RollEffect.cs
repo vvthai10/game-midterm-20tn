@@ -7,6 +7,12 @@ public class RollEffect : MonoBehaviour
     public static string anim_roll_effect = "roll";
     Animator anim;
     SpriteRenderer spriteRenderer;
+    public static RollEffect instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

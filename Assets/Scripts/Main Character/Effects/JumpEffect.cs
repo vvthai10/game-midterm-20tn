@@ -9,6 +9,12 @@ public class JumpEffect : MonoBehaviour
 
     Animator anim;
     SpriteRenderer spriteRenderer;
+    public static JumpEffect instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

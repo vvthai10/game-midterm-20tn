@@ -100,7 +100,7 @@ public class main_character : MonoBehaviour
     [SerializeField] private LayerMask layerMaskEdge; // wall / edge
     [SerializeField] private LayerMask layerMaskCorner; // wall / edge
     [SerializeField] private LayerMask layerMaskEnemy; // Enemy
-
+    [SerializeField] private LayerMask deathLayerMask;
 
     Rigidbody2D rigid;
     public Animator anim;
@@ -111,14 +111,6 @@ public class main_character : MonoBehaviour
     public StaminaBar staminaBar;
     public HealthBar healthBar;
 
-    // Effects
-    public heal healAnim;
-    public bleeding bleedAnim;
-    public RollEffect rollEffect;
-    public JumpEffect jumpEffect;
-    public DashEffect dashEffect;
-    public ComboAttack1 comboAttack1;
-    public ComboAttack2 comboAttack2;
 
     private float currentMoveValue = 0f;
     private float currentJumpValue = 0f;
@@ -147,7 +139,7 @@ public class main_character : MonoBehaviour
     private DateTime lastTimeClickBlock = DateTime.Now;
     private DateTime lastTimeBlock = DateTime.Now;
 
-
+    private bool canReleaseSkill = false;
     private void Awake()
     {
         instance = this;
@@ -248,7 +240,7 @@ public class main_character : MonoBehaviour
         }
 
         // Combo
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
+        if (canReleaseSkill && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Combo();
         }
@@ -267,7 +259,7 @@ public class main_character : MonoBehaviour
             )
         {
             AudioManager.Instance.PlaySFXMusic("roll");
-            rollEffect.playRollEffectAnimation();
+            RollEffect.instance.playRollEffectAnimation();
             StartCoroutine(Roll());
         }
         // Jump
@@ -275,7 +267,7 @@ public class main_character : MonoBehaviour
         {
             if (!isJumping && (Input.GetKeyDown(KeyCode.F)) && staminaBar.loseStamina(stamina_amount[STAMINA_JUMP]))
             {
-                jumpEffect.playJumpEffectAnimation();
+                JumpEffect.instance.playJumpEffectAnimation();
                 currentJumpValue = jumpSpeed;
                 AudioManager.Instance.PlaySFXMusic("jump_start");
                 setBoolAnimation(ANIMATION_JUMP);
@@ -283,7 +275,7 @@ public class main_character : MonoBehaviour
             }
             else if (isJumping)
             {
-                jumpEffect.playLandEffectAnimation();
+                JumpEffect.instance.playLandEffectAnimation();
                 isJumping = false;
                 AudioManager.Instance.PlaySFXMusic("jump_end");
             }
@@ -352,11 +344,12 @@ public class main_character : MonoBehaviour
 
         if (number_flask > 0 && Input.GetKeyDown(KeyCode.R))
         {
-            healAnim.playHealAnimation();
+            heal.instance.playHealAnimation();
             healthBar.heal(amount_health_heal * healthBar.maxHealth);
             number_flask--;
         }
 
+        checkDeathByFall();
         //Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
     }
 
@@ -388,8 +381,20 @@ public class main_character : MonoBehaviour
         {
             RaycastHit2D raycastHitRightEdge = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst, layerMaskEdge);
             RaycastHit2D raycastHitRightCorner = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.right, dst * 2, layerMaskCorner);
-            Debug.Log("Layer Corner: " + raycastHitRightCorner.collider);
             return (raycastHitRightEdge.collider || raycastHitRightCorner.collider) ? 1 : -1;
+        }
+    }
+
+    private void checkDeathByFall()
+    {
+
+        RaycastHit2D raycastHitDeathLayer = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.down, capsuleCollider.bounds.extents.y + extraHeight, deathLayerMask);
+        if(raycastHitDeathLayer.collider)
+        {
+            healthBar.takeDamage(HealthBar.instance.maxHealth);
+            death = true;
+            DeathBanner.instance.ShowUI();
+            DestroyObjectDelayed();
         }
     }
 
@@ -431,7 +436,7 @@ public class main_character : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, layerMaskEnemy);
         foreach (Collider2D enemy in hitEnemies)
         {
-            Debug.Log("Hit: " + enemy.name);
+            //Debug.Log("Hit: " + enemy.name);
             AudioManager.Instance.PlaySFXMusic("hit");
             string name = enemy.name.ToLower();
             if (name == "demon" || name == "nightborne")
@@ -470,7 +475,7 @@ public class main_character : MonoBehaviour
         if (staminaBar.loseStamina(stamina_amount[STAMINA_COMBO]))
         {
             // Dash
-            dashEffect.playDashEffectAnimation();
+            DashEffect.instance.playDashEffectAnimation();
             float positionX = gameObject.transform.position.x;
             float enemyX = flipX ? -5 : 5;
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -495,14 +500,18 @@ public class main_character : MonoBehaviour
             }
             transform.position = new Vector2(transform.position.x + enemyX, transform.position.y);
             // Combo
-            comboAttack1.playAttack1EffectAnimation();
-            comboAttack2.playAttack2EffectAnimation();
+            ComboAttack1.instance.playAttack1EffectAnimation();
+            ComboAttack2.instance.playAttack2EffectAnimation();
             AudioManager.Instance.PlaySFXMusic("combo");
             setTriggerAnimation(ANIMATION_COMBO);
             DamageToEnemies(damage * 3);
         }
     }
 
+    public void EnableSkill()
+    {
+        canReleaseSkill = true;
+    }
     public void PlayAttackSound(int i)
     {
         AudioManager.Instance.PlaySFXMusic("attack" + i);
@@ -573,7 +582,7 @@ public class main_character : MonoBehaviour
             {
                 setTriggerAnimation(ANIMATION_HURT);
                 AudioManager.Instance.PlaySFXMusic("hurt");
-                bleedAnim.playBleedAnimation();
+                bleeding.instance.playBleedAnimation();
             }
 
         }

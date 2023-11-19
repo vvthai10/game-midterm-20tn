@@ -31,7 +31,7 @@ public class SoulsIncrease : MonoBehaviour
         {
             if (soulsIncreaseCanvas.alpha < 1)
             {
-                soulsIncreaseCanvas.alpha += Time.deltaTime / 2;
+                soulsIncreaseCanvas.alpha += Time.deltaTime;
             }
             else
             {

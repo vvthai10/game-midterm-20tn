@@ -6,6 +6,11 @@ public class bleeding : MonoBehaviour
 {
     public static string anim_bleed = "bleeding";
     Animator anim;
+    public static bleeding instance;
+    private void Awake()
+    {
+        instance = this; 
+    }
     // Start is called before the first frame update
     void Start()
     {

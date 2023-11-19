@@ -43,8 +43,15 @@ public class AudioManager : MonoBehaviour
         if (currentSceneIndex == 0) {
             PlayBackgroundMusic("Menu");
         }
-        else{
+        else if (currentSceneIndex == 1)
+        {
             PlayBackgroundMusic("Elphael");
+            PlayAmbientMusic("rain");
+        }
+
+        else if (currentSceneIndex == 2)
+        {
+            PlayBackgroundMusic("Caves");
             PlayAmbientMusic("rain");
         }
     }

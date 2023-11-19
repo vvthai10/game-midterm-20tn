@@ -27,6 +27,10 @@ public class ItemEffect : MonoBehaviour
             case 3:
                 StaminaLength();
                 break;
+            case 4:
+                LearnSkill();
+                break;
+
         }
     }
 
@@ -48,5 +52,10 @@ public class ItemEffect : MonoBehaviour
     private void StaminaLength()
     {
         StaminaBar.instance.IncreaseStaminaAmount(25f);
+    }
+
+    private void LearnSkill()
+    {
+        main_character.instance.EnableSkill();
     }
 }

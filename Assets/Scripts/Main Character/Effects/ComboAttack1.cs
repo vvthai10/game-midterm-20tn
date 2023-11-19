@@ -7,7 +7,13 @@ public class ComboAttack1 : MonoBehaviour
     public static string anim_attack_effect = "combo_attack_1";
     Animator anim;
     SpriteRenderer spriteRenderer;
+    public static ComboAttack1 instance;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         anim = GetComponent<Animator>();

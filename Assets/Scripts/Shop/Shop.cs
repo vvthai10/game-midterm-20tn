@@ -37,7 +37,7 @@ public class Shop : MonoBehaviour
         Debug.Log(collision.tag);
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Callllll");
+            //Debug.Log("Callllll");
             //show dialog 
             //click E to open shop
             ShouldShowDialog(true);
