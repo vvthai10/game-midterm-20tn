@@ -35,11 +35,11 @@ public class MainMenu : MonoBehaviour
     //     }
     // }
 
-    public void PlayGame(string type) {
+    public void PlayGame(int index) {
         AudioManager.Instance.bgSource.Stop();
         AudioManager.Instance.PlayAmbientMusic("rain");
-        Debug.Log(type);
-        SceneManager.LoadSceneAsync(1);
+        //Debug.Log(type);
+        SceneManager.LoadSceneAsync(index);
     }
 
     public void QuitGame(){

@@ -103,4 +103,14 @@ public class StaminaBar : MonoBehaviour
         easeStaminaSlider.GetComponent<Slider>().maxValue = maxStamina;
         easeStaminaSlider.GetComponent<Slider>().value = maxStamina;
     }
+
+    public float getRegenSpeed()
+    {
+        return regenSpeed;
+    }
+
+    public void setRegenSpeed(float regenSpeed)
+    {
+         this.regenSpeed = regenSpeed;
+    }
 }

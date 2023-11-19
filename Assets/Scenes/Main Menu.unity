@@ -741,11 +741,11 @@ MonoBehaviour:
       - m_Target: {fileID: 117340787}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: easy
           m_BoolArgument: 0
@@ -1681,6 +1681,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1810655195}
+        m_TargetAssemblyTypeName: ModeManager, Assembly-CSharp
+        m_MethodName: SetScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1102807332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1977,11 +1989,11 @@ MonoBehaviour:
       - m_Target: {fileID: 117340787}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: hard
           m_BoolArgument: 0
@@ -2878,6 +2890,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1810655195}
+        m_TargetAssemblyTypeName: ModeManager, Assembly-CSharp
+        m_MethodName: OnContinueClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1810655195}
+        m_TargetAssemblyTypeName: ModeManager, Assembly-CSharp
+        m_MethodName: SetContinueClick
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1734424383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3238,6 +3274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c2efe0fb79d354b95916e20428e3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isContinueClick: 0
 --- !u!114 &1826717421 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 666087450315688424, guid: 21148db0a56832e469045ca63d4bb540, type: 3}

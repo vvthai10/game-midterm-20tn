@@ -25,9 +25,12 @@ public class LoadConfig : MonoBehaviour
     {
         GetGameModeFromModeManager();
         LoadConfigFile(gameMode);
-        LoadEnemiesState();
         SetUpMonster();
-        SetUpMonsterWhenLoadAgain();
+        if(FindObjectOfType<ModeManager>().isContinueClick)
+        {
+            LoadEnemiesState();
+            SetUpMonsterWhenLoadAgain();
+        }
     }
 
     private void Update()
