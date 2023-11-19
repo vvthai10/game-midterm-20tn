@@ -7,6 +7,12 @@ public class DashEffect : MonoBehaviour
     public static string anim_dash_effect = "dash";
     Animator anim;
     SpriteRenderer spriteRenderer;
+    public static DashEffect instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
