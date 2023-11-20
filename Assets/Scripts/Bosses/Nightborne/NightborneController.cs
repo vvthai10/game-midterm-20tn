@@ -35,6 +35,7 @@ public class NightborneController : MonoBehaviour
 
     public void BeginTeleportChain()
     {
+        boss.canTakeHit = false;
         animator.SetBool("teleporting", true); // teleport animation on Nightborne
         teleportController.PlayDisappearAnimation(); // disappear animation on Nightborne/teleport --> TeleportController.OnDisappeared
                                                  // --> this.OnDisappear --> timeout --> this.EndTeleportChain -->
@@ -82,6 +83,7 @@ public class NightborneController : MonoBehaviour
 
         this.Show();
         animator.SetBool("teleporting", false);
+        boss.canTakeHit = true;
         //animator.Play("walk");
     }
 

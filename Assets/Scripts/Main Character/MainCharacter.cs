@@ -450,13 +450,19 @@ public class main_character : MonoBehaviour
                     SoulAmount.instance.UpdateSouls(souls);
                 }
             }
-            else
+            else 
             {
-                enemy.GetComponent<enemy_damage>().TakeDamage(dmg);
-                if (enemy.GetComponent<enemy_damage>().isDeath())
+                try
                 {
-                    souls += enemy.GetComponent<enemy_damage>().getSouls();
-                    SoulAmount.instance.UpdateSouls(souls);
+                    enemy.GetComponent<enemy_damage>().TakeDamage(dmg);
+                    if (enemy.GetComponent<enemy_damage>().isDeath())
+                    {
+                        souls += enemy.GetComponent<enemy_damage>().getSouls();
+                        SoulAmount.instance.UpdateSouls(souls);
+                    }
+                } 
+                catch {
+                    Debug.Log("Some error happened in MainCharacter.cs: DamageToEnemies");
                 }
             }
         }

@@ -8,8 +8,9 @@ public class TrajectoryController : MonoBehaviour
     private Animator animator;
     private MeteorController parentController;
 
-    public float spinTime = 2f;
-    public float speed = 3f;
+    public float spinTime = 1.5f;
+    public float speed = 6f;
+    public float damage = 3f;
 
     private void Awake()
     {
@@ -17,6 +18,17 @@ public class TrajectoryController : MonoBehaviour
         parentController = GetComponentInParent<MeteorController>();
     }
 
+    public void Reset()
+    {
+        animator.ResetTrigger("spin");
+        animator.ResetTrigger("fly");
+        animator.Play("empty");
+    }
+
+    public void RepositionY(float y)
+    {
+        transform.position = new Vector3(transform.position.x, y, transform.position.z);
+    }
     public void PlaySpinAnimation()
     {
         animator.SetTrigger("spin");
@@ -38,11 +50,6 @@ public class TrajectoryController : MonoBehaviour
         animator.SetTrigger("explode");
     }
 
-    public void InitAnimationChain()
-    {
-
-    }
-
     public void PlayAnimationChain()
     {
         this.PlaySpinAnimation();
@@ -53,10 +60,16 @@ public class TrajectoryController : MonoBehaviour
     {
         Debug.Log($"hit something: {collision.gameObject.name}");
         this.PlayExplodeAnimation();
-        ContactPoint2D[] contacts = new ContactPoint2D[1];
-        collision.GetContacts(contacts);
-        parentController.PlayBurnAnimation(new Vector3(transform.position.x, contacts[0].point.y, transform.position.y));
-        
+        if (collision.CompareTag("Player"))
+        {
+            main_character.instance.TakeDameage(damage);
+        }
+        else if (collision.CompareTag("Ground"))
+        {
+            ContactPoint2D[] contacts = new ContactPoint2D[1];
+            collision.GetContacts(contacts);
+            parentController.PlayBurnAnimation(contacts[0].point);
+        }
     }
 
 }

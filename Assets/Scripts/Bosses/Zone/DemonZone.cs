@@ -18,7 +18,11 @@ public class DemonZone : MonoBehaviour
         if (!collision.CompareTag("Player") || !isEnabled)
             return;
 
+        try
+        {
         TransparentFade.Instance.StartIncrease();
+        }
+        catch { }
 
         fightController.Intro();
         thisCollider.enabled = false;

@@ -54,6 +54,8 @@ public class BossHealth : MonoBehaviour
 
     public void takeHit(float hitDamage)
     {
+        if (!boss.canTakeHit)
+            return;
         if (regenEnabled)
             regenTimer = 0;
 
