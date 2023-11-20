@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
         MainChararacterStat stat = modeManager.getMainStat();
         instance.number_flask = stat.numberFlask;
         instance.souls = stat.souls;
+        SoulAmount.instance.UpdateSouls(stat.souls);
+
         instance.healthBar.maxHealth = stat.maxHealth;
         instance.healthBar.IncreaseMaxHealth(0);
         instance.healthBar.health = stat.curHealth;
