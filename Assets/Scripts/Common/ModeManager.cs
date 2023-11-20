@@ -6,12 +6,22 @@ using UnityEngine;
 
 public class ModeManager : MonoBehaviour
 {
+    public static ModeManager instance;
+
     private GameController gameController = new GameController();
     private MainChararacterStat main = new MainChararacterStat();
     public bool isContinueClick = false;
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if(ModeManager.instance != null)
+        {
+            //Destroy(gameObject);
+        }else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+       
     }
 
     public void SetMode(string mode)

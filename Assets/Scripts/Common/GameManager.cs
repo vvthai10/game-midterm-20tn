@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     ModeManager modeManager;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -12,16 +21,12 @@ public class GameManager : MonoBehaviour
         LoadMainStat();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnMainCharacterDeath()
     {
-        if(main_character.instance.Death())
-        {
-            SaveMainStat();
-            SaveGameCurSceneLevel();
-            FindAnyObjectByType<LoadConfig>().SaveEnemiesState();
-            FindAnyObjectByType<PauseController>().MainMenuView();
-        }
+        SaveMainStat();
+        SaveGameCurSceneLevel();
+        FindAnyObjectByType<LoadConfig>().SaveEnemiesState();
+        FindAnyObjectByType<PauseController>().MainMenuView();
     }
 
     public void SaveGameCurSceneLevel()
@@ -57,7 +62,7 @@ public class GameManager : MonoBehaviour
         instance.staminaBar.IncreaseStaminaAmount(0);
         instance.staminaBar.setRegenSpeed(stat.staminaSpeed);
 
-        instance.transform.position = new Vector3(stat.position[0], stat.position[1], stat.position[2]);
+        //instance.transform.position = new Vector3(stat.position[0], stat.position[1], stat.position[2]);
     }
 
     //make for transition scene
@@ -68,14 +73,6 @@ public class GameManager : MonoBehaviour
         modeManager.LoadMainStat();
         main_character instance = main_character.instance;
         MainChararacterStat stat = modeManager.getMainStat();
-        instance.number_flask = stat.numberFlask;
-        instance.souls = stat.souls;
-        instance.healthBar.maxHealth = stat.maxHealth;
-        instance.healthBar.IncreaseMaxHealth(0);
-        instance.healthBar.health = stat.curHealth;
-
-        instance.staminaBar.maxStamina = stat.maxStamina;
-        instance.staminaBar.IncreaseStaminaAmount(0);
-        instance.staminaBar.setRegenSpeed(stat.staminaSpeed);
+        SetCharacterStat();
     }
 }

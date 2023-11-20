@@ -395,6 +395,8 @@ public class main_character : MonoBehaviour
             death = true;
             DeathBanner.instance.ShowUI();
             DestroyObjectDelayed();
+            //GameManager.instance.OnMainCharacterDeath();
+            GameManager.instance.Invoke("OnMainCharacterDeath", 2);
         }
     }
 
@@ -547,6 +549,7 @@ public class main_character : MonoBehaviour
                     death = true;
                     DeathBanner.instance.ShowUI();
                     DestroyObjectDelayed();
+                    GameManager.instance.Invoke("OnMainCharacterDeath",2);
                 }
                 else
                 {
@@ -577,6 +580,8 @@ public class main_character : MonoBehaviour
                 AudioManager.Instance.PlaySFXMusic("death");
                 DeathBanner.instance.ShowUI();
                 DestroyObjectDelayed();
+                //GameManager.instance.OnMainCharacterDeath();
+                GameManager.instance.Invoke("OnMainCharacterDeath", 2);
             }
             else
             {
