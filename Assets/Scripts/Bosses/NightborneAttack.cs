@@ -18,6 +18,7 @@ public class NightborneAttack : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private NightborneController controller;
+    private BossHealth health;
     
 
     private void Awake()
@@ -26,11 +27,12 @@ public class NightborneAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         controller = GetComponent<NightborneController>();
+        health = GetComponent<BossHealth>();
     }
 
     private void Update()
     {
-        if (!boss.targetedPlayer)
+        if (!boss.targetedPlayer || health.IsDeath())
             return;
 
         if (Vector2.Distance(rb.position, boss.targetedPlayer.position) < attackRange)
