@@ -34,6 +34,14 @@ public class PauseController : MonoBehaviour
                 GameIsPaused = true;
             }
         }
+
+        if (!uiControl.activeSelf)
+        {
+            uiControl.SetActive(false);
+            uiAudio.SetActive(false);
+            Time.timeScale = 1;
+            GameIsPaused = false;
+        }
     }
 
     public void MainMenuView() {
