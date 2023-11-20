@@ -988,7 +988,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1599534908, guid: 11cca269ce052084dab712ba12a9954a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1049,6 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1580690738346163595}
   arrowPrefab: {fileID: 118256585928299870, guid: 297e00b686939144e98577c456e112f9, type: 3}
+  attackDamage: 20
 --- !u!50 &7150776286621602305
 Rigidbody2D:
   serializedVersion: 4
@@ -1193,3 +1194,4 @@ MonoBehaviour:
   type: 2
   attackWidth: 0
   attackHeight: 0
+  attackDamage: 10

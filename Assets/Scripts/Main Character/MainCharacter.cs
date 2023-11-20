@@ -524,7 +524,7 @@ public class main_character : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
-    private bool Death()
+    public bool Death()
     {
         death = healthBar.death();
         return death;

@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -403715599, guid: e2b951f3552cd4e41b3c44bbe6005e05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -229,6 +229,7 @@ MonoBehaviour:
   type: 0
   attackWidth: 0
   attackHeight: 0
+  attackDamage: 0
 --- !u!95 &1067695385799730022
 Animator:
   serializedVersion: 5

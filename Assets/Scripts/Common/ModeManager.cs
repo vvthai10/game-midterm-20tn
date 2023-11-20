@@ -193,7 +193,7 @@ public class MainChararacterStat
     {
         main_character instance = main_character.instance;
         this.maxHealth = instance.healthBar.maxHealth;
-        this.curHealth = instance.healthBar.health;
+        this.curHealth = instance.healthBar.health <= 0 ? instance.healthBar.maxHealth/2 : instance.healthBar.health;
         this.maxStamina = instance.staminaBar.maxStamina;
         this.staminaSpeed = instance.staminaBar.getRegenSpeed();
         this.numberFlask = instance.number_flask;
