@@ -18,21 +18,23 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         uiGuide.SetActive(false);
-        // if (!PlayerPrefs.HasKey("FIRSTTIMEOPENING"))
-        // {
-        //     PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
-        //     uiGuide.SetActive(true);
-        //     StartCoroutine(ShowInstructions());
-        // }
-
-        uiGuide.SetActive(true);
-        if (object1 != null) {
-            object1.SetActive(false);
+        if (!PlayerPrefs.HasKey("FIRSTTIMEOPENING"))
+        {
+            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+            main_character.instance.healthBar.health = 70;
+            //uiGuide.SetActive(true);
+            //StartCoroutine(ShowInstructions());
+            uiGuide.SetActive(true);
+            if (object1 != null)
+            {
+                object1.SetActive(false);
+            }
+            if (object2 != null)
+            {
+                object2.SetActive(false);
+            }
+            StartCoroutine(ShowInstructions());
         }
-        if (object2 != null) {
-            object2.SetActive(false);
-        }
-        StartCoroutine(ShowInstructions());
     }
 
     IEnumerator ShowInstructions()
