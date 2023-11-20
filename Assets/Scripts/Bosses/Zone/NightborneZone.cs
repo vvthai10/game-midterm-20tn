@@ -18,6 +18,8 @@ public class Nightborne : MonoBehaviour
         if (!collision.CompareTag("Player") || !isEnabled)
             return;
 
+        TransparentFade.Instance.StartIncrease();
+
         fightController.Intro();
         thisCollider.enabled = false;
     }
