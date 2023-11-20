@@ -18,6 +18,8 @@ public class BossGeneral : MonoBehaviour
         {"nightborne", 10000 }
     };
 
+    public bool canTakeHit = true;
+
 
     private void Awake()
     {
@@ -63,14 +65,14 @@ public class BossGeneral : MonoBehaviour
 
     public void Show()
     {
-        if (bossName.ToLower() == "demon")
-        {
-            audioManager.PlayBackgroundMusic("Boss 2");
-        }
-        else if (bossName.ToLower() == "nightborne")
-        {
-            audioManager.PlayBackgroundMusic("Boss 1");
-        }
+        //if (bossName.ToLower() == "demon")
+        //{
+        //    audioManager.PlayBackgroundMusic("Boss 2");
+        //}
+        //else if (bossName.ToLower() == "nightborne")
+        //{
+        //    audioManager.PlayBackgroundMusic("Boss 1");
+        //}
         gameObject.SetActive(true);
     }
     

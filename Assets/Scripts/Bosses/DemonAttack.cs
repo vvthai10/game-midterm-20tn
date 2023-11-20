@@ -15,15 +15,21 @@ public class BossAttack : MonoBehaviour
 
     public GameObject[] fireballs;
     public float fireballCooldown = 1;
-    private float cooldownTimer = Mathf.Infinity;
+    private float fireballTimer = 0;
 
 
     public SpikeCastController spikesController;
     public float spikesCooldown = 5f;
     private float spikesTimer = 0;
 
+    public MeteorsController meteorsController;
+    public float meteorsCooldown = 10f;
+    private float meteorsTimer = 0;
+
     //private Collider2D[] hitPlayers = null;
     private BossGeneral boss;
+
+
 
     private void Start()
     {
@@ -32,9 +38,15 @@ public class BossAttack : MonoBehaviour
 
     private void Update()
     {
-        if (boss.targetedPlayer && cooldownTimer > fireballCooldown)
+        if (!boss.targetedPlayer)
+        {
+            return;
+        }
+
+        if (fireballTimer > fireballCooldown)
         {
             this.ShootFireball();
+            fireballTimer = 0;
         }
 
         if (spikesTimer > spikesCooldown)
@@ -43,8 +55,15 @@ public class BossAttack : MonoBehaviour
             spikesTimer = 0;
         }
 
-        cooldownTimer += Time.deltaTime;
+        if (meteorsTimer > meteorsCooldown)
+        {
+            meteorsController?.Cast();
+            meteorsTimer = 0;
+        }
+
+        fireballTimer += Time.deltaTime;
         spikesTimer += Time.deltaTime;
+        meteorsTimer += Time.deltaTime;
     }
 
     // event called at the middle of "attack" animation
@@ -71,9 +90,7 @@ public class BossAttack : MonoBehaviour
 
     private void ShootFireball()
     {
-        cooldownTimer = 0;
         fireballs[FindFireball()].transform.position = fireballPoint.position;
-        //float direction = Mathf.Sign(boss.targetedPlayer.position.x - fireballPoint.position.x);
         fireballs[FindFireball()].GetComponent<Fireball>().SetLocalDirection(-1);
     }
 
