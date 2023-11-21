@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
         //     PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
         // }
 
-        if (!FindObjectOfType<ModeManager>().isContinueClick) {
+        if (!FindObjectOfType<ModeManager>().isContinueClick && SceneManager.GetActiveScene().buildIndex == 1) {
             main_character.instance.healthBar.health = 70;
             uiGuide.SetActive(true);
             if (object1 != null)
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (step < 15)
             {
-                instructionText.text = "Press the F key continuously to climb the wall";
+                instructionText.text = "Press the F key continuously and Hold A key or D key to climb the wall";
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     step++;
