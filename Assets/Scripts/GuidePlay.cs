@@ -17,13 +17,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        uiGuide.SetActive(false);
-        if (!PlayerPrefs.HasKey("FIRSTTIMEOPENING"))
-        {
-            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+        // uiGuide.SetActive(false);
+        // if (!PlayerPrefs.HasKey("FIRSTTIMEOPENING"))
+        // {
+        //     PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+        // }
+
+        if (!FindObjectOfType<ModeManager>().isContinueClick) {
             main_character.instance.healthBar.health = 70;
-            //uiGuide.SetActive(true);
-            //StartCoroutine(ShowInstructions());
             uiGuide.SetActive(true);
             if (object1 != null)
             {
