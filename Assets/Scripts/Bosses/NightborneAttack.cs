@@ -52,6 +52,7 @@ public class NightborneAttack : MonoBehaviour
     // event called at the middle of "attack" animation
     public void hit()
     {
+        AudioManager.Instance.PlaySFXBossMusic("nightborne-hit");
         if (this.PlayerIsInAttackRange())
         {
             GameManager.instance.SetDeathReason("boss");

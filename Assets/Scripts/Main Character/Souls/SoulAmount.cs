@@ -21,9 +21,7 @@ public class SoulAmount : MonoBehaviour
     {
         if (souls < updatedSouls)
         {
-
             souls += Mathf.Ceil((updatedSouls - souls) * Time.deltaTime);
-            
         }
         if (souls > updatedSouls)
         {

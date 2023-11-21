@@ -8,23 +8,23 @@ public class BossAttack : MonoBehaviour
     
     public Transform attackPoint;
     public Transform fireballPoint;
-    public float attackRange = 1f;
-    public float attackDamage = 20f;
+    public float attackRange = 3.5f;
+    public float attackDamage = 7f;
     //public LayerMask playersLayer;
  
 
     public GameObject[] fireballs;
-    public float fireballCooldown = 1;
-    private float fireballTimer = 0;
+    public float fireballCooldown = 15f;
+    private float fireballTimer = 10f;
 
 
     public SpikeCastController spikesController;
-    public float spikesCooldown = 5f;
+    public float spikesCooldown = 15f;
     private float spikesTimer = 0;
 
     public MeteorsController meteorsController;
-    public float meteorsCooldown = 10f;
-    private float meteorsTimer = 0;
+    public float meteorsCooldown = 15f;
+    private float meteorsTimer = 5f;
 
     //private Collider2D[] hitPlayers = null;
     private BossGeneral boss;
@@ -69,10 +69,21 @@ public class BossAttack : MonoBehaviour
     // event called at the middle of "attack" animation
     public void hit()
     {
+        //Debug.Log("Hit called");
+        AudioManager.Instance.PlaySFXBossMusic("demon-hit");
         if (this.PlayerIsInAttackRange())
         {
-            GameManager.instance.SetDeathReason("boss");
-            main_character.instance.TakeDameage(attackDamage);
+            Debug.Log("Player in attack range");
+            try
+            {
+                //Debug.Log($"Hitting player with damage {attackDamage}");
+                main_character.instance.TakeDameage(attackDamage);
+                GameManager.instance.SetDeathReason("boss");
+                //Debug.Log("Take damage called");
+            } catch
+            {
+                Debug.Log("Error at DemonAttacks.hit");
+            }
         }
     }
 

@@ -13,15 +13,23 @@ public class ModeManager : MonoBehaviour
     public bool isContinueClick = false;
     private void Awake()
     {
-        if(ModeManager.instance != null)
+        if (ModeManager.instance != null)
         {
-            //Destroy(gameObject);
-        }else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(ModeManager.instance.gameObject);
         }
-       
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        //if(ModeManager.instance != null)
+        //{
+        //    //Destroy(gameObject);
+        //    instance = this;
+        //}
+        //else
+        //{
+        //    instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+
     }
 
     public void SetMode(string mode)

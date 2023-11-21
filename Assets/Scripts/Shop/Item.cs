@@ -23,7 +23,8 @@ public class Item
 
     public bool HasItem()
     {
-        return true;
+
+        return this.amount > 0;
     }
 
     public void BuyItem()

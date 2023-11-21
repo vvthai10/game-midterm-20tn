@@ -27,7 +27,7 @@ public class NightborneBehaviour : StateMachineBehaviour
             Vector2 target = new Vector2(player.position.x, rb.position.y);
             Vector2 newPosition = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
             rb.MovePosition(newPosition);
-
+            AudioManager.Instance.PlaySFXBossMusic(boss.bossName.ToLower() + "-run");
             boss.LookAtPlayer();
 
             //if (Vector2.Distance(rb.position, player.position) < attackRange)

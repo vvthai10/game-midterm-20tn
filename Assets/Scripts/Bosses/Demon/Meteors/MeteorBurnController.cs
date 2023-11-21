@@ -8,7 +8,7 @@ public class MeteorBurnController : MonoBehaviour
 
     private Animator animator;
 
-    private float burnCooldown = 1f;
+    public float burnCooldown = 0.75f;
     private float burnTimer = 0;
     private bool burning = false;
     private bool playerIn = false;
