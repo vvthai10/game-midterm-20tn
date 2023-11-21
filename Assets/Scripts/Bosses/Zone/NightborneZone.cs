@@ -19,6 +19,7 @@ public class Nightborne : MonoBehaviour
             return;
 
         TransparentFade.Instance.StartIncrease();
+        ShowHideTileMap.Instance.TurnBoss();
 
         fightController.Intro();
         thisCollider.enabled = false;

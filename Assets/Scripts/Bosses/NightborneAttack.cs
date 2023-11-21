@@ -55,6 +55,7 @@ public class NightborneAttack : MonoBehaviour
         AudioManager.Instance.PlaySFXBossMusic("nightborne-hit");
         if (this.PlayerIsInAttackRange())
         {
+            GameManager.instance.SetDeathReason("boss");
             main_character.instance.TakeDameage(attackDamage);
         }
     }

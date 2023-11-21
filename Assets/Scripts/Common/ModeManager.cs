@@ -16,7 +16,9 @@ public class ModeManager : MonoBehaviour
         if(ModeManager.instance != null)
         {
             //Destroy(gameObject);
-        }else
+            instance = this;
+        }
+        else
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -79,6 +81,11 @@ public class ModeManager : MonoBehaviour
     public MainChararacterStat getMainStat()
     {
         return main;
+    }
+
+    public void SetDeathReason(string deathBy)
+    {
+        main.deathReason = deathBy;
     }
 }
 [System.Serializable]
@@ -143,6 +150,12 @@ public class GameController
 public class MainChararacterStat
 {
     public static string SAVE_PATH = "/MainStat.json";
+    /*
+     * death by monster/trap -> reset to start location, reset money, stat -> "monster"
+     * death by boss -> reset to shop location, remain stat, money -> "boss"
+     * save game normally -> remain currently location, remain stat, money -> "none"
+     */
+    public string deathReason;
     public float maxHealth = 100;
     public float curHealth = 100;
     public float maxStamina = 100;
@@ -207,7 +220,7 @@ public class MainChararacterStat
         this.maxStamina = instance.staminaBar.maxStamina;
         this.staminaSpeed = instance.staminaBar.getRegenSpeed();
         this.numberFlask = instance.number_flask;
-        this.souls = instance.souls;
+        this.souls = this.deathReason.ToLower() == "monster" ? instance.oldSouls : instance.souls;
         this.position = new float[3]
         {
             instance.transform.position.x,
@@ -218,6 +231,7 @@ public class MainChararacterStat
 
     private void SetStat(MainChararacterStat another)
     {
+        this.deathReason = another.deathReason;
         this.maxHealth = another.maxHealth;
         this.curHealth = another.curHealth;
         this.maxStamina = another.maxStamina;

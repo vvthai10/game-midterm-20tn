@@ -62,13 +62,14 @@ public class enemy_attack : MonoBehaviour
             }
             colliders = Physics2D.OverlapAreaAll(topLeftPoint, bottomRightPoint);
         }
-
+        
         foreach(Collider2D collider in colliders)
         {
             if(collider.tag == "Player")
             {
                 //deal damage to player
                 Debug.Log("collider with player");
+                GameManager.instance.SetDeathReason("monster");
                 main_character.instance.TakeDameage(attackDamage);
             }
         }

@@ -1,14 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject menuDefault, menuContinue;
+
+    private void Awake() {
+        Debug.Log("Run again");
+        if (Directory.Exists(Application.persistentDataPath))
+        {
+            menuDefault.SetActive(false);
+            menuContinue.SetActive(true);
+        }
+        else
+        {
+            menuDefault.SetActive(true);
+            menuContinue.SetActive(false);
+        }
+    }
+
     private void Start() {
-        Debug.Log("Show Main menu");
-        if(AudioManager.Instance == null) {
-            Debug.Log("Not have instance");
+        if (Directory.Exists(Application.persistentDataPath))
+        {
+            menuDefault.SetActive(false);
+            menuContinue.SetActive(true);
+        }
+        else
+        {
+            menuDefault.SetActive(true);
+            menuContinue.SetActive(false);
         }
     }
     
