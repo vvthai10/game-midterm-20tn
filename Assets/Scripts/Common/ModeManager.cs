@@ -16,7 +16,9 @@ public class ModeManager : MonoBehaviour
         if(ModeManager.instance != null)
         {
             //Destroy(gameObject);
-        }else
+            instance = this;
+        }
+        else
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
