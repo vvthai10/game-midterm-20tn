@@ -77,13 +77,13 @@ public class main_character : MonoBehaviour
         {STAMINA_RUN_BOOST, 0.1f },
         {STAMINA_RUN, 0f},
         {STAMINA_RUN_SLOWED, -0.01f},
-        {STAMINA_ROLL, 20f },
-        {STAMINA_JUMP, 15f},
-        {STAMINA_ATTACK, 25f },
+        {STAMINA_ROLL, 15f },
+        {STAMINA_JUMP, 10f},
+        {STAMINA_ATTACK, 15f },
         {STAMINA_IDLE, -0.025f },
         {STAMINA_FALL, 0f },
         {STAMINA_IDLE_BLOCK, 0.1f },
-        {STAMINA_NORMAL_BLOCK, 15f },
+        {STAMINA_NORMAL_BLOCK, 5f },
         {STAMINA_WALL_SLIDE, 0.00f },
         {STAMINA_COMBO, 40f }
     };
@@ -129,7 +129,8 @@ public class main_character : MonoBehaviour
 
     private const float extraHeight = 0.01f;
     private const float notFallHeight = 3f;
-    
+    private const float attackTime = 0.25f;
+
     public static bool finishRoll = true;
     private bool isJumping = false;
     private bool isBlocking = false;
@@ -138,6 +139,7 @@ public class main_character : MonoBehaviour
     private DateTime lastTimeSlide = DateTime.Now;
     private DateTime lastTimeClickBlock = DateTime.Now;
     private DateTime lastTimeBlock = DateTime.Now;
+    private DateTime lastTimeAttack = DateTime.Now;
 
     private bool canReleaseSkill = false;
     private void Awake()
@@ -166,11 +168,31 @@ public class main_character : MonoBehaviour
 
         if (death)
         {
+            rigid.velocity = new Vector2(0, 0);
             return;
         }
 
+        if ((DateTime.Now - lastTimeAttack).TotalSeconds < attackTime)
+        {
+            rigid.velocity = new Vector2(0, 0);
+            return;
+        }
+
+
         int meetEdge = MeetEdgeAndFall();
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        // Combo
+        if (canReleaseSkill && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Combo();
+        }
+
+        // Attack 
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Debug.Log(canReceiveInput);
+            Attack(damage, stamina_amount[STAMINA_ATTACK]);
+        }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             
             if (finishRoll)
@@ -239,22 +261,12 @@ public class main_character : MonoBehaviour
             }        
         }
 
-        // Combo
-        if (canReleaseSkill && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Combo();
-        }
-
-        // Attack 
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            //Debug.Log(canReceiveInput);
-            Attack(damage, stamina_amount[STAMINA_ATTACK]);
-        }
+       
 
         // Roll
         if (
             Input.GetKeyDown(KeyCode.Space) &&
+            IsGrounded() &&
             staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
             )
         {
@@ -471,6 +483,7 @@ public class main_character : MonoBehaviour
     {
         if (canReceiveInput && staminaBar.loseStamina(stamina_cost))
         {
+            lastTimeAttack = DateTime.Now;
             currentMoveValue = 0f;
             inputReceived = true;
             canReceiveInput = false;

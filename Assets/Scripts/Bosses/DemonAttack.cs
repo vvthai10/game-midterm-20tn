@@ -69,6 +69,7 @@ public class BossAttack : MonoBehaviour
     // event called at the middle of "attack" animation
     public void hit()
     {
+        AudioManager.Instance.PlaySFXBossMusic("demon-hit");
         if (this.PlayerIsInAttackRange())
         {
             main_character.instance.TakeDameage(attackDamage);

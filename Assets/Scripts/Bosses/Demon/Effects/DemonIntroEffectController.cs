@@ -16,6 +16,7 @@ public class DemonIntroEffectController : MonoBehaviour
     public void Play()
     {
         animator.Play("intro");
+        AudioManager.Instance.PlaySFXBossMusic("demon-intro");
     }
 
     public void OnReveal()

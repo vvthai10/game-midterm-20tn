@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     public static string WALK = "walk";
     public static string SLIDE = "slide";
     List<string> sfx_have_time_exit = new  List<string> () { RUN, WALK, SLIDE };
+    List<string> bosses_sfx_have_time_exit = new List<string>() { "nightborne-run", "demon-run" };
 
     private void Awake() {
         if(AudioManager.Instance == null) {
@@ -148,7 +149,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log(name + " SFX Sound Not Found");
             return;
         }
-        else
+        else if (bosses_sfx_have_time_exit.Find(x => x == name) == null || !sfxBossSource.isPlaying)
         {
             sfxBossSource.enabled = true;
             sfxBossSource.pitch = speed;

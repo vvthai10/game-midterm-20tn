@@ -33,7 +33,7 @@ public class DemonBehaviour : StateMachineBehaviour
             rb.MovePosition(newPosition);
 
             boss.LookAtPlayer();
-
+            AudioManager.Instance.PlaySFXBossMusic("demon-run");
             //if (Vector2.Distance(rb.position, player.position) < attackRange)
             //{
             //    

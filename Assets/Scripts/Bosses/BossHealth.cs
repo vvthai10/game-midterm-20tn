@@ -115,6 +115,15 @@ public class BossHealth : MonoBehaviour
     // event called at the end of "death" animation
     public void DestroySelf()
     {
+        BossDeathBanner.instance.ShowUI();
+        if (boss.bossName.ToLower() == "demon")
+        {
+            AudioManager.Instance.PlayBackgroundMusic("Elphael");
+        }
+        else if (boss.bossName.ToLower() == "nightborne")
+        {
+            AudioManager.Instance.PlayBackgroundMusic("Caves");
+        }
         Destroy(gameObject);
     }
 }
