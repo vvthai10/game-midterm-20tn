@@ -42,6 +42,7 @@ public class DemonBehaviour : StateMachineBehaviour
 
             if (bossAttack.PlayerIsInAttackRange())
             {
+                //Debug.Log("Boss found player in attack range");
                 animator.Play(boss.isEnraged ? "enrage_attack" : "attack");
             }
         }
