@@ -35,7 +35,7 @@ public class PauseController : MonoBehaviour
             }
         }
 
-        if (!uiControl.activeSelf)
+        if (!uiControl.activeSelf && !Shop.IsOpenShop)
         {
             uiControl.SetActive(false);
             uiAudio.SetActive(false);

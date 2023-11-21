@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+
+    public static bool IsOpenShop = false;
     public Canvas Dialogue;
     public GameObject shopDialogController;
 
@@ -28,8 +30,20 @@ public class Shop : MonoBehaviour
             {
                 Debug.Log("User in range and click E");
                 shopDialogController.SetActive(true);
+                IsOpenShop = true;
             }
         }
+
+        if (IsOpenShop) {
+            Time.timeScale = 0;
+        }
+        else {
+            Time.timeScale = 1;
+        }
+    }
+
+    public void OnShopClose() {
+        IsOpenShop = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
