@@ -255,6 +255,7 @@ public class main_character : MonoBehaviour
         // Roll
         if (
             Input.GetKeyDown(KeyCode.Space) &&
+            IsGrounded() &&
             staminaBar.loseStamina(stamina_amount[STAMINA_ROLL])
             )
         {
