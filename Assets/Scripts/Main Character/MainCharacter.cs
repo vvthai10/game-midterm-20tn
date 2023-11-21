@@ -97,11 +97,11 @@ public class main_character : MonoBehaviour
     private const float attackRange = 1.45f;
     private const float damage = 20f;
 
-    [SerializeField] private LayerMask layerMaskGround; // Ground
-    [SerializeField] private LayerMask layerMaskEdge; // wall / edge
-    [SerializeField] private LayerMask layerMaskCorner; // wall / edge
-    [SerializeField] private LayerMask layerMaskEnemy; // Enemy
-    [SerializeField] private LayerMask deathLayerMask;
+    private LayerMask layerMaskGround; // Ground
+    private LayerMask layerMaskEdge; // wall / edge
+    private LayerMask layerMaskCorner; // wall / edge
+    private LayerMask layerMaskEnemy; // Enemy
+    private LayerMask deathLayerMask;
 
     Rigidbody2D rigid;
     public Animator anim;
@@ -156,6 +156,12 @@ public class main_character : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent <CapsuleCollider2D>();
         number_flask = max_flask;
+
+        layerMaskGround = LayerMask.GetMask("Ground");
+        layerMaskEdge = LayerMask.GetMask("Edge");
+        layerMaskCorner = LayerMask.GetMask("Corner");
+        layerMaskEnemy = LayerMask.GetMask("Enemies");
+        deathLayerMask = LayerMask.GetMask("Death Layer");
     }
 
 

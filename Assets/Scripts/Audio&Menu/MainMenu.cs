@@ -9,8 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject menuDefault, menuContinue;
 
     private void Awake() {
-        Debug.Log("Run again");
-        if (Directory.Exists(Application.persistentDataPath))
+        if (!CheckIfFolderIsEmpty(Application.persistentDataPath))
         {
             menuDefault.SetActive(false);
             menuContinue.SetActive(true);
@@ -22,18 +21,19 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void Start() {
-        if (Directory.Exists(Application.persistentDataPath))
-        {
-            menuDefault.SetActive(false);
-            menuContinue.SetActive(true);
-        }
-        else
-        {
-            menuDefault.SetActive(true);
-            menuContinue.SetActive(false);
-        }
-    }
+    // private void Start() {
+    //     Debug.Log("Run start");
+    //     if (Directory.Exists(Application.persistentDataPath))
+    //     {
+    //         menuDefault.SetActive(false);
+    //         menuContinue.SetActive(true);
+    //     }
+    //     else
+    //     {
+    //         menuDefault.SetActive(true);
+    //         menuContinue.SetActive(false);
+    //     }
+    // }
     
     
     // private void OnEnable()
@@ -67,5 +67,27 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame(){
         Application.Quit();
+    }
+
+    bool CheckIfFolderIsEmpty(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            string[] files = Directory.GetFiles(path);
+            string[] directories = Directory.GetDirectories(path);
+
+            if (files.Length == 0 && directories.Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 }
