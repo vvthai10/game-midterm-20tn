@@ -26,7 +26,8 @@ public class LoadConfig : MonoBehaviour
         GetGameModeFromModeManager();
         LoadConfigFile(gameMode);
         SetUpMonster();
-        if(FindObjectOfType<ModeManager>().isContinueClick)
+        if(FindObjectOfType<ModeManager>().isContinueClick && 
+            FindAnyObjectByType<ModeManager>().getMainStat().deathReason.ToLower() != "monster")
         {
             LoadEnemiesState();
             SetUpMonsterWhenLoadAgain();
