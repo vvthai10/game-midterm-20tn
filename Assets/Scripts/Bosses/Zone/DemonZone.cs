@@ -20,7 +20,8 @@ public class DemonZone : MonoBehaviour
 
         try
         {
-        TransparentFade.Instance.StartIncrease();
+            TransparentFade.Instance.StartIncrease();
+            ShowHideTileMap.Instance.TurnBoss();
         }
         catch { }
 

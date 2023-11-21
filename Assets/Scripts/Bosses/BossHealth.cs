@@ -102,6 +102,7 @@ public class BossHealth : MonoBehaviour
             animator.Play(boss.isEnraged && animator.HasState(0, Animator.StringToHash("enrage_hurt")) ? "enrage_death" : "death");
             healthBar.Hide();
             TransparentFade.Instance.StartDecrease();
+            ShowHideTileMap.Instance.TurnNormal();
         }
         
     }
