@@ -986,7 +986,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7763605720771012153}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 0.27769098, y: 0.27769098, z: 0.27769098}
   m_ConstrainProportionsScale: 0
@@ -1023,12 +1023,14 @@ MonoBehaviour:
   - name: Caves
     clip: {fileID: 8300000, guid: b13ea417164fd7841b69ed49c59ec752, type: 3}
   - name: Boss 1
-    clip: {fileID: 8300000, guid: 50255d42f854965498957b16f086cc56, type: 3}
+    clip: {fileID: 8300000, guid: f2906c4857131064998ea0db3c817c6d, type: 3}
   - name: Boss 2
-    clip: {fileID: 8300000, guid: 8898273b24096f8418bacda8cd992b62, type: 3}
+    clip: {fileID: 8300000, guid: 679e067ea690a424299622e4d68a3ec2, type: 3}
   ambientSounds:
   - name: rain
     clip: {fileID: 8300000, guid: 7e946108ede7ca643b5139c8c058cb46, type: 3}
+  - name: rain and thunder
+    clip: {fileID: 8300000, guid: 3afc1f759332a91479b0849f6503c415, type: 3}
   sfxSounds:
   - name: walk
     clip: {fileID: 8300000, guid: 0909de896e9029541b92ae05fe15e4b6, type: 3}
@@ -1072,6 +1074,16 @@ MonoBehaviour:
   sfxBossSounds:
   - name: death
     clip: {fileID: 8300000, guid: 631775380ea7cc64b922eaa2a68ae3ba, type: 3}
+  - name: thunder
+    clip: {fileID: 8300000, guid: aca8482e97a35ad4fb47aef6fc5236e6, type: 3}
+  - name: teleport1
+    clip: {fileID: 8300000, guid: b55c3a4b5ba3e3e41bde3de518f5e3c9, type: 3}
+  - name: teleport2
+    clip: {fileID: 8300000, guid: 75b72a2dd7153a6439ae36af4205e716, type: 3}
+  - name: nightborne-hit
+    clip: {fileID: 8300000, guid: 2ef0b2e2c62cda84084b3b63d0e10ecd, type: 3}
+  - name: nightborne-run
+    clip: {fileID: 8300000, guid: 6ed60d26e9b63494aa186a23d910cfe8, type: 3}
   bgSource: {fileID: 3868733067150222922}
   ambientSource: {fileID: 939178726166536301}
   sfxSource: {fileID: 7259852144001495565}

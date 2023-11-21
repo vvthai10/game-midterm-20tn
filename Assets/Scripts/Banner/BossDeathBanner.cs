@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class BossDeathBanner : MonoBehaviour
     public static BossDeathBanner instance;
     private bool fadeIn = false;
     private bool fadeOut = false;
+    private DateTime startDelay;
     private void Awake()
     {
         instance = this;
@@ -33,7 +35,8 @@ public class BossDeathBanner : MonoBehaviour
                 HideUI();
             }
         }
-        if (fadeOut)
+
+        if (fadeOut && (DateTime.Now - startDelay).TotalSeconds >= 1f)
         {
             if (deathBannerCanvas.alpha > 0)
             {
@@ -50,6 +53,7 @@ public class BossDeathBanner : MonoBehaviour
     public void HideUI()
     {
         fadeOut = true;
+        startDelay = DateTime.Now;
     }
 
     public void ShowUI()

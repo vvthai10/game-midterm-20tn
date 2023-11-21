@@ -33,7 +33,7 @@ public class DemonBehaviour : StateMachineBehaviour
             rb.MovePosition(newPosition);
 
             boss.LookAtPlayer();
-
+            AudioManager.Instance.PlaySFXBossMusic("demon-run");
             //if (Vector2.Distance(rb.position, player.position) < attackRange)
             //{
             //    
@@ -42,6 +42,7 @@ public class DemonBehaviour : StateMachineBehaviour
 
             if (bossAttack.PlayerIsInAttackRange())
             {
+                //Debug.Log("Boss found player in attack range");
                 animator.Play(boss.isEnraged ? "enrage_attack" : "attack");
             }
         }

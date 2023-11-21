@@ -17,7 +17,8 @@ public class DemonController : MonoBehaviour
 
     public void PlayIntro()
     {
-        this.Show();
+        //this.Show();
+        boss.Show();
         boss.LookAtPlayer();
         health.IntroHealthBar();
         StartCoroutine(StartAttackingAfter(0.5f));

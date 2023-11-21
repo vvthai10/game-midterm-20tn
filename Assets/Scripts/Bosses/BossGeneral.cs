@@ -14,8 +14,8 @@ public class BossGeneral : MonoBehaviour
     public bool canEnrage = false;
     public AudioManager audioManager;
     private Dictionary<string, int> souls = new Dictionary<string, int>() {
-        { "demon", 100000},
-        {"nightborne", 10000 }
+        { "demon", 2000},
+        { "nightborne", 1000 }
     };
 
     public bool canTakeHit = true;
@@ -65,14 +65,17 @@ public class BossGeneral : MonoBehaviour
 
     public void Show()
     {
-        //if (bossName.ToLower() == "demon")
-        //{
-        //    audioManager.PlayBackgroundMusic("Boss 2");
-        //}
-        //else if (bossName.ToLower() == "nightborne")
-        //{
-        //    audioManager.PlayBackgroundMusic("Boss 1");
-        //}
+        Debug.Log("BOss name: " + bossName.ToLower());
+        if (bossName.ToLower() == "demon")
+        {
+            AudioManager.Instance.PlayBackgroundMusic("Boss 2");
+            AudioManager.Instance.PlayAmbientMusic("fire");
+        }
+        else if (bossName.ToLower() == "nightborne")
+        {
+            AudioManager.Instance.PlayBackgroundMusic("Boss 1");
+            AudioManager.Instance.PlayAmbientMusic("rain and thunder");
+        }
         gameObject.SetActive(true);
     }
     
