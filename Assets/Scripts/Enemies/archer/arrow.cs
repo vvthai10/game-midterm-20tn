@@ -27,6 +27,7 @@ public class arrow : MonoBehaviour
         {
             //Deal damage to player
             main_character.instance.TakeDameage(attackDamage);
+            GameManager.instance.SetDeathReason("monster");
             Destroy(gameObject);
         }
        

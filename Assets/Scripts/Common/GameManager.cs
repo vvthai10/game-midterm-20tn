@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static string deathBy = "none";
+    
     ModeManager modeManager;
 
     private void Awake()
@@ -63,8 +65,25 @@ public class GameManager : MonoBehaviour
         instance.staminaBar.maxStamina = stat.maxStamina;
         instance.staminaBar.IncreaseStaminaAmount(0);
         instance.staminaBar.setRegenSpeed(stat.staminaSpeed);
+        Debug.Log("Current death reason: " + stat.deathReason);
+        if(stat.deathReason.ToLower() == "none")
+        {
+            instance.transform.position = new Vector3(stat.position[0], stat.position[1], stat.position[2]);
+        }
+        else if(stat.deathReason.ToLower() == "monster")
+        {
+            
+        } else if(stat.deathReason.ToLower() == "boss")
+        {
+            var shopPos = FindAnyObjectByType<ShopManager>().transform.position;
+            instance.transform.position = new Vector3(shopPos.x, shopPos.y + 5, shopPos.z);
+        }
+        
+    }
 
-        //instance.transform.position = new Vector3(stat.position[0], stat.position[1], stat.position[2]);
+    public void SetDeathReason(string deathBY)
+    {
+        modeManager.SetDeathReason(deathBY);
     }
 
     //make for transition scene
@@ -75,6 +94,16 @@ public class GameManager : MonoBehaviour
         modeManager.LoadMainStat();
         main_character instance = main_character.instance;
         MainChararacterStat stat = modeManager.getMainStat();
-        SetCharacterStat();
+        instance.number_flask = stat.numberFlask;
+        instance.souls = stat.souls;
+        SoulAmount.instance.UpdateSouls(stat.souls);
+
+        instance.healthBar.maxHealth = stat.maxHealth;
+        instance.healthBar.IncreaseMaxHealth(0);
+        instance.healthBar.health = stat.curHealth;
+
+        instance.staminaBar.maxStamina = stat.maxStamina;
+        instance.staminaBar.IncreaseStaminaAmount(0);
+        instance.staminaBar.setRegenSpeed(stat.staminaSpeed);
     }
 }

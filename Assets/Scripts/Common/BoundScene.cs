@@ -17,6 +17,7 @@ public class BoundScene : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             // chuyen man
+            gameManager.SetDeathReason("none");
             gameManager.SaveMainStat();
             modeManager.SetScene(2);
             modeManager.SetContinueClick(false);

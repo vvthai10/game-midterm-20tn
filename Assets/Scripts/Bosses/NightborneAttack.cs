@@ -54,6 +54,7 @@ public class NightborneAttack : MonoBehaviour
     {
         if (this.PlayerIsInAttackRange())
         {
+            GameManager.instance.SetDeathReason("boss");
             main_character.instance.TakeDameage(attackDamage);
         }
     }
