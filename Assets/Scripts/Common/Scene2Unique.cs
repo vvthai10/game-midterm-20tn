@@ -9,7 +9,9 @@ public class Scene2Unique : MonoBehaviour
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        gameManager.SetDeathReason("none");
         gameManager.LoadMainStateForTransitionScene();
+        main_character.instance.oldSouls = main_character.instance.souls;
     }
 
     // Update is called once per frame

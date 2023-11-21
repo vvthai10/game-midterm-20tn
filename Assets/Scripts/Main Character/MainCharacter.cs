@@ -14,6 +14,7 @@ public class main_character : MonoBehaviour
 
     public int number_flask;
     public int souls;
+    public int oldSouls = 0;
     public const int max_flask = 5;
     private float amount_health_heal = 0.3f;
 
@@ -397,6 +398,7 @@ public class main_character : MonoBehaviour
             DeathBanner.instance.ShowUI();
             DestroyObjectDelayed();
             //GameManager.instance.OnMainCharacterDeath();
+            GameManager.instance.SetDeathReason("monster");
             GameManager.instance.Invoke("OnMainCharacterDeath", 2);
         }
     }
