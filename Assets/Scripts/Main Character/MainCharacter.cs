@@ -142,7 +142,7 @@ public class main_character : MonoBehaviour
     private DateTime lastTimeBlock = DateTime.Now;
     private DateTime lastTimeAttack = DateTime.Now;
 
-    private bool canReleaseSkill = false;
+    public bool canReleaseSkill = false;
     private void Awake()
     {
         instance = this;

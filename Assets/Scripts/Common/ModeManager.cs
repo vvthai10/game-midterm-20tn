@@ -169,6 +169,7 @@ public class MainChararacterStat
     public int numberFlask = 5;
     public int souls = 0;
     public float[] position = new float[3] {-5, 2.04f, 0};
+    public bool canReleaseSkill = false;
 
     public bool SaveData(string relativePath)
     {
@@ -227,6 +228,7 @@ public class MainChararacterStat
         this.staminaSpeed = instance.staminaBar.getRegenSpeed();
         this.numberFlask = instance.number_flask;
         this.souls = this.deathReason.ToLower() == "monster" ? instance.oldSouls : instance.souls;
+        this.canReleaseSkill = instance.canReleaseSkill;
         this.position = new float[3]
         {
             instance.transform.position.x,
@@ -245,5 +247,6 @@ public class MainChararacterStat
         this.numberFlask = another.numberFlask;
         this.souls = another.souls;
         this.position = another.position;
+        this.canReleaseSkill = another.canReleaseSkill;
     }
 }
