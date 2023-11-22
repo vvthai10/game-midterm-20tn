@@ -1026,11 +1026,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f2906c4857131064998ea0db3c817c6d, type: 3}
   - name: Boss 2
     clip: {fileID: 8300000, guid: 679e067ea690a424299622e4d68a3ec2, type: 3}
+  - name: Portal
+    clip: {fileID: 8300000, guid: 05c2174c10c41b44087bd92b3409641b, type: 3}
   ambientSounds:
   - name: rain
     clip: {fileID: 8300000, guid: 7e946108ede7ca643b5139c8c058cb46, type: 3}
   - name: rain and thunder
     clip: {fileID: 8300000, guid: 3afc1f759332a91479b0849f6503c415, type: 3}
+  - name: fire
+    clip: {fileID: 8300000, guid: 7e946108ede7ca643b5139c8c058cb46, type: 3}
+  - name: caves
+    clip: {fileID: 8300000, guid: 4e5b8937cf337b646aa3fde49b94f66c, type: 3}
   sfxSounds:
   - name: walk
     clip: {fileID: 8300000, guid: 0909de896e9029541b92ae05fe15e4b6, type: 3}
@@ -1084,6 +1090,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 2ef0b2e2c62cda84084b3b63d0e10ecd, type: 3}
   - name: nightborne-run
     clip: {fileID: 8300000, guid: 6ed60d26e9b63494aa186a23d910cfe8, type: 3}
+  - name: demon-intro
+    clip: {fileID: 8300000, guid: c92cf3d14099d6546a9feaeeadb7d203, type: 3}
+  - name: demon-hit
+    clip: {fileID: 8300000, guid: 79c8248b999d0b947945714e7ed10b57, type: 3}
+  - name: demon-run
+    clip: {fileID: 8300000, guid: 5089744a583d31144b1ad4b640a0efca, type: 3}
   bgSource: {fileID: 3868733067150222922}
   ambientSource: {fileID: 939178726166536301}
   sfxSource: {fileID: 7259852144001495565}

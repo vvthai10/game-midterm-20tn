@@ -53,7 +53,12 @@ public class AudioManager : MonoBehaviour
         else if (currentSceneIndex == 2)
         {
             PlayBackgroundMusic("Caves");
-            PlayAmbientMusic("rain");
+            PlayAmbientMusic("caves");
+        }
+        else if (currentSceneIndex == 3)
+        {
+            PlayBackgroundMusic("Ending");
+            StopAmbientMusic();
         }
     }
 
@@ -78,6 +83,10 @@ public class AudioManager : MonoBehaviour
             ambientSource.clip = s.clip;
             ambientSource.Play();
         }
+    }
+    public void StopAmbientMusic()
+    {
+        ambientSource.Stop();
     }
 
     public void PlaySFXMusic(string name, float speed = 1f) {

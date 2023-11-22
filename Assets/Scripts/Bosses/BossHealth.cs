@@ -120,11 +120,13 @@ public class BossHealth : MonoBehaviour
         if (boss.bossName.ToLower() == "demon")
         {
             AudioManager.Instance.PlayBackgroundMusic("Elphael");
+            Port.instance.ShowUp();
         }
         else if (boss.bossName.ToLower() == "nightborne")
         {
             AudioManager.Instance.PlayBackgroundMusic("Caves");
         }
+        
         Destroy(gameObject);
     }
 }

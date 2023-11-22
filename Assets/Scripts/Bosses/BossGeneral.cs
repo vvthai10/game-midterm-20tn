@@ -65,7 +65,7 @@ public class BossGeneral : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("BOss name: " + bossName.ToLower());
+        Debug.Log("Boss name: " + bossName.ToLower());
         if (bossName.ToLower() == "demon")
         {
             AudioManager.Instance.PlayBackgroundMusic("Boss 2");
