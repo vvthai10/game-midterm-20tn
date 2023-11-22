@@ -121,10 +121,12 @@ public class BossHealth : MonoBehaviour
         {
             AudioManager.Instance.PlayBackgroundMusic("Elphael");
             Port.instance.ShowUp();
+            CharacterDialog.instance.StartDialog(9, 13);
         }
         else if (boss.bossName.ToLower() == "nightborne")
         {
             AudioManager.Instance.PlayBackgroundMusic("Caves");
+            CharacterDialog.instance.StartDialog(3, 6);
         }
         
         Destroy(gameObject);

@@ -10,6 +10,9 @@ public class Port : MonoBehaviour
     private Boolean show = false;
     public static Port instance;
 
+    public GameManager gameManager;
+    public ModeManager modeManager;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class Port : MonoBehaviour
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        modeManager = FindAnyObjectByType<ModeManager>();
         gameObject.SetActive(false);
     }
 
@@ -44,6 +48,21 @@ public class Port : MonoBehaviour
         gameObject.SetActive(true);
         AudioManager.Instance.PlayBackgroundMusic("Portal");
         show = true;
-        //SceneManager.LoadSceneAsync(3);
+        //
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.tag);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // chuyen man
+            gameManager.SetDeathReason("none");
+            gameManager.SaveMainStat();
+            modeManager.SetScene(3);
+            modeManager.SetContinueClick(false);
+            SceneManager.LoadSceneAsync(3);
+        }
+
     }
 }
