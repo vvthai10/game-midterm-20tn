@@ -188,5 +188,9 @@ public class AudioManager : MonoBehaviour
 
     public void SFXVolume(float volume) {
         sfxSource.volume = volume;
+        sfxPuncherSource.volume = volume;
+        sfxLazerSource.volume = volume;
+        sfxArcherSource.volume = volume;
+        sfxBossSource.volume = volume;
     }
 }
