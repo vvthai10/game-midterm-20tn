@@ -435,8 +435,8 @@ public class main_character : MonoBehaviour
             DestroyObjectDelayed();
 
             // ..
-            GameManager.instance.SetDeathReason("monster");
-            GameManager.instance.Invoke("OnMainCharacterDeath", 2);
+
+            FindAnyObjectByType<PauseController>().Invoke("MainMenuView", 2);
         }
     }
 
