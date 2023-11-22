@@ -105,5 +105,7 @@ public class GameManager : MonoBehaviour
         instance.staminaBar.maxStamina = stat.maxStamina;
         instance.staminaBar.IncreaseStaminaAmount(0);
         instance.staminaBar.setRegenSpeed(stat.staminaSpeed);
+
+        instance.canReleaseSkill = stat.canReleaseSkill;
     }
 }
