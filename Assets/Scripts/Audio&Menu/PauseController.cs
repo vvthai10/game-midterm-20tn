@@ -18,6 +18,7 @@ public class PauseController : MonoBehaviour
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (uiControl.activeSelf)
