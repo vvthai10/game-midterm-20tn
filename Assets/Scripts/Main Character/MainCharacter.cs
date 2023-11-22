@@ -6,6 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 using static Cinemachine.CinemachineTargetGroup;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class main_character : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public class main_character : MonoBehaviour
     private LayerMask layerMaskCorner; // wall / edge
     private LayerMask layerMaskEnemy; // Enemy
     private LayerMask deathLayerMask;
+    private LayerMask endLayerMask;
 
     Rigidbody2D rigid;
     public Animator anim;
@@ -162,6 +164,7 @@ public class main_character : MonoBehaviour
         layerMaskCorner = LayerMask.GetMask("Corner");
         layerMaskEnemy = LayerMask.GetMask("Enemies");
         deathLayerMask = LayerMask.GetMask("Death Layer");
+        endLayerMask = LayerMask.GetMask("End");
     }
 
 
@@ -369,6 +372,7 @@ public class main_character : MonoBehaviour
         }
 
         checkDeathByFall();
+        checkEnding();
         //Debug.Log("Speed anim: " + anim.speed + " / Move speed: " + currentMoveValue);
     }
 
@@ -417,6 +421,20 @@ public class main_character : MonoBehaviour
             //GameManager.instance.OnMainCharacterDeath();
             GameManager.instance.SetDeathReason("monster");
             GameManager.instance.Invoke("OnMainCharacterDeath", 2);
+        }
+    }
+    private void checkEnding()
+    {
+
+        RaycastHit2D raycastHitDeathLayer = Physics2D.Raycast(capsuleCollider.bounds.center, Vector2.left, capsuleCollider.bounds.extents.y, endLayerMask);
+        if (raycastHitDeathLayer.collider)
+        {
+            healthBar.takeDamage(HealthBar.instance.maxHealth);
+            death = true;
+            TheEnd.instance.ShowUI();
+            DestroyObjectDelayed();
+
+            // ..
         }
     }
 
