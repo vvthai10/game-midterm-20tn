@@ -34,7 +34,7 @@ public class Shop : MonoBehaviour
             }
         }
 
-        if (IsOpenShop) {
+        if (IsOpenShop || PauseController.GameIsPaused) {
             Time.timeScale = 0;
         }
         else {

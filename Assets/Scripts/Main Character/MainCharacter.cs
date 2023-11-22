@@ -168,7 +168,7 @@ public class main_character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseController.GameIsPaused) {
+        if (PauseController.GameIsPaused || Shop.IsOpenShop) {
             return;
         }
         //Debug.Log("Fps: " + 1.0f / Time.deltaTime);

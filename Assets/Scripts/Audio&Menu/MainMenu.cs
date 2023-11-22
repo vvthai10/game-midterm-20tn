@@ -9,15 +9,15 @@ public class MainMenu : MonoBehaviour
     public GameObject menuDefault, menuContinue;
 
     private void Awake() {
-        if (!CheckIfFolderIsEmpty(Application.persistentDataPath))
-        {
-            menuDefault.SetActive(false);
-            menuContinue.SetActive(true);
-        }
-        else
+        if (CheckIfFolderIsEmpty(Application.persistentDataPath) || CheckIfFolderHasSpecificFile(Application.persistentDataPath, "Player.log"))
         {
             menuDefault.SetActive(true);
             menuContinue.SetActive(false);
+        }
+        else
+        {
+            menuDefault.SetActive(false);
+            menuContinue.SetActive(true);
         }
     }
 
@@ -77,6 +77,27 @@ public class MainMenu : MonoBehaviour
             string[] directories = Directory.GetDirectories(path);
 
             if (files.Length == 0 && directories.Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    bool CheckIfFolderHasSpecificFile(string path, string fileName)
+    {
+        if (Directory.Exists(path))
+        {
+            string[] allFiles = Directory.GetFiles(path);
+
+            if (allFiles.Length == 1 && Path.GetFileName(allFiles[0]) == fileName)
             {
                 return true;
             }

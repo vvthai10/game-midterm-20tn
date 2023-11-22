@@ -12,6 +12,7 @@ public class PauseController : MonoBehaviour
     void Start()
     {
         // Ẩn UI khi bắt đầu
+        Debug.Log("CHeck");
         uiControl.SetActive(false);
         uiAudio.SetActive(false);
     }
@@ -21,6 +22,7 @@ public class PauseController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("CHeck");
             if (uiControl.activeSelf)
             {
                 uiControl.SetActive(false);
@@ -42,6 +44,10 @@ public class PauseController : MonoBehaviour
             uiAudio.SetActive(false);
             Time.timeScale = 1;
             GameIsPaused = false;
+        }
+
+        if (uiControl.activeSelf || Shop.IsOpenShop) {
+            Time.timeScale = 0;
         }
     }
 
